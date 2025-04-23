@@ -14,7 +14,7 @@ const FeaturedDevelopment = () => {
       id: 1,
       name: "Palm Vistas",
       developer: "Emaar Properties",
-      description: "An extraordinary collection of ultra-luxury residences set against the backdrop of Palm Jumeirah. Offering unparalleled views and world-class amenities.",
+      description: "Luxurious beachfront residences with private access to pristine beaches and spectacular panoramic views of the Arabian Gulf. Experience unparalleled luxury living with premium finishes and smart home technology.",
       price: "AED 8.5M+",
       completion: "Q4 2025",
       units: "1-5 BR",
@@ -24,7 +24,7 @@ const FeaturedDevelopment = () => {
       id: 2,
       name: "Marina Heights",
       developer: "DAMAC Properties",
-      description: "Spectacular waterfront living with breathtaking views of Dubai Marina. Premium residences featuring contemporary design and exclusive lifestyle amenities.",
+      description: "Spectacular waterfront living with breathtaking views of Dubai Marina. Premium residences featuring contemporary design, exclusive lifestyle amenities, and direct marina access for the ultimate luxury experience.",
       price: "AED 3.2M+",
       completion: "Q2 2024",
       units: "1-4 BR",
@@ -34,7 +34,7 @@ const FeaturedDevelopment = () => {
       id: 3,
       name: "The Oasis",
       developer: "Nakheel",
-      description: "A lush green sanctuary in the heart of the city offering sustainable luxury living with smart home technology and resort-style amenities.",
+      description: "A lush green sanctuary in the heart of the city offering sustainable luxury living with smart home technology and resort-style amenities. Elegant architectural design with spacious layouts and premium finishing.",
       price: "AED 5.8M+",
       completion: "Q3 2024",
       units: "2-6 BR",
@@ -79,13 +79,9 @@ const FeaturedDevelopment = () => {
   };
   
   return (
-    <section className="py-20 relative bg-dark text-white">
+    <section className="py-20 relative bg-[#D4AF37] text-teal-700">
       <div className="absolute inset-0 overflow-hidden">
-        <img 
-          src="https://images.unsplash.com/photo-1573599852326-2d4da0bbe516?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
-          alt="Luxury Development" 
-          className="object-cover w-full h-full opacity-30"
-        />
+        <div className="bg-gradient-to-r from-amber-100 to-amber-300 absolute inset-0 opacity-30"></div>
       </div>
       
       <div className="container mx-auto px-4 relative z-10">
@@ -96,10 +92,10 @@ const FeaturedDevelopment = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <span className="inline-block bg-primary px-4 py-1 rounded-full text-sm font-medium mb-4">Featured Developments</span>
-            <h2 className="text-4xl font-bold mb-2">Discover Premium Projects</h2>
-            <p className="text-white text-lg max-w-2xl mx-auto">
-              Explore exclusive developments from the UAE's top real estate developers
+            <span className="inline-block bg-teal-600 px-4 py-1 rounded-full text-sm font-medium mb-4 text-white">Featured Developments</span>
+            <h2 className="text-4xl font-bold mb-2 text-teal-800">Discover Premium Projects</h2>
+            <p className="text-teal-700 text-lg max-w-2xl mx-auto">
+              Explore exclusive luxury developments from the UAE's most prestigious real estate developers, offering unparalleled amenities and investment opportunities.
             </p>
           </motion.div>
         </div>
@@ -116,42 +112,42 @@ const FeaturedDevelopment = () => {
                 className="min-h-[340px]"
               >
                 <div className="mb-4">
-                  <span className="inline-block px-3 py-1 bg-secondary/30 text-secondary rounded-full text-sm mb-2">by {currentDevelopment.developer}</span>
-                  <h3 className="text-4xl font-bold text-white">{currentDevelopment.name}</h3>
+                  <span className="inline-block px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm mb-2">by {currentDevelopment.developer}</span>
+                  <h3 className="text-4xl font-bold text-teal-800">{currentDevelopment.name}</h3>
                 </div>
                 
-                <p className="text-white mb-8 text-lg leading-relaxed">
+                <p className="text-teal-700 mb-8 text-lg leading-relaxed">
                   {currentDevelopment.description}
                 </p>
                 
                 <div className="grid grid-cols-2 gap-6 mb-8">
                   <div>
-                    <p className="text-secondary font-bold text-2xl mb-1">{currentDevelopment.price}</p>
-                    <p className="text-white text-sm">Starting Price</p>
+                    <p className="text-teal-800 font-bold text-2xl mb-1">{currentDevelopment.price}</p>
+                    <p className="text-teal-600 text-sm">Starting Price</p>
                   </div>
                   <div>
-                    <p className="text-secondary font-bold text-2xl mb-1">{currentDevelopment.completion}</p>
-                    <p className="text-white text-sm">Completion Date</p>
+                    <p className="text-teal-800 font-bold text-2xl mb-1">{currentDevelopment.completion}</p>
+                    <p className="text-teal-600 text-sm">Completion Date</p>
                   </div>
                   <div>
-                    <p className="text-secondary font-bold text-2xl mb-1">{currentDevelopment.units}</p>
-                    <p className="text-white text-sm">Unit Types</p>
+                    <p className="text-teal-800 font-bold text-2xl mb-1">{currentDevelopment.units}</p>
+                    <p className="text-teal-600 text-sm">Unit Types</p>
                   </div>
                   <div>
-                    <p className="text-secondary font-bold text-2xl mb-1">{currentDevelopment.developer}</p>
-                    <p className="text-white text-sm">Developer</p>
+                    <p className="text-teal-800 font-bold text-2xl mb-1">{currentDevelopment.developer}</p>
+                    <p className="text-teal-600 text-sm">Developer</p>
                   </div>
                 </div>
                 
                 <div className="flex flex-wrap gap-4">
                   <Link href={`/properties/${currentDevelopment.id}`}>
-                    <a className="bg-primary hover:bg-teal-500 text-white px-6 py-3 rounded-md font-medium transition-colors duration-200 inline-flex items-center">
+                    <a className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-md font-medium transition-colors duration-200 inline-flex items-center">
                       View Development <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
                   </Link>
                   <a 
                     href="#"
-                    className="bg-transparent border border-white hover:bg-white hover:text-dark-darker text-white px-6 py-3 rounded-md font-medium transition-colors duration-200 inline-flex items-center"
+                    className="bg-transparent border border-teal-600 hover:bg-teal-600 hover:text-white text-teal-700 px-6 py-3 rounded-md font-medium transition-colors duration-200 inline-flex items-center"
                   >
                     Download Brochure <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                   </a>
@@ -189,13 +185,13 @@ const FeaturedDevelopment = () => {
               {/* Development Navigation Controls */}
               <div className="absolute inset-x-0 top-1/2 transform -translate-y-1/2 flex justify-between px-4 z-20">
                 <button 
-                  className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-3 rounded-full transition-colors duration-200 focus:outline-none"
+                  className="bg-teal-600/80 backdrop-blur-sm hover:bg-teal-700 text-white p-3 rounded-full transition-colors duration-200 focus:outline-none"
                   onClick={handlePrevDevelopment}
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path></svg>
                 </button>
                 <button 
-                  className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-3 rounded-full transition-colors duration-200 focus:outline-none"
+                  className="bg-teal-600/80 backdrop-blur-sm hover:bg-teal-700 text-white p-3 rounded-full transition-colors duration-200 focus:outline-none"
                   onClick={handleNextDevelopment}
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
@@ -205,7 +201,7 @@ const FeaturedDevelopment = () => {
               {/* Virtual Tour Button */}
               <div className="absolute inset-0 flex items-center justify-center z-20">
                 <motion.button 
-                  className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-5 rounded-full transition-colors duration-200"
+                  className="bg-teal-600/80 backdrop-blur-sm hover:bg-teal-700 text-white p-5 rounded-full transition-colors duration-200"
                   onClick={() => {
                     pauseAutoSlide();
                     setIsVideoModalOpen(true);
@@ -222,7 +218,7 @@ const FeaturedDevelopment = () => {
                 {featuredDevelopments.map((_, index) => (
                   <button 
                     key={index}
-                    className={`w-3 h-3 rounded-full transition-colors duration-200 ${index === activeDevelopment ? 'bg-white' : 'bg-white/40 hover:bg-white/60'}`}
+                    className={`w-3 h-3 rounded-full transition-colors duration-200 ${index === activeDevelopment ? 'bg-teal-500' : 'bg-white/60 hover:bg-white'}`}
                     onClick={() => {
                       pauseAutoSlide();
                       setActiveDevelopment(index);
@@ -231,9 +227,9 @@ const FeaturedDevelopment = () => {
                 ))}
               </div>
               
-              {/* Developer Logo Badge */}
-              <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg z-20">
-                <p className="text-white font-medium">{currentDevelopment.developer}</p>
+              {/* Developer Badge */}
+              <div className="absolute top-4 right-4 bg-[#D4AF37]/80 backdrop-blur-sm px-4 py-2 rounded-lg z-20">
+                <p className="text-teal-800 font-medium">{currentDevelopment.developer}</p>
               </div>
             </div>
           </motion.div>

@@ -328,11 +328,14 @@ const Contact = () => {
       
       {/* Map Section */}
       <section className="py-16 container mx-auto px-4">
-        <div className="bg-white rounded-xl shadow-md p-8">
+        <div className="bg-[#D4AF37] text-teal-800 rounded-xl shadow-md p-8">
           <h2 className="text-2xl font-montserrat font-semibold mb-6">Our Location</h2>
+          <p className="text-teal-700 mb-6">
+            Visit our luxurious office in the heart of Dubai Marina. Our elite team of real estate consultants are ready to assist you in finding your dream property or investment opportunity across the UAE.
+          </p>
           <div className="rounded-xl overflow-hidden h-[400px]">
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3612.7118599153274!2d55.13359687614212!3d25.081789837785374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f6b4a9a7b377f%3A0xec7fc5c87c2910db!2sDubai%20Marina%20-%20Dubai%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2sus!4v1683907520066!5m2!1sen!2sus" 
+              src={`https://www.google.com/maps/embed/v1/place?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}&q=Dubai+Marina,Dubai&zoom=15`}
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 
