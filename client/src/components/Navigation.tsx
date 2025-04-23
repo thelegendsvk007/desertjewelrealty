@@ -34,9 +34,9 @@ const Navigation = () => {
           <Link href="/">
             <a className="flex items-center">
               <img 
-                src="/src/assets/logo.svg" 
+                src="/src/assets/desert-jewel-logo.svg" 
                 alt="Desert Jewel Realty Logo" 
-                className="h-12 w-auto"
+                className="h-14 w-auto"
               />
             </a>
           </Link>

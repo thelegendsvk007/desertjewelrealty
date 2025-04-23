@@ -105,11 +105,11 @@ const HeroSection = () => {
                     onChange={(e) => setSearchParams({...searchParams, locationId: e.target.value})}
                   >
                     <option value="">Location</option>
-                    {locations?.map((location: any) => (
+                    {locations && Array.isArray(locations) ? locations.map((location: any) => (
                       <option key={location.id} value={location.id}>
                         {location.name}
                       </option>
-                    ))}
+                    )) : null}
                   </select>
                 </div>
                 <div>

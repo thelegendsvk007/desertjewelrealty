@@ -14,7 +14,7 @@ const InteractiveMap = () => {
   });
   
   // Filter locations based on active tab (city)
-  const filteredLocations = locations
+  const filteredLocations = locations && Array.isArray(locations)
     ? locations.filter((location: any) => {
         if (activeTab === 'dubai') return location.city === 'Dubai';
         if (activeTab === 'abudhabi') return location.city === 'Abu Dhabi';
