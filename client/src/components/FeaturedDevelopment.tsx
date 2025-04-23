@@ -4,6 +4,51 @@ import { Link } from 'wouter';
 
 const FeaturedDevelopment = () => {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [activeDevelopment, setActiveDevelopment] = useState(0);
+  
+  // Array of featured developments from different developers
+  const featuredDevelopments = [
+    {
+      id: 1,
+      name: "Palm Vistas",
+      developer: "Emaar Properties",
+      description: "An extraordinary collection of ultra-luxury residences set against the backdrop of Palm Jumeirah. Offering unparalleled views and world-class amenities.",
+      price: "AED 8.5M+",
+      completion: "Q4 2025",
+      units: "1-5 BR",
+      image: "https://images.unsplash.com/photo-1609102026400-3c0ca378e4c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+    },
+    {
+      id: 2,
+      name: "Marina Heights",
+      developer: "DAMAC Properties",
+      description: "Spectacular waterfront living with breathtaking views of Dubai Marina. Premium residences featuring contemporary design and exclusive lifestyle amenities.",
+      price: "AED 3.2M+",
+      completion: "Q2 2024",
+      units: "1-4 BR",
+      image: "https://images.unsplash.com/photo-1577415124269-fc1140a69e91?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+    },
+    {
+      id: 3,
+      name: "The Oasis",
+      developer: "Nakheel",
+      description: "A lush green sanctuary in the heart of the city offering sustainable luxury living with smart home technology and resort-style amenities.",
+      price: "AED 5.8M+",
+      completion: "Q3 2024",
+      units: "2-6 BR",
+      image: "https://images.unsplash.com/photo-1565953554309-d181306db7b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+    }
+  ];
+
+  const currentDevelopment = featuredDevelopments[activeDevelopment];
+
+  const handleNextDevelopment = () => {
+    setActiveDevelopment((prev) => (prev + 1) % featuredDevelopments.length);
+  };
+
+  const handlePrevDevelopment = () => {
+    setActiveDevelopment((prev) => (prev - 1 + featuredDevelopments.length) % featuredDevelopments.length);
+  };
   
   return (
     <section className="py-20 relative bg-dark text-white">
@@ -16,42 +61,60 @@ const FeaturedDevelopment = () => {
       </div>
       
       <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <span className="inline-block bg-primary px-4 py-1 rounded-full text-sm font-medium mb-4">Featured Developments</span>
+            <h2 className="text-4xl font-playfair font-semibold mb-2">Discover Premium Projects</h2>
+            <p className="text-white text-lg max-w-2xl mx-auto">
+              Explore exclusive developments from the UAE's top real estate developers
+            </p>
+          </motion.div>
+        </div>
+        
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <motion.div
+              key={currentDevelopment.id}
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
             >
-              <span className="inline-block bg-primary px-4 py-1 rounded-full text-sm font-medium mb-4">Featured Development</span>
-              <h2 className="text-4xl font-playfair font-semibold mb-6">Palm Vistas By Emaar</h2>
-              <p className="text-gray-300 mb-8 text-lg">
-                An extraordinary collection of ultra-luxury residences set against the backdrop of Palm Jumeirah. 
-                Offering unparalleled views and world-class amenities, this development represents the pinnacle of Dubai's premium real estate.
+              <div className="flex items-center mb-4">
+                <h3 className="text-4xl font-playfair font-semibold">{currentDevelopment.name}</h3>
+                <span className="ml-3 px-3 py-1 bg-secondary/20 text-secondary rounded-full text-sm">by {currentDevelopment.developer}</span>
+              </div>
+              
+              <p className="text-white mb-8 text-lg">
+                {currentDevelopment.description}
               </p>
               
               <div className="grid grid-cols-2 gap-6 mb-8">
                 <div>
-                  <p className="text-secondary font-bold text-2xl mb-1">AED 8.5M+</p>
-                  <p className="text-gray-400 text-sm">Starting Price</p>
+                  <p className="text-secondary font-bold text-2xl mb-1">{currentDevelopment.price}</p>
+                  <p className="text-white text-sm">Starting Price</p>
                 </div>
                 <div>
-                  <p className="text-secondary font-bold text-2xl mb-1">Q4 2025</p>
-                  <p className="text-gray-400 text-sm">Completion Date</p>
+                  <p className="text-secondary font-bold text-2xl mb-1">{currentDevelopment.completion}</p>
+                  <p className="text-white text-sm">Completion Date</p>
                 </div>
                 <div>
-                  <p className="text-secondary font-bold text-2xl mb-1">1-5 BR</p>
-                  <p className="text-gray-400 text-sm">Unit Types</p>
+                  <p className="text-secondary font-bold text-2xl mb-1">{currentDevelopment.units}</p>
+                  <p className="text-white text-sm">Unit Types</p>
                 </div>
                 <div>
-                  <p className="text-secondary font-bold text-2xl mb-1">Emaar</p>
-                  <p className="text-gray-400 text-sm">Developer</p>
+                  <p className="text-secondary font-bold text-2xl mb-1">{currentDevelopment.developer}</p>
+                  <p className="text-white text-sm">Developer</p>
                 </div>
               </div>
               
               <div className="flex flex-wrap gap-4">
-                <Link href="/properties/1">
+                <Link href={`/properties/${currentDevelopment.id}`}>
                   <a className="bg-primary hover:bg-teal-light text-white px-6 py-3 rounded-md font-medium transition-colors duration-200 inline-flex items-center">
                     View Development <i className="fas fa-arrow-right ml-2"></i>
                   </a>
@@ -75,11 +138,32 @@ const FeaturedDevelopment = () => {
           >
             <div className="relative h-[400px] md:h-[500px] overflow-hidden rounded-xl shadow-2xl">
               <div className="absolute inset-0">
-                <img 
-                  src="https://images.unsplash.com/photo-1609102026400-3c0ca378e4c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
-                  alt="Palm Vistas Development" 
+                <motion.img 
+                  key={currentDevelopment.id}
+                  src={currentDevelopment.image}
+                  alt={`${currentDevelopment.name} Development`}
                   className="object-cover w-full h-full"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
                 />
+              </div>
+              
+              {/* Development Navigation Controls */}
+              <div className="absolute inset-x-0 top-1/2 transform -translate-y-1/2 flex justify-between px-4">
+                <button 
+                  className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-3 rounded-full transition-colors duration-200 focus:outline-none"
+                  onClick={handlePrevDevelopment}
+                >
+                  <i className="fas fa-chevron-left"></i>
+                </button>
+                <button 
+                  className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-3 rounded-full transition-colors duration-200 focus:outline-none"
+                  onClick={handleNextDevelopment}
+                >
+                  <i className="fas fa-chevron-right"></i>
+                </button>
               </div>
               
               {/* Virtual Tour Button */}
@@ -94,12 +178,20 @@ const FeaturedDevelopment = () => {
                 </motion.button>
               </div>
               
-              {/* Image Gallery Indicator */}
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
-                <div className="w-2.5 h-2.5 bg-white/40 rounded-full"></div>
-                <div className="w-2.5 h-2.5 bg-white/40 rounded-full"></div>
-                <div className="w-2.5 h-2.5 bg-white/40 rounded-full"></div>
+              {/* Development Indicators */}
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-3">
+                {featuredDevelopments.map((_, index) => (
+                  <button 
+                    key={index}
+                    className={`w-3 h-3 rounded-full transition-colors duration-200 ${index === activeDevelopment ? 'bg-white' : 'bg-white/40 hover:bg-white/60'}`}
+                    onClick={() => setActiveDevelopment(index)}
+                  />
+                ))}
+              </div>
+              
+              {/* Developer Logo Badge */}
+              <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
+                <p className="text-white font-medium">{currentDevelopment.developer}</p>
               </div>
             </div>
           </motion.div>
@@ -120,7 +212,7 @@ const FeaturedDevelopment = () => {
               <i className="fas fa-times"></i>
             </button>
             <div className="aspect-video bg-black flex items-center justify-center">
-              <p className="text-white text-lg">Video player would be here</p>
+              <p className="text-white text-lg">Video tour of {currentDevelopment.name} by {currentDevelopment.developer}</p>
             </div>
           </div>
         </div>

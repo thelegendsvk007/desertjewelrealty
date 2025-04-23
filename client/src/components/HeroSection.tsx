@@ -7,7 +7,8 @@ const HeroSection = () => {
   const [searchParams, setSearchParams] = useState({
     propertyType: '',
     locationId: '',
-    budget: ''
+    budget: '',
+    status: '' // Added for Ready to Move / Off Plan filter
   });
   const { toast } = useToast();
 
@@ -21,7 +22,7 @@ const HeroSection = () => {
     e.preventDefault();
     
     // Validate search parameters
-    if (!searchParams.propertyType && !searchParams.locationId && !searchParams.budget) {
+    if (!searchParams.propertyType && !searchParams.locationId && !searchParams.budget && !searchParams.status) {
       toast({
         title: "Search criteria needed",
         description: "Please select at least one search criteria",
@@ -39,7 +40,10 @@ const HeroSection = () => {
       searchUrl += `location=${searchParams.locationId}&`;
     }
     if (searchParams.budget) {
-      searchUrl += `budget=${searchParams.budget}`;
+      searchUrl += `budget=${searchParams.budget}&`;
+    }
+    if (searchParams.status) {
+      searchUrl += `status=${searchParams.status}`;
     }
     
     // Navigate to the search results page
@@ -79,53 +83,109 @@ const HeroSection = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
           >
-            <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-4">
-              <div className="flex-1">
-                <select 
-                  className="w-full bg-gray-50 border border-gray-200 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
-                  value={searchParams.propertyType}
-                  onChange={(e) => setSearchParams({...searchParams, propertyType: e.target.value})}
-                >
-                  <option value="">Property Type</option>
-                  <option value="apartment">Apartment</option>
-                  <option value="villa">Villa</option>
-                  <option value="penthouse">Penthouse</option>
-                  <option value="townhouse">Townhouse</option>
-                </select>
+            <form onSubmit={handleSearch}>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                <div>
+                  <select 
+                    className="w-full bg-gray-50 border border-gray-200 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                    value={searchParams.propertyType}
+                    onChange={(e) => setSearchParams({...searchParams, propertyType: e.target.value})}
+                  >
+                    <option value="">Property Type</option>
+                    <option value="apartment">Apartment</option>
+                    <option value="villa">Villa</option>
+                    <option value="penthouse">Penthouse</option>
+                    <option value="townhouse">Townhouse</option>
+                  </select>
+                </div>
+                <div>
+                  <select 
+                    className="w-full bg-gray-50 border border-gray-200 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                    value={searchParams.locationId}
+                    onChange={(e) => setSearchParams({...searchParams, locationId: e.target.value})}
+                  >
+                    <option value="">Location</option>
+                    {locations?.map((location: any) => (
+                      <option key={location.id} value={location.id}>
+                        {location.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <select 
+                    className="w-full bg-gray-50 border border-gray-200 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                    value={searchParams.budget}
+                    onChange={(e) => setSearchParams({...searchParams, budget: e.target.value})}
+                  >
+                    <option value="">Budget</option>
+                    <option value="1000000">Up to AED 1M</option>
+                    <option value="3000000">AED 1M - 3M</option>
+                    <option value="5000000">AED 3M - 5M</option>
+                    <option value="999999999">AED 5M+</option>
+                  </select>
+                </div>
+                <div>
+                  <select 
+                    className="w-full bg-gray-50 border border-gray-200 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                    value={searchParams.status}
+                    onChange={(e) => setSearchParams({...searchParams, status: e.target.value})}
+                  >
+                    <option value="">Status</option>
+                    <option value="ready">Ready to Move In</option>
+                    <option value="off-plan">Off Plan</option>
+                  </select>
+                </div>
               </div>
-              <div className="flex-1">
-                <select 
-                  className="w-full bg-gray-50 border border-gray-200 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
-                  value={searchParams.locationId}
-                  onChange={(e) => setSearchParams({...searchParams, locationId: e.target.value})}
-                >
-                  <option value="">Location</option>
-                  {locations?.map((location: any) => (
-                    <option key={location.id} value={location.id}>
-                      {location.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="flex-1">
-                <select 
-                  className="w-full bg-gray-50 border border-gray-200 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
-                  value={searchParams.budget}
-                  onChange={(e) => setSearchParams({...searchParams, budget: e.target.value})}
-                >
-                  <option value="">Budget</option>
-                  <option value="1000000">Up to AED 1M</option>
-                  <option value="3000000">AED 1M - 3M</option>
-                  <option value="5000000">AED 3M - 5M</option>
-                  <option value="999999999">AED 5M+</option>
-                </select>
-              </div>
-              <div className="flex-none">
+              
+              {/* Property Status Filter Buttons */}
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex space-x-3">
+                  <button
+                    type="button"
+                    className={`px-4 py-2 rounded-md transition-colors duration-200 text-sm font-medium ${
+                      searchParams.status === 'ready' 
+                        ? 'bg-primary text-white' 
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                    onClick={() => setSearchParams({
+                      ...searchParams, 
+                      status: searchParams.status === 'ready' ? '' : 'ready'
+                    })}
+                  >
+                    <i className="fas fa-check-circle mr-2"></i> Ready to Move In
+                  </button>
+                  <button
+                    type="button"
+                    className={`px-4 py-2 rounded-md transition-colors duration-200 text-sm font-medium ${
+                      searchParams.status === 'off-plan' 
+                        ? 'bg-primary text-white' 
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                    onClick={() => setSearchParams({
+                      ...searchParams, 
+                      status: searchParams.status === 'off-plan' ? '' : 'off-plan'
+                    })}
+                  >
+                    <i className="fas fa-hard-hat mr-2"></i> Off Plan
+                  </button>
+                </div>
+                
                 <button 
                   type="submit"
-                  className="w-full md:w-auto bg-primary hover:bg-teal-dark text-white font-medium px-8 py-3 rounded-md transition-colors duration-200 shadow-md"
+                  className="bg-primary hover:bg-teal-dark text-white font-medium px-8 py-3 rounded-md transition-colors duration-200 shadow-md"
                 >
                   <i className="fas fa-search mr-2"></i> Search
+                </button>
+              </div>
+              
+              {/* Advanced Filters (Optional) */}
+              <div className="flex justify-center">
+                <button
+                  type="button"
+                  className="text-primary hover:text-teal-dark text-sm flex items-center"
+                >
+                  Advanced Filters <i className="fas fa-chevron-down ml-1"></i>
                 </button>
               </div>
             </form>

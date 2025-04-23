@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="200" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <title>Desert Jewel Realty Logo</title>
+    <!-- Circle with diamond and dunes -->
+    <circle cx="170" cy="100" r="90" fill="white" stroke="#1EBFB3" stroke-width="5"/>
+    
+    <!-- Sand dunes -->
+    <path d="M80,140 Q130,100 170,125 Q210,145 250,130 L270,190 L70,190 Z" fill="#D4AA63"/>
+    
+    <!-- Diamond shape -->
+    <path d="M130,50 L170,30 L210,50 L190,90 L170,110 L150,90 Z" fill="none" stroke="#D4AA63" stroke-width="4"/>
+    <path d="M150,55 L170,45 L190,55 L175,80 L170,90 L165,80 Z" fill="none" stroke="#D4AA63" stroke-width="3"/>
+    <path d="M165,62 L170,58 L175,62 L172,70 L170,75 L168,70 Z" fill="#D4AA63"/>
+    
+    <!-- Window in house -->
+    <path d="M165,70 L170,65 L175,70 L175,77 L170,82 L165,77 Z" fill="white"/>
+    <path d="M170,65 L170,82 M165,70 L175,70" stroke="#D4AA63" stroke-width="1"/>
+    
+    <!-- Desert Jewel text -->
+    <text x="290" y="110" font-family="Arial, sans-serif" font-size="70" font-weight="bold" fill="#1EBFB3">Desert Jewel</text>
+    
+    <!-- Realty text -->
+    <text x="620" y="180" font-family="Arial, sans-serif" font-size="70" font-style="italic" fill="#D4AA63">Realty</text>
+    
+    <!-- Horizontal line -->
+    <line x1="290" y1="190" x2="770" y2="190" stroke="#1EBFB3" stroke-width="3"/>
+    
+    <!-- Tagline -->
+    <text x="400" y="240" font-family="Arial, sans-serif" font-size="38" font-style="italic" fill="#D4AA63">Bonding Dreams To Reality</text>
+  </g>
+</svg>
