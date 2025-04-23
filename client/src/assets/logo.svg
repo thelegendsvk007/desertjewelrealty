@@ -1,0 +1,22 @@
+<svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Teal Circle -->
+  <circle cx="150" cy="150" r="140" stroke="#1EB6A9" stroke-width="8" fill="white"/>
+  
+  <!-- Gold Sand Dunes -->
+  <path d="M30 170C50 150 90 185 150 185C210 185 250 150 270 170L270 270C270 270 210 240 150 240C90 240 30 270 30 270L30 170Z" fill="#D1AB67"/>
+  
+  <!-- Diamond Outline -->
+  <path d="M150 60L120 100L150 150L180 100L150 60Z" stroke="#D1AB67" stroke-width="5" fill="none"/>
+  <path d="M150 60L108 80L120 100L150 60Z" stroke="#D1AB67" stroke-width="5" fill="none"/>
+  <path d="M150 60L192 80L180 100L150 60Z" stroke="#D1AB67" stroke-width="5" fill="none"/>
+  <path d="M120 100L108 80L130 120L120 100Z" stroke="#D1AB67" stroke-width="5" fill="none"/>
+  <path d="M180 100L192 80L170 120L180 100Z" stroke="#D1AB67" stroke-width="5" fill="none"/>
+  <path d="M130 120L150 150L170 120" stroke="#D1AB67" stroke-width="5" fill="none"/>
+  
+  <!-- House symbol inside diamond -->
+  <path d="M145 85L155 85L155 100L145 100L145 85Z" stroke="#D1AB67" stroke-width="2" fill="none"/>
+  <path d="M140 95L160 95L150 80L140 95Z" stroke="#D1AB67" stroke-width="2" fill="none"/>
+  
+  <!-- Connect house to diamond bottom -->
+  <path d="M150 100L150 150" stroke="#D1AB67" stroke-width="2" fill="none"/>
+</svg>
