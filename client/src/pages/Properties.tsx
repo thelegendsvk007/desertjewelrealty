@@ -138,7 +138,7 @@ const Properties = () => {
                       <SelectValue placeholder="Select property type" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">All Types</SelectItem>
+                      <SelectItem value="all-types">All Types</SelectItem>
                       <SelectItem value="Apartment">Apartment</SelectItem>
                       <SelectItem value="Villa">Villa</SelectItem>
                       <SelectItem value="Penthouse">Penthouse</SelectItem>
@@ -158,7 +158,7 @@ const Properties = () => {
                       <SelectValue placeholder="Select location" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">All Locations</SelectItem>
+                      <SelectItem value="all-locations">All Locations</SelectItem>
                       {locations?.map((location: any) => (
                         <SelectItem key={location.id} value={location.id.toString()}>
                           {location.name}
@@ -196,7 +196,7 @@ const Properties = () => {
                       <SelectValue placeholder="Any" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">Any</SelectItem>
+                      <SelectItem value="any">Any</SelectItem>
                       <SelectItem value="1">1</SelectItem>
                       <SelectItem value="2">2</SelectItem>
                       <SelectItem value="3">3</SelectItem>

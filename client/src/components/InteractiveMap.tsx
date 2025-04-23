@@ -28,11 +28,11 @@ const InteractiveMap = () => {
     : [];
 
   return (
-    <section className="py-20 px-4 bg-white">
+    <section className="py-20 px-4 bg-[#D4AF37]">
       <div className="container mx-auto">
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-montserrat font-semibold mb-3">Discover Properties Across UAE</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <h2 className="text-3xl font-montserrat font-semibold mb-3 text-teal-800">Discover Properties Across UAE</h2>
+          <p className="text-teal-700 max-w-2xl mx-auto font-medium">
             Our interactive map helps you explore premium real estate opportunities throughout all seven emirates of the UAE. 
             Search by location, property type, or developer to find your ideal investment.
           </p>
@@ -120,7 +120,7 @@ const InteractiveMap = () => {
             </Link>
           </div>
           
-          <div className="bg-gray-100 rounded-xl overflow-hidden shadow-lg h-[450px] relative">
+          <div className="bg-white rounded-xl overflow-hidden shadow-lg h-[450px] relative">
             {/* Map visualization */}
             <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
               <img 
