@@ -109,9 +109,74 @@ export class MemStorage implements IStorage {
       featured: true
     };
     
+    const aldar: InsertDeveloper = {
+      name: "Aldar Properties",
+      logo: "https://logowik.com/content/uploads/images/aldar-properties6278.jpg",
+      description: "Aldar Properties is Abu Dhabi's leading property development, management and investment company.",
+      projectCount: 30,
+      established: 2005,
+      website: "https://www.aldar.com",
+      contactEmail: "info@aldar.com",
+      contactPhone: "+971 2 810 5555",
+      featured: true
+    };
+    
+    const deyaar: InsertDeveloper = {
+      name: "Deyaar Development",
+      logo: "https://logowik.com/content/uploads/images/deyaar4217.jpg",
+      description: "Deyaar Development is one of Dubai's leading property developers and real estate service providers.",
+      projectCount: 18,
+      established: 2002,
+      website: "https://www.deyaar.ae",
+      contactEmail: "info@deyaar.ae",
+      contactPhone: "+971 4 819 8888",
+      featured: true
+    };
+    
+    const meraas: InsertDeveloper = {
+      name: "Meraas",
+      logo: "https://logowik.com/content/uploads/images/meraas1751.jpg",
+      description: "Meraas is a Dubai-based holding company with operations in multiple sectors including real estate.",
+      projectCount: 22,
+      established: 2007,
+      website: "https://www.meraas.com",
+      contactEmail: "info@meraas.ae",
+      contactPhone: "+971 4 317 3999",
+      featured: true
+    };
+    
+    const sobha: InsertDeveloper = {
+      name: "Sobha Realty",
+      logo: "https://logowik.com/content/uploads/images/sobha-realty5812.jpg",
+      description: "Sobha Realty is a multinational real estate developer specializing in luxury developments.",
+      projectCount: 15,
+      established: 1976,
+      website: "https://www.sobharealty.com",
+      contactEmail: "info@sobharealty.com",
+      contactPhone: "+971 4 407 9999",
+      featured: true
+    };
+    
+    const selectGroup: InsertDeveloper = {
+      name: "Select Group",
+      logo: "https://logowik.com/content/uploads/images/select-group7198.jpg",
+      description: "Select Group is one of the largest private real estate developers in the UAE.",
+      projectCount: 20,
+      established: 2002,
+      website: "https://www.select-group.ae",
+      contactEmail: "info@select-group.ae",
+      contactPhone: "+971 4 368 8036",
+      featured: true
+    };
+    
     this.createDeveloper(emaar);
     this.createDeveloper(damac);
     this.createDeveloper(nakheel);
+    this.createDeveloper(aldar);
+    this.createDeveloper(deyaar);
+    this.createDeveloper(meraas);
+    this.createDeveloper(sobha);
+    this.createDeveloper(selectGroup);
     
     // Seed locations
     const dubaiMarina: InsertLocation = {
