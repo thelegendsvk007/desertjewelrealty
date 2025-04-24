@@ -26,23 +26,18 @@ interface Developer {
 const DeveloperCard = ({ name, projectCount, logo, id, description, established }: DeveloperCardProps) => {
   return (
     <Link href={`/developers/${id}`}>
-      <a className="block bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-all overflow-hidden p-4 text-center group h-full mx-4 transform hover:scale-105 duration-300 min-w-[200px] md:min-w-[220px]">
-        <div className="w-full h-24 flex items-center justify-center mb-4">
+      <a className="block bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-all overflow-hidden p-4 text-center group mx-3 transform hover:scale-105 duration-300 w-[180px] h-[180px] flex flex-col justify-center items-center">
+        <div className="w-full h-20 flex items-center justify-center mb-2">
           <img 
             src={logo || "https://via.placeholder.com/150?text=Logo"}
             alt={`${name} Logo`}
             className="h-16 w-auto object-contain opacity-90 group-hover:opacity-100 transition-opacity"
           />
         </div>
-        <h3 className="font-semibold text-gray-800 text-lg mb-1">{name}</h3>
-        <p className="text-sm text-gray-500">{projectCount}+ Premium Projects</p>
+        <h3 className="font-semibold text-gray-800 text-base mb-1 line-clamp-1">{name}</h3>
+        <p className="text-xs text-gray-500">{projectCount}+ Projects</p>
         {established && (
           <p className="text-xs text-teal-600 mt-1">Est. {established}</p>
-        )}
-        {description && (
-          <p className="text-xs text-gray-600 mt-2 line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity">
-            {description}
-          </p>
         )}
       </a>
     </Link>
@@ -93,9 +88,6 @@ const DeveloperShowcase = () => {
   // Use our sample data if API fails, otherwise use API data
   const displayDevelopers = isLoading || isError ? developerData : (developers || []);
   
-  // Create a duplicated array for the infinite effect
-  const duplicatedDevelopers = [...displayDevelopers, ...displayDevelopers];
-  
   // Refs for the scroll animation
   const sliderRef = useRef<HTMLDivElement>(null);
   
@@ -105,7 +97,7 @@ const DeveloperShowcase = () => {
     const slider = sliderRef.current;
     let animationId: number;
     let startTime: number;
-    const duration = 40000; // 40 seconds to complete one cycle
+    const duration = 15000; // 15 seconds to complete one cycle (faster animation)
     
     const step = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
@@ -114,11 +106,16 @@ const DeveloperShowcase = () => {
       const elapsed = timestamp - startTime;
       const progress = (elapsed % duration) / duration;
       
-      // Calculate the translateX value - move from 0% to -50% (half of the duplicated items)
-      const translateX = -progress * 50;
+      // Calculate the translateX value - move from 0% to -100% to show all developers
+      const totalWidth = slider.scrollWidth;
+      const containerWidth = slider.parentElement?.clientWidth || 0;
+      const maxTranslateX = totalWidth - containerWidth;
+      
+      // Ensure we only scroll as far as needed
+      const translateX = -(progress * maxTranslateX);
       
       // Apply the transform
-      slider.style.transform = `translateX(${translateX}%)`;
+      slider.style.transform = `translateX(${translateX}px)`;
       
       // Continue animation
       animationId = requestAnimationFrame(step);
@@ -163,13 +160,13 @@ const DeveloperShowcase = () => {
                 className="flex whitespace-nowrap transition-transform ease-linear py-4"
                 style={{ width: 'auto' }}
               >
-                {duplicatedDevelopers.map((developer: Developer, index: number) => (
+                {displayDevelopers.map((developer: Developer, index: number) => (
                   <div 
-                    key={`${developer.id || index}-${index}`} 
+                    key={`${developer.id || index}`} 
                     className="inline-block"
                   >
                     <DeveloperCard 
-                      id={developer.id || (index % displayDevelopers.length) + 1}
+                      id={developer.id || index + 1}
                       name={developer.name}
                       projectCount={developer.projectCount || "25+"}
                       logo={developer.logo}
