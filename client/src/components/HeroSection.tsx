@@ -104,6 +104,26 @@ const HeroSection = () => {
                     value={searchParams.locationId}
                     onChange={(e) => setSearchParams({...searchParams, locationId: e.target.value})}
                   >
+                    <option value="">Emirate</option>
+                    {locations && Array.isArray(locations) ? locations.map((location: any) => (
+                      <option key={location.id} value={location.id}>
+                        {location.name}
+                      </option>
+                    )) : null}
+                    <option value="">Dubai</option>
+                    <option value="">Sharjah</option>
+                    <option value="">Abu Dhabi</option>
+                    <option value="">Ajman</option>
+                    <option value="">Umm al Quwain</option>
+                    <option value="">Ras Al Khaimah</option>
+                  </select>
+                </div>
+                <div>
+                  <select 
+                    className="w-full bg-gray-50 border border-gray-200 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                    value={searchParams.locationId}
+                    onChange={(e) => setSearchParams({...searchParams, locationId: e.target.value})}
+                  >
                     <option value="">Location</option>
                     {locations && Array.isArray(locations) ? locations.map((location: any) => (
                       <option key={location.id} value={location.id}>

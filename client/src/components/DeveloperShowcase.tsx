@@ -3,6 +3,29 @@ import { Link } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useRef, useEffect } from 'react';
+import { Developer } from '@/types'; // Use the @ alias
+
+// Import local images
+import emaarLogo from '@/assets/developers/emaar.jpg';
+import damacLogo from '@/assets/developers/damac.jpg';
+import nakheelLogo from '@/assets/developers/nakheel.jpg';
+import aldarLogo from '@/assets/developers/aldar.jpg';
+import sobhaLogo from '@/assets/developers/sobha.jpg';
+import dubaiPropertiesLogo from '@/assets/developers/dubai_properties.jpg';
+import meraasLogo from '@/assets/developers/meraas.jpg';
+import aradaLogo from '@/assets/developers/arada.jpg';
+import eagleHillsLogo from '@/assets/developers/eagle_hills.jpg';
+import object1Logo from '@/assets/developers/object_1.jpg';
+import samanaLogo from '@/assets/developers/samana.jpg';
+import binghattiLogo from '@/assets/developers/binghatti.jpg';
+import danubeLogo from '@/assets/developers/danube.jpg';
+import ellingtonLogo from '@/assets/developers/ellington.jpg';
+import nshamaLogo from '@/assets/developers/nshama.jpg';
+import aziziLogo from '@/assets/developers/azizi.jpg';
+import selectGroupLogo from '@/assets/developers/select_group.jpg';
+import magLogo from '@/assets/developers/mag.jpg';
+import bloomLogo from '@/assets/developers/bloom.jpg';
+import tigerLogo from '@/assets/developers/tiger.jpg';
 
 interface DeveloperCardProps {
   name: string;
@@ -10,17 +33,7 @@ interface DeveloperCardProps {
   logo: string;
   id: number | string;
   description?: string;
-  established?: number;
-}
-
-interface Developer {
-  id: number;
-  name: string;
-  projectCount: string | number;
-  logo: string;
-  description?: string;
-  established?: number;
-  [key: string]: any;
+  established?: number | string;
 }
 
 const DeveloperCard = ({ name, projectCount, logo, id, description, established }: DeveloperCardProps) => {
@@ -49,46 +62,171 @@ const DeveloperShowcase = () => {
     queryKey: ['/api/developers/featured'],
   });
 
-  // Create some fallback data in case the API fails
   const developerData: Developer[] = [
     {
       id: 1,
-      name: "Emaar Properties",
+      name: "Emaar",
       projectCount: "42+",
-      logo: "https://logowik.com/content/uploads/images/emaar-properties4133.jpg",
+      logo: emaarLogo,
       description: "One of the UAE's most valuable real estate development companies.",
-      established: 1997
+      established: 1997,
     },
     {
       id: 2,
-      name: "Damac Properties",
+      name: "Damac",
       projectCount: "35+",
-      logo: "https://logowik.com/content/uploads/images/damac-properties8251.jpg",
+      logo: damacLogo,
       description: "At the forefront of the Middle East's luxury real estate market since 2002.",
-      established: 2002
+      established: 2002,
     },
     {
       id: 3,
       name: "Nakheel",
       projectCount: "25+",
-      logo: "https://logowik.com/content/uploads/images/nakheel9523.jpg",
+      logo: nakheelLogo,
       description: "A world-leading developer and major contributor to Dubai's iconic skyline.",
-      established: 2000
+      established: 2000,
     },
     {
       id: 4,
       name: "Aldar Properties",
       projectCount: "30+",
-      logo: "https://logowik.com/content/uploads/images/aldar-properties6278.jpg",
+      logo: aldarLogo,
       description: "Abu Dhabi's leading property development and management company.",
-      established: 2005
-    }
+      established: 2004,
+    },
+    {
+      id: 5,
+      name: "Sobha Realty",
+      projectCount: "30+",
+      logo: sobhaLogo,
+      description: "Abu Dhabi's leading property development and management company.",
+      established: 1976,
+    },
+    {
+      id: 6,
+      name: "Dubai Properties",
+      projectCount: "42+",
+      logo: dubaiPropertiesLogo,
+      description: "One of the UAE's most valuable real estate development companies.",
+      established: 2002,
+    },
+    {
+      id: 7,
+      name: "Meraas",
+      projectCount: "35+",
+      logo: meraasLogo,
+      description: "At the forefront of the Middle East's luxury real estate market since 2002.",
+      established: 2007,
+    },
+    {
+      id: 8,
+      name: "Arada",
+      projectCount: "25+",
+      logo: aradaLogo,
+      description: "A world-leading developer and major contributor to Dubai's iconic skyline.",
+      established: 2017,
+    },
+    {
+      id: 9,
+      name: "Eagle Hills",
+      projectCount: "30+",
+      logo: eagleHillsLogo,
+      description: "Abu Dhabi's leading property development and management company.",
+      established: 2014,
+    },
+    {
+      id: 10,
+      name: "Object 1",
+      projectCount: "30+",
+      logo: object1Logo,
+      description: "Abu Dhabi's leading property development and management company.",
+      established: 2013,
+    },
+    {
+      id: 11,
+      name: "Samana Developers",
+      projectCount: "42+",
+      logo: samanaLogo,
+      description: "One of the UAE's most valuable real estate development companies.",
+      established: 2015,
+    },
+    {
+      id: 12,
+      name: "Binghatti",
+      projectCount: "35+",
+      logo: binghattiLogo,
+      description: "At the forefront of the Middle East's luxury real estate market since 2002.",
+      established: 2008,
+    },
+    {
+      id: 13,
+      name: "Danube Properties",
+      projectCount: "25+",
+      logo: danubeLogo,
+      description: "A world-leading developer and major contributor to Dubai's iconic skyline.",
+      established: 1993,
+    },
+    {
+      id: 14,
+      name: "Ellington",
+      projectCount: "30+",
+      logo: ellingtonLogo,
+      description: "Abu Dhabi's leading property development and management company.",
+      established: 2014,
+    },
+    {
+      id: 15,
+      name: "Nshama",
+      projectCount: "30+",
+      logo: nshamaLogo,
+      description: "Abu Dhabi's leading property development and management company.",
+      established: 2014,
+    },
+    {
+      id: 16,
+      name: "Azizi Developments",
+      projectCount: "42+",
+      logo: aziziLogo,
+      description: "One of the UAE's most valuable real estate development companies.",
+      established: 2007,
+    },
+    {
+      id: 17,
+      name: "Select Group",
+      projectCount: "35+",
+      logo: selectGroupLogo,
+      description: "At the forefront of the Middle East's luxury real estate market since 2002.",
+      established: 2002,
+    },
+    {
+      id: 18,
+      name: "Mag Property Development",
+      projectCount: "25+",
+      logo: magLogo,
+      description: "A world-leading developer and major contributor to Dubai's iconic skyline.",
+      established: 2003,
+    },
+    {
+      id: 19,
+      name: "Bloom Properties",
+      projectCount: "30+",
+      logo: bloomLogo,
+      description: "Abu Dhabi's leading property development and management company.",
+      established: 2007,
+    },
+    {
+      id: 20,
+      name: "Tiger Properties",
+      projectCount: "30+",
+      logo: tigerLogo,
+      description: "Abu Dhabi's leading property development and management company.",
+      established: 1976,
+    },
   ];
 
-  // Use our sample data if API fails, otherwise use API data
   const displayDevelopers = isLoading || isError ? developerData : (developers || []);
   
-  // Refs for the scroll animation
   const sliderRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
@@ -97,34 +235,27 @@ const DeveloperShowcase = () => {
     const slider = sliderRef.current;
     let animationId: number;
     let startTime: number;
-    const duration = 15000; // 15 seconds to complete one cycle (faster animation)
+    const duration = 25000;
     
     const step = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
       
-      // Calculate how far through the animation we are (0 to 1)
       const elapsed = timestamp - startTime;
       const progress = (elapsed % duration) / duration;
       
-      // Calculate the translateX value - move from 0% to -100% to show all developers
       const totalWidth = slider.scrollWidth;
       const containerWidth = slider.parentElement?.clientWidth || 0;
       const maxTranslateX = totalWidth - containerWidth;
       
-      // Ensure we only scroll as far as needed
       const translateX = -(progress * maxTranslateX);
       
-      // Apply the transform
       slider.style.transform = `translateX(${translateX}px)`;
       
-      // Continue animation
       animationId = requestAnimationFrame(step);
     };
     
-    // Start animation
     animationId = requestAnimationFrame(step);
     
-    // Clean up animation on unmount
     return () => {
       cancelAnimationFrame(animationId);
     };
@@ -154,13 +285,12 @@ const DeveloperShowcase = () => {
             </div>
           ) : (
             <div className="overflow-hidden mx-auto">
-              {/* Continuous Slider */}
               <div 
                 ref={sliderRef}
                 className="flex whitespace-nowrap transition-transform ease-linear py-4"
                 style={{ width: 'auto' }}
               >
-                {displayDevelopers.map((developer: Developer, index: number) => (
+                {displayDevelopers.map((developer, index) => (
                   <div 
                     key={`${developer.id || index}`} 
                     className="inline-block"
@@ -179,7 +309,6 @@ const DeveloperShowcase = () => {
             </div>
           )}
           
-          {/* Gradient overlays for smooth edge transitions */}
           <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-white to-transparent z-10"></div>
           <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-white to-transparent z-10"></div>
         </div>
