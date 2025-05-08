@@ -31,6 +31,8 @@ export interface IStorage {
   getProperties(): Promise<Property[]>;
   getProperty(id: number): Promise<Property | undefined>;
   createProperty(property: InsertProperty): Promise<Property>;
+  updatePropertyStatus(id: number, status: string): Promise<Property | undefined>;
+  deleteProperty(id: number): Promise<boolean>; // New method to delete a property
   getFeaturedProperties(): Promise<Property[]>;
   getPropertiesByDeveloper(developerId: number): Promise<Property[]>;
   getPropertiesByLocation(locationId: number): Promise<Property[]>;
@@ -334,10 +336,36 @@ export class MemStorage implements IStorage {
     const newProperty: Property = { 
       ...property, 
       id, 
-      createdAt: now
+      createdAt: now,
+      reviewStatus: 'pending' // Add default review status for new properties
     };
     this.properties.set(id, newProperty);
     return newProperty;
+  }
+  
+  async updatePropertyStatus(id: number, status: string): Promise<Property | undefined> {
+    const property = this.properties.get(id);
+    if (!property) {
+      return undefined;
+    }
+    
+    const updatedProperty: Property = {
+      ...property,
+      reviewStatus: status,
+      updatedAt: new Date()
+    };
+    
+    this.properties.set(id, updatedProperty);
+    return updatedProperty;
+  }
+  
+  async deleteProperty(id: number): Promise<boolean> {
+    const exists = this.properties.has(id);
+    if (exists) {
+      this.properties.delete(id);
+      return true;
+    }
+    return false;
   }
 
   async getFeaturedProperties(): Promise<Property[]> {

@@ -226,41 +226,41 @@ const DeveloperShowcase = () => {
   ];
 
   const displayDevelopers = isLoading || isError ? developerData : (developers || []);
-  
+
   const sliderRef = useRef<HTMLDivElement>(null);
-  
+
   useEffect(() => {
     if (isLoading || !sliderRef.current) return;
-    
+
     const slider = sliderRef.current;
     let animationId: number;
     let startTime: number;
     const duration = 25000;
-    
+
     const step = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
-      
+
       const elapsed = timestamp - startTime;
       const progress = (elapsed % duration) / duration;
-      
+
       const totalWidth = slider.scrollWidth;
       const containerWidth = slider.parentElement?.clientWidth || 0;
       const maxTranslateX = totalWidth - containerWidth;
-      
+
       const translateX = -(progress * maxTranslateX);
-      
+
       slider.style.transform = `translateX(${translateX}px)`;
-      
+
       animationId = requestAnimationFrame(step);
     };
-    
+
     animationId = requestAnimationFrame(step);
-    
+
     return () => {
       cancelAnimationFrame(animationId);
     };
   }, [isLoading, displayDevelopers]);
-  
+
   return (
     <section className="py-16 px-4 bg-gradient-to-b from-white via-[#D4AF3715] to-white">
       <div className="container mx-auto">
@@ -308,7 +308,7 @@ const DeveloperShowcase = () => {
               </div>
             </div>
           )}
-          
+
           <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-white to-transparent z-10"></div>
           <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-white to-transparent z-10"></div>
         </div>

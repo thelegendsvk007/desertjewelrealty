@@ -4,25 +4,27 @@ import { Link } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
+import GoldenVisaIndicator from '@/components/GoldenVisaIndicator';
 import { 
   formatPrice, 
   formatArea, 
   parsePropertyImages 
 } from '@/lib/utils';
+import { Property } from '@/types';
 
 const FeaturedProperties = () => {
   const [activeFilter, setActiveFilter] = useState('all');
   
-  const { data: properties, isLoading, isError } = useQuery({
+  const { data: properties, isLoading, isError } = useQuery<Property[]>({
     queryKey: ['/api/properties/featured'],
   });
   
   const filteredProperties = properties 
     ? activeFilter === 'all' 
       ? properties 
-      : properties.filter((property: any) => 
-          property.propertyType.toLowerCase() === activeFilter ||
-          property.status.toLowerCase() === activeFilter
+      : properties.filter((property: Property) => 
+          property.propertyType?.toLowerCase() === activeFilter ||
+          property.status?.toLowerCase() === activeFilter
         )
     : [];
   
@@ -95,8 +97,10 @@ const FeaturedProperties = () => {
               transition={{ duration: 0.3 }}
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
             >
-              {filteredProperties.map((property: any) => {
-                const images = parsePropertyImages(property.images);
+              {filteredProperties.map((property: Property) => {
+                // Handle string or array for images
+                const imageData = typeof property.images === 'string' ? property.images : JSON.stringify(property.images);
+                const images = parsePropertyImages(imageData);
                 const featuredImage = images.length > 0 ? images[0] : '';
                 
                 return (
@@ -168,8 +172,12 @@ const FeaturedProperties = () => {
                       </div>
                       
                       <div className="mt-6 card-actions">
-                        <div className="flex justify-between items-center">
+                        <div className="flex flex-wrap gap-2 mb-3">
                           <span className="text-xs bg-gray-100 text-gray-800 px-3 py-1 rounded-full">{property.status}</span>
+                          {/* Golden Visa Indicator */}
+                          <GoldenVisaIndicator price={property.price} />
+                        </div>
+                        <div className="flex justify-end">
                           <div className="flex space-x-2">
                             <button className="bg-gray-100 hover:bg-gray-200 text-foreground p-2 rounded-full transition-colors duration-200">
                               <i className="fas fa-share-alt"></i>

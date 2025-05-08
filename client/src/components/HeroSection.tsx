@@ -104,26 +104,6 @@ const HeroSection = () => {
                     value={searchParams.locationId}
                     onChange={(e) => setSearchParams({...searchParams, locationId: e.target.value})}
                   >
-                    <option value="">Emirate</option>
-                    {locations && Array.isArray(locations) ? locations.map((location: any) => (
-                      <option key={location.id} value={location.id}>
-                        {location.name}
-                      </option>
-                    )) : null}
-                    <option value="">Dubai</option>
-                    <option value="">Sharjah</option>
-                    <option value="">Abu Dhabi</option>
-                    <option value="">Ajman</option>
-                    <option value="">Umm al Quwain</option>
-                    <option value="">Ras Al Khaimah</option>
-                  </select>
-                </div>
-                <div>
-                  <select 
-                    className="w-full bg-gray-50 border border-gray-200 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
-                    value={searchParams.locationId}
-                    onChange={(e) => setSearchParams({...searchParams, locationId: e.target.value})}
-                  >
                     <option value="">Location</option>
                     {locations && Array.isArray(locations) ? locations.map((location: any) => (
                       <option key={location.id} value={location.id}>
@@ -157,7 +137,7 @@ const HeroSection = () => {
                   </select>
                 </div>
               </div>
-              
+
               {/* Property Status Filter Buttons */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex space-x-3">
@@ -190,7 +170,7 @@ const HeroSection = () => {
                     <i className="fas fa-hard-hat mr-2"></i> Off Plan
                   </button>
                 </div>
-                
+
                 <button 
                   type="submit"
                   className="bg-primary hover:bg-teal-dark text-white font-medium px-8 py-3 rounded-md transition-colors duration-200 shadow-md"
@@ -198,7 +178,7 @@ const HeroSection = () => {
                   <i className="fas fa-search mr-2"></i> Search
                 </button>
               </div>
-              
+
               {/* Advanced Filters (Optional) */}
               <div className="flex justify-center">
                 <button
@@ -210,7 +190,7 @@ const HeroSection = () => {
               </div>
             </form>
           </motion.div>
-          
+
           {/* Stats */}
           <motion.div 
             className="flex flex-wrap gap-6 md:gap-12"
@@ -237,7 +217,7 @@ const HeroSection = () => {
           </motion.div>
         </motion.div>
       </div>
-      
+
       {/* Wave Divider */}
       <div className="custom-shape-divider">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-16 md:h-20 fill-white">

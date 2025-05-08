@@ -56,7 +56,13 @@ export const properties = pgTable("properties", {
   premium: boolean("premium").default(false),
   exclusive: boolean("exclusive").default(false),
   newLaunch: boolean("new_launch").default(false),
+  reviewStatus: text("review_status").default("pending"), // pending, approved, rejected
+  contactName: text("contact_name"), // Name of the submitter
+  contactEmail: text("contact_email"), // Email of the submitter
+  contactPhone: text("contact_phone"), // Phone of the submitter
+  listingType: text("listing_type"), // agent, private
   createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at"),
 });
 
 export const insertPropertySchema = createInsertSchema(properties).omit({

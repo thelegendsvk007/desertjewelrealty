@@ -1,0 +1,31 @@
+Quick Stats Cards: Total listings, active listings, pending approvals, inquiries, views this week
+Live Notifications Panel: New inquiries, new messages, expired listings, mortgage calculator submissions
+Heatmap Widget: Area-wise demand based on views/inquiries
+Recent Activity Feed: Your latest changes and site activity log
+🏘️ 2. Enhanced Property Management
+Property Draft Mode: Save incomplete listings as drafts
+Auto Image Optimization: Compress and watermark images on upload
+SEO Field Assistant: Auto-generate SEO meta titles/descriptions for each listing
+Listing Scheduler: Set publish/unpublish dates for listings
+🧠 3. Automation & Smart Tools
+Auto Price Estimator (Optional AI add-on): Suggest property prices based on area, size, and comps
+Duplicate Checker: Alerts if a similar property already exists
+Auto Social Media Posts: One-click share to Instagram, Facebook, or LinkedIn (with image + caption templates)
+Chatbot Trainer: Update FAQs or train SVK AI chatbot responses directly from the admin panel
+📋 4. Lead Management (Streamlined)
+Inbox with Filters: View and filter leads by property, source, date, budget
+Quick Reply Templates: Pre-set WhatsApp/email responses for follow-ups
+Call/Meeting Tracker: Log meetings, calls, notes (simple CRM-lite module)
+Lead Labels: Color-code based on urgency (New, Follow-Up, Viewed, Closed)
+🛠️ 5. Developer & Project Manager
+Project Milestone Tracker: For off-plan — add stages like excavation, handover, etc.
+Upload Progress Media: Timeline + image/video uploads for construction status
+Golden Visa Tagger: Flag projects/properties that qualify
+📈 6. Analytics & Insights (Solo Focused)
+Property Performance Report: Views, inquiries, time-on-site
+Top 5 Performing Communities
+Funnel Report: Pageviews → Inquiries → Site visits scheduled
+Export to Excel/CSV: For any table or report in one click
+🧾 7. Admin Utilities
+Auto Backup Manager: Daily database & media backup toggle
+Quick Content Editor: Update homepage banners, footer text, disclaimers from one panel

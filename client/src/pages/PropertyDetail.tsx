@@ -1,14 +1,26 @@
 import { useEffect, useState } from 'react';
-import { useParams, Link } from 'wouter';
-import { useQuery } from '@tanstack/react-query';
+import { useParams, Link, useLocation } from 'wouter';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { 
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { formatPrice, formatArea, parsePropertyImages, parsePropertyFeatures } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
+import GoldenVisaIndicator from '@/components/GoldenVisaIndicator';
 
 import {
   Form,
@@ -37,6 +49,7 @@ const PropertyDetail = () => {
   const params = useParams();
   const { id } = params;
   const { toast } = useToast();
+  const queryClient = useQueryClient();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   // Fetch property details
@@ -232,10 +245,11 @@ const PropertyDetail = () => {
                 </div>
                 
                 {/* Status badge */}
-                <div className="absolute bottom-4 left-4">
+                <div className="absolute bottom-4 left-4 flex flex-wrap gap-2">
                   <span className="bg-white/90 text-foreground px-4 py-1 rounded-full font-medium">
                     {property.status}
                   </span>
+                  <GoldenVisaIndicator price={property.price} className="bg-white/90" />
                 </div>
                 
                 {/* Image counter */}

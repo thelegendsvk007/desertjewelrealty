@@ -61,7 +61,7 @@ const FeaturedDevelopment = () => {
       <div className="absolute inset-0 overflow-hidden">
         <div className="bg-gradient-to-r from-amber-100 to-amber-300 absolute inset-0 opacity-30"></div>
       </div>
-      
+
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
           <motion.div
@@ -77,7 +77,7 @@ const FeaturedDevelopment = () => {
             </p>
           </motion.div>
         </div>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <AnimatePresence mode="wait">
@@ -93,11 +93,11 @@ const FeaturedDevelopment = () => {
                   <span className="inline-block px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm mb-2">by {currentDevelopment.developer}</span>
                   <h3 className="text-4xl font-bold text-teal-800">{currentDevelopment.name}</h3>
                 </div>
-                
+
                 <p className="text-teal-700 mb-8 text-lg leading-relaxed">
                   {currentDevelopment.description}
                 </p>
-                
+
                 <div className="grid grid-cols-2 gap-6 mb-8">
                   <div>
                     <p className="text-teal-800 font-bold text-2xl mb-1">{currentDevelopment.price}</p>
@@ -116,7 +116,7 @@ const FeaturedDevelopment = () => {
                     <p className="text-teal-600 text-sm">Developer</p>
                   </div>
                 </div>
-                
+
                 <div className="flex flex-wrap gap-4">
                   <Link href={`/properties/${currentDevelopment.id}`}>
                     <a className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-md font-medium transition-colors duration-200 inline-flex items-center">
@@ -134,7 +134,7 @@ const FeaturedDevelopment = () => {
               </motion.div>
             </AnimatePresence>
           </div>
-          
+
           <motion.div 
             className="h-full"
             initial={{ opacity: 0, scale: 0.95 }}
@@ -164,7 +164,7 @@ const FeaturedDevelopment = () => {
                   Your browser does not support the video tag.
                 </video>
               </motion.div>
-              
+
               {/* Virtual Tour Button */}
               <div className="absolute inset-0 flex items-center justify-center z-20">
                 <motion.button 
@@ -176,7 +176,7 @@ const FeaturedDevelopment = () => {
                   <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd"></path></svg>
                 </motion.button>
               </div>
-              
+
               {/* Development Indicators */}
               <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20">
                 {featuredDevelopments.map((_, index) => (
@@ -189,7 +189,7 @@ const FeaturedDevelopment = () => {
                   />
                 ))}
               </div>
-              
+
               {/* Navigation Arrows */}
               <button
                 onClick={handlePrevDevelopment}
@@ -207,7 +207,7 @@ const FeaturedDevelopment = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
                 </svg>
               </button>
-              
+
               {/* Developer Badge */}
               <div className="absolute top-4 right-4 bg-[#D4AF37]/80 backdrop-blur-sm px-4 py-2 rounded-lg z-20">
                 <p className="text-teal-800 font-medium">{currentDevelopment.developer}</p>
@@ -216,7 +216,7 @@ const FeaturedDevelopment = () => {
           </motion.div>
         </div>
       </div>
-      
+
       {/* Video Modal */}
       {isVideoModalOpen && (
         <div 

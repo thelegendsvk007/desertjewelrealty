@@ -4,8 +4,12 @@ import { storage } from "./storage";
 import { insertDeveloperSchema, insertLocationSchema, insertPropertySchema, insertInquirySchema } from "@shared/schema";
 import { z, ZodError } from "zod";
 import { fromZodError } from "zod-validation-error";
+import { setupAuth, isAdmin } from "./auth";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Set up authentication
+  setupAuth(app);
+  
   // API routes - prefix with /api
   
   // Developer routes
@@ -223,6 +227,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to create property" });
     }
   });
+  
+  // Add route for updating property status
+  app.patch("/api/properties/:id/status", async (req: Request, res: Response) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid property ID" });
+      }
+      
+      const statusSchema = z.object({
+        status: z.string().refine(val => ['approved', 'rejected', 'pending'].includes(val), {
+          message: "Status must be one of: approved, rejected, pending"
+        })
+      });
+      
+      const { status } = statusSchema.parse(req.body);
+      
+      const updatedProperty = await storage.updatePropertyStatus(id, status);
+      if (!updatedProperty) {
+        return res.status(404).json({ message: "Property not found" });
+      }
+      
+      res.json(updatedProperty);
+    } catch (error) {
+      if (error instanceof ZodError) {
+        return res.status(400).json({ message: "Invalid status data", errors: fromZodError(error).message });
+      }
+      res.status(500).json({ message: "Failed to update property status" });
+    }
+  });
 
   // Inquiry routes
   app.post("/api/inquiries", async (req: Request, res: Response) => {
@@ -291,6 +325,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "Invalid status data", errors: fromZodError(error).message });
       }
       res.status(500).json({ message: "Failed to update inquiry status" });
+    }
+  });
+  
+  // Delete a property - Admin only
+  app.delete("/api/properties/:id", isAdmin, async (req: Request, res: Response) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid property ID" });
+      }
+      
+      const deleted = await storage.deleteProperty(id);
+      if (!deleted) {
+        return res.status(404).json({ message: "Property not found" });
+      }
+      
+      res.status(200).json({ 
+        success: true, 
+        message: `Property with ID ${id} has been deleted successfully` 
+      });
+    } catch (error) {
+      console.error("Error deleting property:", error);
+      res.status(500).json({ message: "Failed to delete property" });
     }
   });
 

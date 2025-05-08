@@ -11,6 +11,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
 import { Checkbox } from '@/components/ui/checkbox';
+import GoldenVisaIndicator from '@/components/GoldenVisaIndicator';
+import PremiumListingForm from '@/components/PremiumListingForm';
 
 const Properties = () => {
   const [location, setLocation] = useLocation();
@@ -259,19 +261,26 @@ const Properties = () => {
                    isError ? 'Error loading properties' : 
                    `${properties.length} Properties Found`}
                 </h2>
-                <div className="flex items-center gap-4">
-                  <label className="text-sm font-medium">Sort by:</label>
-                  <Select defaultValue="featured">
-                    <SelectTrigger className="w-[160px]">
-                      <SelectValue placeholder="Sort by" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="featured">Featured</SelectItem>
-                      <SelectItem value="price-asc">Price (Low to High)</SelectItem>
-                      <SelectItem value="price-desc">Price (High to Low)</SelectItem>
-                      <SelectItem value="newest">Newest First</SelectItem>
-                    </SelectContent>
-                  </Select>
+                <div className="flex flex-col md:flex-row items-center gap-4">
+                  <PremiumListingForm 
+                    buttonVariant="default"
+                    buttonClass="bg-primary text-white mb-4 md:mb-0 w-full md:w-auto"
+                    title="Submit Your Listing"
+                  />
+                  <div className="flex items-center gap-2">
+                    <label className="text-sm font-medium">Sort by:</label>
+                    <Select defaultValue="featured">
+                      <SelectTrigger className="w-[160px]">
+                        <SelectValue placeholder="Sort by" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="featured">Featured</SelectItem>
+                        <SelectItem value="price-asc">Price (Low to High)</SelectItem>
+                        <SelectItem value="price-desc">Price (High to Low)</SelectItem>
+                        <SelectItem value="newest">Newest First</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
               </div>
             </div>
@@ -392,7 +401,11 @@ const Properties = () => {
                         
                         <div className="mt-6 card-actions">
                           <div className="flex justify-between items-center">
-                            <span className="text-xs bg-gray-100 text-gray-800 px-3 py-1 rounded-full">{property.status}</span>
+                            <div className="flex flex-wrap gap-2">
+                              <span className="text-xs bg-gray-100 text-gray-800 px-3 py-1 rounded-full">{property.status}</span>
+                              {/* Golden Visa Indicator */}
+                              <GoldenVisaIndicator price={property.price} />
+                            </div>
                             <div className="flex space-x-2">
                               <button className="bg-gray-100 hover:bg-gray-200 text-foreground p-2 rounded-full transition-colors duration-200">
                                 <i className="fas fa-share-alt"></i>

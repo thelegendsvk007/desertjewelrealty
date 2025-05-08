@@ -32,112 +32,165 @@ const Navigation = () => {
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <Link href="/">
-            <a className="flex items-center">
+            <div className="flex items-center cursor-pointer">
               <img 
                 src="/src/assets/desert-jewel-logo.svg" 
                 alt="Desert Jewel Realty Logo" 
                 className="h-14 w-auto"
               />
-            </a>
+            </div>
           </Link>
 
           {/* Main Navigation - Desktop */}
           <nav className="hidden md:flex items-center space-x-8">
             <Link href="/">
-              <a className={cn(
-                "font-montserrat font-medium transition-colors duration-200",
+              <span className={cn(
+                "font-montserrat font-medium transition-colors duration-200 cursor-pointer",
                 location === '/' ? "text-primary" : "text-foreground hover:text-primary"
               )}>
                 Home
-              </a>
+              </span>
             </Link>
             
             <div className="dropdown relative group">
-              <Link href="/properties">
-                <a className={cn(
-                  "font-montserrat font-medium transition-colors duration-200 flex items-center",
-                  location.startsWith('/properties') ? "text-primary" : "text-foreground hover:text-primary"
-                )}>
-                  Properties <i className="fas fa-chevron-down ml-1 text-xs"></i>
-                </a>
-              </Link>
-              <div className="dropdown-menu hidden absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-10">
+              <div className={cn(
+                "font-montserrat font-medium transition-colors duration-200 flex items-center cursor-pointer",
+                location.startsWith('/properties') ? "text-primary" : "text-foreground hover:text-primary"
+              )}>
+                Properties <i className="fas fa-chevron-down ml-1 text-xs"></i>
+              </div>
+              <div className="dropdown-menu absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-10 hidden group-hover:block">
                 <Link href="/properties?type=apartment">
-                  <a className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white">
+                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
                     Apartments
-                  </a>
+                  </span>
                 </Link>
                 <Link href="/properties?type=villa">
-                  <a className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white">
+                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
                     Villas
-                  </a>
+                  </span>
                 </Link>
                 <Link href="/properties?type=penthouse">
-                  <a className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white">
+                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
                     Penthouses
-                  </a>
+                  </span>
                 </Link>
                 <Link href="/properties?type=off-plan">
-                  <a className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white">
+                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
                     Off-Plan
-                  </a>
+                  </span>
                 </Link>
               </div>
             </div>
             
             <div className="dropdown relative group">
-              <Link href="/developers">
-                <a className={cn(
-                  "font-montserrat font-medium transition-colors duration-200 flex items-center",
-                  location.startsWith('/developers') ? "text-primary" : "text-foreground hover:text-primary"
-                )}>
-                  Developers <i className="fas fa-chevron-down ml-1 text-xs"></i>
-                </a>
-              </Link>
-              <div className="dropdown-menu hidden absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-10">
+              <div className={cn(
+                "font-montserrat font-medium transition-colors duration-200 flex items-center cursor-pointer",
+                location.startsWith('/developers') ? "text-primary" : "text-foreground hover:text-primary"
+              )}>
+                Developers <i className="fas fa-chevron-down ml-1 text-xs"></i>
+              </div>
+              <div className="dropdown-menu absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-10 hidden group-hover:block">
                 <Link href="/developers/1">
-                  <a className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white">
+                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
                     Emaar
-                  </a>
+                  </span>
                 </Link>
                 <Link href="/developers/2">
-                  <a className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white">
+                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
                     Damac
-                  </a>
+                  </span>
                 </Link>
                 <Link href="/developers/3">
-                  <a className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white">
+                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
                     Nakheel
-                  </a>
+                  </span>
                 </Link>
               </div>
             </div>
             
+            <div className="dropdown relative group">
+              <div className={cn(
+                "font-montserrat font-medium transition-colors duration-200 flex items-center cursor-pointer",
+                location.startsWith('/tools') ? "text-primary" : "text-foreground hover:text-primary"
+              )}>
+                Tools <i className="fas fa-chevron-down ml-1 text-xs"></i>
+              </div>
+              <div className="dropdown-menu absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-10 hidden group-hover:block">
+                <Link href="/investment-tools">
+                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                    AI Property Matchmaker
+                  </span>
+                </Link>
+                <Link href="/investment-tools?tab=price-predictor">
+                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                    Price Prediction Tool
+                  </span>
+                </Link>
+                <Link href="/tools?tab=roi">
+                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                    ROI Calculator
+                  </span>
+                </Link>
+                <Link href="/tools?tab=mortgage">
+                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                    Mortgage Calculator
+                  </span>
+                </Link>
+                <Link href="/tools?tab=comparison">
+                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                    Off-Plan vs Ready
+                  </span>
+                </Link>
+              </div>
+            </div>
+            
+            <Link href="/location-insights">
+              <span className={cn(
+                "font-montserrat font-medium transition-colors duration-200 cursor-pointer",
+                location === '/location-insights' ? "text-primary" : "text-foreground hover:text-primary"
+              )}>
+                Location Insights
+              </span>
+            </Link>
+            
             <Link href="/about">
-              <a className={cn(
-                "font-montserrat font-medium transition-colors duration-200",
+              <span className={cn(
+                "font-montserrat font-medium transition-colors duration-200 cursor-pointer",
                 location === '/about' ? "text-primary" : "text-foreground hover:text-primary"
               )}>
                 About Us
-              </a>
+              </span>
             </Link>
             
-            <Link href="/contact">
-              <a className={cn(
-                "font-montserrat font-medium transition-colors duration-200",
+            <div className="dropdown relative group">
+              <div className={cn(
+                "font-montserrat font-medium transition-colors duration-200 flex items-center cursor-pointer",
                 location === '/contact' ? "text-primary" : "text-foreground hover:text-primary"
               )}>
-                Contact
-              </a>
-            </Link>
+                Contact <i className="fas fa-chevron-down ml-1 text-xs"></i>
+              </div>
+              <div className="dropdown-menu absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-10 hidden group-hover:block">
+                <Link href="/contact">
+                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                    Contact Us
+                  </span>
+                </Link>
+                <Link href="/faq">
+                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                    FAQ
+                  </span>
+                </Link>
+              </div>
+            </div>
           </nav>
 
           {/* Call to Action */}
           <div className="hidden md:flex items-center space-x-4">
             <Link href="/contact">
-              <a className="bg-primary hover:bg-teal-dark text-white px-6 py-2 rounded-full font-montserrat font-medium transition-colors duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+              <span className="bg-primary hover:bg-teal-dark text-white px-6 py-2 rounded-full font-montserrat font-medium transition-colors duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 cursor-pointer inline-block">
                 Request a Call
-              </a>
+              </span>
             </Link>
           </div>
 
@@ -165,34 +218,54 @@ const Navigation = () => {
           >
             <div className="px-2 pt-2 pb-3 space-y-1 border-t">
               <Link href="/">
-                <a className="block px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md">
+                <span className="block px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer">
                   Home
-                </a>
+                </span>
               </Link>
               <Link href="/properties">
-                <a className="block px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md">
+                <span className="block px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer">
                   Properties
-                </a>
+                </span>
               </Link>
               <Link href="/developers">
-                <a className="block px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md">
+                <span className="block px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer">
                   Developers
-                </a>
+                </span>
+              </Link>
+              <Link href="/tools">
+                <span className="block px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer">
+                  Tools
+                </span>
+              </Link>
+              <Link href="/investment-tools">
+                <span className="block px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer">
+                  Investment Tools
+                </span>
+              </Link>
+              <Link href="/location-insights">
+                <span className="block px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer">
+                  Location Insights
+                </span>
               </Link>
               <Link href="/about">
-                <a className="block px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md">
+                <span className="block px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer">
                   About Us
-                </a>
+                </span>
               </Link>
               <Link href="/contact">
-                <a className="block px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md">
+                <span className="block px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer">
                   Contact
-                </a>
+                </span>
+              </Link>
+              <Link href="/faq">
+                <span className="block px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer">
+                  FAQ
+                </span>
               </Link>
               <Link href="/contact">
-                <a className="w-full mt-3 bg-primary text-white px-4 py-2 rounded-full font-medium text-center">
+                <span className="block w-full mt-3 bg-primary text-white px-4 py-2 rounded-full font-medium text-center cursor-pointer">
                   Request a Call
-                </a>
+                </span>
               </Link>
             </div>
           </motion.div>

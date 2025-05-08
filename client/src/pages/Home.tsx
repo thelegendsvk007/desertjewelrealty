@@ -4,7 +4,8 @@ import DeveloperShowcase from '@/components/DeveloperShowcase';
 import FeaturedProperties from '@/components/FeaturedProperties';
 import InteractiveMap from '@/components/InteractiveMap';
 import FeaturedDevelopment from '@/components/FeaturedDevelopment';
-import TestimonialsAndStats from '@/components/TestimonialsAndStats';
+import BlogAndNews from '@/components/BlogAndNews';
+import RealEstateLawGuide from '@/components/RealEstateLawGuide';
 import CallToAction from '@/components/CallToAction';
 
 const Home = () => {
@@ -20,7 +21,8 @@ const Home = () => {
       <FeaturedProperties />
       <InteractiveMap />
       <FeaturedDevelopment />
-      <TestimonialsAndStats />
+      <BlogAndNews />
+      <RealEstateLawGuide />
       <CallToAction />
     </motion.div>
   );
