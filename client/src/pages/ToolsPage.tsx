@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Calculator, TrendingUp, BrainCircuit, Home } from 'lucide-react';
+import { Calculator, TrendingUp, BrainCircuit, Home, DollarSign, Building } from 'lucide-react';
 
 // Import components
 import Navigation from '@/components/Navigation';
@@ -17,6 +17,8 @@ import BackToTop from '@/components/BackToTop';
 import ProgressBar from '@/components/ProgressBar';
 import AIPropertyMatchmaker from '@/components/tools/AIPropertyMatchmaker';
 import PricePredictionTool from '@/components/tools/PricePredictionTool';
+import CurrencyConverter from '@/components/tools/CurrencyConverter';
+import ServiceChargeEstimator from '@/components/tools/ServiceChargeEstimator';
 
 const ToolsPage = () => {
   return (
@@ -46,14 +48,26 @@ const ToolsPage = () => {
           <div className="container mx-auto px-4">
             <Tabs defaultValue="ai-matchmaker" className="w-full">
               <div className="mb-8 flex justify-center">
-                <TabsList className="grid w-full max-w-3xl grid-cols-2">
+                <TabsList className="grid w-full max-w-3xl grid-cols-4">
                   <TabsTrigger value="ai-matchmaker" className="flex items-center gap-2">
                     <BrainCircuit className="h-4 w-4" />
-                    <span>AI Property Matchmaker</span>
+                    <span className="hidden md:inline">AI Property Matchmaker</span>
+                    <span className="md:hidden">AI Matcher</span>
                   </TabsTrigger>
                   <TabsTrigger value="price-predictor" className="flex items-center gap-2">
                     <TrendingUp className="h-4 w-4" />
-                    <span>Price Prediction Tool</span>
+                    <span className="hidden md:inline">Price Prediction</span>
+                    <span className="md:hidden">Price</span>
+                  </TabsTrigger>
+                  <TabsTrigger value="currency-converter" className="flex items-center gap-2">
+                    <DollarSign className="h-4 w-4" />
+                    <span className="hidden md:inline">Currency Converter</span>
+                    <span className="md:hidden">Currency</span>
+                  </TabsTrigger>
+                  <TabsTrigger value="service-charge" className="flex items-center gap-2">
+                    <Building className="h-4 w-4" />
+                    <span className="hidden md:inline">Service Charge</span>
+                    <span className="md:hidden">Charges</span>
                   </TabsTrigger>
                 </TabsList>
               </div>
@@ -67,6 +81,18 @@ const ToolsPage = () => {
               <TabsContent value="price-predictor">
                 <div className="max-w-4xl mx-auto">
                   <PricePredictionTool />
+                </div>
+              </TabsContent>
+              
+              <TabsContent value="currency-converter">
+                <div className="max-w-4xl mx-auto">
+                  <CurrencyConverter />
+                </div>
+              </TabsContent>
+              
+              <TabsContent value="service-charge">
+                <div className="max-w-4xl mx-auto">
+                  <ServiceChargeEstimator />
                 </div>
               </TabsContent>
             </Tabs>

@@ -59,27 +59,31 @@ const Navigation = () => {
               )}>
                 Properties <i className="fas fa-chevron-down ml-1 text-xs"></i>
               </div>
-              <div className="dropdown-menu absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-10 hidden group-hover:block">
-                <Link href="/properties?type=apartment">
-                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
-                    Apartments
-                  </span>
-                </Link>
-                <Link href="/properties?type=villa">
-                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
-                    Villas
-                  </span>
-                </Link>
-                <Link href="/properties?type=penthouse">
-                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
-                    Penthouses
-                  </span>
-                </Link>
-                <Link href="/properties?type=off-plan">
-                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
-                    Off-Plan
-                  </span>
-                </Link>
+              <div className="absolute left-0 top-full pt-2 w-48 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div className="bg-white shadow-lg rounded-md py-2">
+                  <div className="py-1">
+                    <Link href="/properties?type=apartment">
+                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                        Apartments
+                      </div>
+                    </Link>
+                    <Link href="/properties?type=villa">
+                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                        Villas
+                      </div>
+                    </Link>
+                    <Link href="/properties?type=penthouse">
+                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                        Penthouses
+                      </div>
+                    </Link>
+                    <Link href="/properties?type=off-plan">
+                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                        Off-Plan
+                      </div>
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
             
@@ -90,22 +94,26 @@ const Navigation = () => {
               )}>
                 Developers <i className="fas fa-chevron-down ml-1 text-xs"></i>
               </div>
-              <div className="dropdown-menu absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-10 hidden group-hover:block">
-                <Link href="/developers/1">
-                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
-                    Emaar
-                  </span>
-                </Link>
-                <Link href="/developers/2">
-                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
-                    Damac
-                  </span>
-                </Link>
-                <Link href="/developers/3">
-                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
-                    Nakheel
-                  </span>
-                </Link>
+              <div className="absolute left-0 top-full pt-2 w-48 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div className="bg-white shadow-lg rounded-md py-2">
+                  <div className="py-1">
+                    <Link href="/developers/1">
+                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                        Emaar
+                      </div>
+                    </Link>
+                    <Link href="/developers/2">
+                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                        Damac
+                      </div>
+                    </Link>
+                    <Link href="/developers/3">
+                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                        Nakheel
+                      </div>
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
             
@@ -116,32 +124,36 @@ const Navigation = () => {
               )}>
                 Tools <i className="fas fa-chevron-down ml-1 text-xs"></i>
               </div>
-              <div className="dropdown-menu absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-10 hidden group-hover:block">
-                <Link href="/investment-tools">
-                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
-                    AI Property Matchmaker
-                  </span>
-                </Link>
-                <Link href="/investment-tools?tab=price-predictor">
-                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
-                    Price Prediction Tool
-                  </span>
-                </Link>
-                <Link href="/tools?tab=roi">
-                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
-                    ROI Calculator
-                  </span>
-                </Link>
-                <Link href="/tools?tab=mortgage">
-                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
-                    Mortgage Calculator
-                  </span>
-                </Link>
-                <Link href="/tools?tab=comparison">
-                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
-                    Off-Plan vs Ready
-                  </span>
-                </Link>
+              <div className="absolute left-0 top-full pt-2 w-48 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div className="bg-white shadow-lg rounded-md py-2">
+                  <div className="py-1">
+                    <Link href="/investment-tools">
+                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                        AI Property Matchmaker
+                      </div>
+                    </Link>
+                    <Link href="/investment-tools?tab=price-predictor">
+                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                        Price Prediction Tool
+                      </div>
+                    </Link>
+                    <Link href="/tools?tab=roi">
+                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                        ROI Calculator
+                      </div>
+                    </Link>
+                    <Link href="/tools?tab=mortgage">
+                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                        Mortgage Calculator
+                      </div>
+                    </Link>
+                    <Link href="/tools?tab=comparison">
+                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                        Off-Plan vs Ready
+                      </div>
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
             
@@ -170,17 +182,21 @@ const Navigation = () => {
               )}>
                 Contact <i className="fas fa-chevron-down ml-1 text-xs"></i>
               </div>
-              <div className="dropdown-menu absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-10 hidden group-hover:block">
-                <Link href="/contact">
-                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
-                    Contact Us
-                  </span>
-                </Link>
-                <Link href="/faq">
-                  <span className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
-                    FAQ
-                  </span>
-                </Link>
+              <div className="absolute left-0 top-full pt-2 w-48 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div className="bg-white shadow-lg rounded-md py-2">
+                  <div className="py-1">
+                    <Link href="/contact">
+                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                        Contact Us
+                      </div>
+                    </Link>
+                    <Link href="/faq">
+                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                        FAQ
+                      </div>
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
           </nav>

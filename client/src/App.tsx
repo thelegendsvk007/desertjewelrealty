@@ -25,10 +25,9 @@ import AdminDashboard from "@/pages/admin/Dashboard";
 
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import ContactFloatingButton from "@/components/ContactFloatingButton";
 import BackToTop from "@/components/BackToTop";
 import ProgressBar from "@/components/ProgressBar";
-import RealEstateChatbot from "@/components/RealEstateChatbot";
+import VerticalContactMenu from "@/components/VerticalContactMenu";
 
 function Router() {
   return (
@@ -69,7 +68,7 @@ function App() {
             <Router />
           </main>
           <Footer />
-          <RealEstateChatbot isInitiallyOpen={false} />
+          <VerticalContactMenu />
           <BackToTop />
           <Toaster />
         </TooltipProvider>

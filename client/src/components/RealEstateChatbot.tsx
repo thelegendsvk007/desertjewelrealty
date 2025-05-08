@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Loader2, Send, X, Minimize2, Maximize2, Home, Building, Map, Calendar, Calculator } from 'lucide-react';
+import { Loader2, Send, X, Minimize2, Maximize2, Home, Building, Map, Calendar, Calculator, BrainCircuit } from 'lucide-react';
 
 // Sample conversation objects for chatbot
 const initialMessages: Message[] = [
@@ -25,7 +25,7 @@ const initialMessages: Message[] = [
   {
     id: 2,
     role: "agent",
-    content: "I can help you with property searches, investment advice, Golden Visa eligibility, or connect you with a real estate advisor.",
+    content: "I can help you with property searches, investment advice, Golden Visa eligibility, or connect you with a real estate advisor. Our new AI-powered Area Advisor can also help you compare neighborhoods in Dubai!",
     timestamp: new Date().toISOString(),
   }
 ];
@@ -113,8 +113,114 @@ const suggestedQuestions = [
   { text: "Do I qualify for the Golden Visa program?", id: "goldenvisa" },
   { text: "Can foreigners buy property in Dubai?", id: "foreigners" },
   { text: "What are the buying costs and fees?", id: "fees" },
-  { text: "Connect me with a real estate advisor", id: "advisor" }
+  { text: "Connect me with a real estate advisor", id: "advisor" },
+  { text: "Compare Dubai Marina and Downtown Dubai", id: "compare-areas" },
+  { text: "Which area is best for families?", id: "family-areas" }
 ];
+
+// Area profiles for the Area Advisor
+const areaProfiles = {
+  "dubai-marina": {
+    name: "Dubai Marina",
+    summary: "Dubai Marina is a waterfront community known for its high-rise luxury apartments, vibrant nightlife, and extensive dining options. It offers stunning views of the marina and is popular with expats and young professionals.",
+    pros: [
+      "Waterfront lifestyle with stunning views",
+      "Excellent connectivity with tram and metro stations",
+      "Walkable community with beaches, restaurants, and shopping",
+      "High rental yields (6-7% average)",
+      "Active lifestyle with Marina Walk and beach access"
+    ],
+    cons: [
+      "Traffic congestion during peak hours",
+      "Higher service charges compared to newer areas",
+      "Some buildings are starting to show age",
+      "Can feel crowded during tourist season"
+    ],
+    demographics: "Primarily expat community with a high percentage of European, American, and Asian residents. Popular with young professionals, couples, and small families.",
+    investment: "Strong rental market with consistently high occupancy rates. Resale values remain strong with modest appreciation (3-5% annually). Studio and 1-bedroom apartments provide the highest yields.",
+    amenities: "Dubai Marina Mall, The Beach at JBR, Dubai Marina Yacht Club, Bluewaters Island, Multiple gyms, pools, and fitness facilities"
+  },
+  "downtown-dubai": {
+    name: "Downtown Dubai",
+    summary: "Downtown Dubai is the city's central district featuring the Burj Khalifa, Dubai Mall, and Dubai Fountain. It offers premium living with a mix of apartments and luxury hotels in an urban setting.",
+    pros: [
+      "Central location with iconic landmarks",
+      "Premier shopping, dining, and entertainment",
+      "High prestige and status address",
+      "Modern infrastructure and amenities",
+      "Good capital appreciation potential"
+    ],
+    cons: [
+      "Premium pricing with higher cost per sq.ft",
+      "Busy tourist area with less privacy",
+      "Traffic congestion, especially around Dubai Mall",
+      "Higher cost of living generally"
+    ],
+    demographics: "Mix of wealthy professionals, business executives, and high-net-worth investors. Popular with both residents and investors seeking premium properties.",
+    investment: "Historically strong capital appreciation. Rental yields slightly lower than Marina (5-6%) but with better long-term value growth. Premium for Burj Khalifa view units.",
+    amenities: "Dubai Mall, Dubai Opera, Burj Park, Souk Al Bahar, Multiple high-end restaurants and cafes, Dubai Fountain, Burj Khalifa"
+  },
+  "palm-jumeirah": {
+    name: "Palm Jumeirah",
+    summary: "Palm Jumeirah is an iconic man-made island shaped like a palm tree, featuring luxury villas, high-end apartments, and 5-star hotels. It offers beachfront living with exclusive amenities.",
+    pros: [
+      "Prestigious address with high exclusivity",
+      "Private beaches and waterfront living",
+      "Larger property sizes compared to other areas",
+      "Resort-style living with luxury amenities",
+      "Strong capital appreciation history"
+    ],
+    cons: [
+      "Premium pricing with highest cost per sq.ft",
+      "Limited public transportation options",
+      "Single access point can create traffic bottlenecks",
+      "Higher maintenance costs for beachfront properties"
+    ],
+    demographics: "Predominantly high-net-worth individuals, celebrities, and wealthy families. Mix of permanent residents and vacation homeowners.",
+    investment: "Strong capital appreciation potential, particularly for signature projects. Rental yields average 4-5%, with higher returns for short-term holiday rentals.",
+    amenities: "Nakheel Mall, Atlantis The Palm, The Pointe, Club Vista Mare, Numerous beach clubs and 5-star hotels, Aquaventure Waterpark"
+  },
+  "dubai-hills": {
+    name: "Dubai Hills Estate",
+    summary: "Dubai Hills Estate is a newer family-friendly master community with a mix of villas, townhouses, and apartments centered around an 18-hole championship golf course.",
+    pros: [
+      "Newer development with modern infrastructure",
+      "More spacious properties with greenery",
+      "Family-oriented with excellent schools nearby",
+      "Quieter lifestyle away from tourist areas",
+      "Good potential for capital appreciation"
+    ],
+    cons: [
+      "More dependent on private transportation",
+      "Further from beaches and waterfront",
+      "Still developing with some amenities under construction",
+      "Premium pricing for villa properties"
+    ],
+    demographics: "Predominantly families with children, with a mix of expats and UAE nationals. Popular with upgraders moving from apartment living to villas and townhouses.",
+    investment: "Strong capital appreciation potential as area matures. Rental yields around 5-6% with good occupancy rates for family properties.",
+    amenities: "Dubai Hills Mall, Dubai Hills Golf Club, Dubai Hills Park, King's College Hospital, GEMS International School"
+  },
+  "jumeirah-village-circle": {
+    name: "Jumeirah Village Circle (JVC)",
+    summary: "JVC is an affordable community offering a mix of apartments, townhouses, and villas. It's popular with families and professionals seeking value for money in a central location.",
+    pros: [
+      "Affordable pricing with good value for money",
+      "Central location with good highway access",
+      "Family-friendly with parks and community spaces",
+      "Higher rental yields compared to premium areas",
+      "Mix of property types for different budgets"
+    ],
+    cons: [
+      "Still developing with ongoing construction",
+      "Limited public transportation options",
+      "Fewer amenities compared to established areas",
+      "Lower capital appreciation compared to premium areas"
+    ],
+    demographics: "Diverse mix of young professionals, small families, and first-time buyers. Popular with middle-income expatriates seeking affordability.",
+    investment: "Highest rental yields in Dubai (7-9%) with good occupancy rates. Moderate capital appreciation potential as area matures.",
+    amenities: "Circle Mall, JVC Community Park, Numerous retail plazas and supermarkets, Schools and nurseries"
+  }
+};
 
 interface Message {
   id: number;
@@ -125,9 +231,13 @@ interface Message {
 
 interface RealEstateChatbotProps {
   isInitiallyOpen?: boolean;
+  onClose?: () => void;
 }
 
-const RealEstateChatbot: React.FC<RealEstateChatbotProps> = ({ isInitiallyOpen = false }) => {
+const RealEstateChatbot: React.FC<RealEstateChatbotProps> = ({ 
+  isInitiallyOpen = false,
+  onClose
+}) => {
   const [isOpen, setIsOpen] = useState(isInitiallyOpen);
   const [isExpanded, setIsExpanded] = useState(false);
   const [messages, setMessages] = useState<Message[]>(initialMessages);
@@ -142,6 +252,9 @@ const RealEstateChatbot: React.FC<RealEstateChatbotProps> = ({ isInitiallyOpen =
   }, [messages]);
   
   const toggleChatbox = () => {
+    if (isOpen && onClose) {
+      onClose();
+    }
     setIsOpen(!isOpen);
     
     // Focus input when opening
@@ -191,6 +304,76 @@ const RealEstateChatbot: React.FC<RealEstateChatbotProps> = ({ isInitiallyOpen =
   const getResponse = (query: string): string => {
     const normalizedQuery = query.toLowerCase();
     
+    // ChatGPT-Powered Area Advisor functionality
+    if (normalizedQuery === "compare dubai marina and downtown dubai") {
+      const marina = areaProfiles["dubai-marina"];
+      const downtown = areaProfiles["downtown-dubai"];
+      
+      return `📊 **Area Comparison: Dubai Marina vs Downtown Dubai**
+
+**Dubai Marina Summary:**
+${marina.summary}
+
+**Downtown Dubai Summary:**
+${downtown.summary}
+
+**Price Comparison:**
+• Dubai Marina: AED 1,300-1,800 per sq.ft (apartments)
+• Downtown Dubai: AED 1,800-2,500 per sq.ft (apartments)
+
+**Lifestyle:**
+• Dubai Marina offers a waterfront lifestyle with a focus on outdoor activities, marina views, and beach access.
+• Downtown Dubai offers an urban city-center lifestyle with iconic landmarks, shopping, and cultural attractions.
+
+**Investment Potential:**
+• Dubai Marina: ${marina.investment}
+• Downtown Dubai: ${downtown.investment}
+
+**Best For:**
+• Dubai Marina: Young professionals, couples, those seeking active waterfront lifestyle
+• Downtown Dubai: Luxury seekers, professionals working in business districts, shopping enthusiasts
+
+Would you like more specific information about either area?`;
+    } 
+    else if (normalizedQuery === "which area is best for families?") {
+      return `🏡 **Best Areas for Families in Dubai**
+
+1. **Dubai Hills Estate**
+   ${areaProfiles["dubai-hills"].summary}
+   • Premium schools nearby: GEMS International School, Dubai International Academy
+   • Extensive parks and green spaces
+   • Family-sized villas and townhouses
+   • Safe, gated communities
+
+2. **Arabian Ranches**
+   • Established villa community with a suburban feel
+   • Excellent schools including JESS Arabian Ranches
+   • Family-friendly amenities including parks, pools, and community centers
+   • Strong sense of community with many long-term residents
+
+3. **Jumeirah Village Circle (JVC)**
+   ${areaProfiles["jumeirah-village-circle"].summary}
+   • More affordable option for families
+   • Growing number of schools and nurseries
+   • Mix of apartments, townhouses and villas
+   • Family-oriented community with numerous parks
+
+4. **Emirates Hills**
+   • Ultra-luxury villa community
+   • Home to some of Dubai's top schools including Emirates International School
+   • Prestigious gated community with 24/7 security
+   • Exclusive lifestyle with golf course views
+
+Would you like more specific information about any of these family-friendly areas?`;
+    }
+    // Look for area comparison questions
+    else if (normalizedQuery.includes("compare") && normalizedQuery.includes("vs")) {
+      return "I can help you compare different areas in Dubai. Our Area Advisor feature can provide detailed comparisons of neighborhoods based on lifestyle, investment potential, amenities, and more. Please try our pre-set comparisons or ask about specific areas you're interested in.";
+    }
+    else if (normalizedQuery.includes("area") && (normalizedQuery.includes("family") || normalizedQuery.includes("kid") || normalizedQuery.includes("children") || normalizedQuery.includes("school"))) {
+      return "When looking for family-friendly areas in Dubai, I recommend considering Dubai Hills Estate, Arabian Ranches, and Jumeirah Village Circle. These areas offer good schools, parks, family amenities, and have a mix of villas and townhouses ideal for families. Would you like more specific details about these areas?";
+    }
+    
     // Check for keyword matches
     for (const pattern of responsePatterns) {
       for (const keyword of pattern.keywords) {
@@ -232,8 +415,8 @@ const RealEstateChatbot: React.FC<RealEstateChatbotProps> = ({ isInitiallyOpen =
 
   return (
     <>
-      {/* Chat button */}
-      {!isOpen && (
+      {/* Chat button - only show when not opened by parent component */}
+      {!isOpen && !isInitiallyOpen && (
         <Button 
           className="fixed bottom-6 right-6 rounded-full h-14 w-14 p-0 shadow-lg"
           onClick={toggleChatbox}
@@ -243,7 +426,7 @@ const RealEstateChatbot: React.FC<RealEstateChatbotProps> = ({ isInitiallyOpen =
       )}
       
       {/* Chatbox */}
-      {isOpen && (
+      {(isOpen || isInitiallyOpen) && (
         <Card 
           className={`fixed ${isExpanded ? 'top-4 right-4 left-4 bottom-4 h-auto' : 'bottom-6 right-6 w-80 h-[500px]'} shadow-lg flex flex-col z-50 transition-all duration-200`}
         >
@@ -254,9 +437,12 @@ const RealEstateChatbot: React.FC<RealEstateChatbotProps> = ({ isInitiallyOpen =
                 <AvatarFallback className="bg-primary-foreground text-primary">DJ</AvatarFallback>
               </Avatar>
               <div>
-                <CardTitle className="text-base">Desert Jewel Assistant</CardTitle>
+                <CardTitle className="text-base flex items-center gap-1">
+                  Desert Jewel Assistant
+                  <BrainCircuit className="h-3.5 w-3.5 text-primary-foreground/70" />
+                </CardTitle>
                 <CardDescription className="text-primary-foreground/70 text-xs">
-                  Real Estate Expert
+                  AI-Powered Real Estate Expert
                 </CardDescription>
               </div>
             </div>

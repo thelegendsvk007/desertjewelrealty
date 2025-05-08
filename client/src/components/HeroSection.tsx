@@ -2,13 +2,39 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Slider } from "@/components/ui/slider";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 
 const HeroSection = () => {
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const [searchParams, setSearchParams] = useState({
     propertyType: '',
+    city: '',
     locationId: '',
     budget: '',
-    status: '' // Added for Ready to Move / Off Plan filter
+    status: '', // Ready to Move / Off Plan filter
+    bedrooms: '',
+    bathrooms: '',
+    minArea: 0,
+    maxArea: 5000,
+    landmark: '',
+    developer: '',
+    handoverYear: '',
+    furnishing: '',
+    view: '',
+    amenities: [] as string[],
+    floor: '',
+    features: [] as string[],
+    isGoldenVisaEligible: false,
+    isMortgageAvailable: false
   });
   const { toast } = useToast();
 
@@ -22,7 +48,10 @@ const HeroSection = () => {
     e.preventDefault();
     
     // Validate search parameters
-    if (!searchParams.propertyType && !searchParams.locationId && !searchParams.budget && !searchParams.status) {
+    if (!searchParams.propertyType && !searchParams.city && !searchParams.locationId && 
+        !searchParams.budget && !searchParams.status && !searchParams.bedrooms && 
+        !searchParams.bathrooms && searchParams.features.length === 0 && 
+        searchParams.amenities.length === 0 && !searchParams.isGoldenVisaEligible) {
       toast({
         title: "Search criteria needed",
         description: "Please select at least one search criteria",
@@ -32,22 +61,35 @@ const HeroSection = () => {
     }
     
     // Construct the search URL
-    let searchUrl = '/properties?';
-    if (searchParams.propertyType) {
-      searchUrl += `type=${searchParams.propertyType}&`;
-    }
-    if (searchParams.locationId) {
-      searchUrl += `location=${searchParams.locationId}&`;
-    }
-    if (searchParams.budget) {
-      searchUrl += `budget=${searchParams.budget}&`;
-    }
-    if (searchParams.status) {
-      searchUrl += `status=${searchParams.status}`;
-    }
+    const params = new URLSearchParams();
+    
+    // Add basic filters
+    if (searchParams.propertyType) params.append('type', searchParams.propertyType);
+    if (searchParams.city) params.append('city', searchParams.city);
+    if (searchParams.locationId) params.append('location', searchParams.locationId);
+    if (searchParams.budget) params.append('budget', searchParams.budget);
+    if (searchParams.status) params.append('status', searchParams.status);
+    
+    // Add advanced filters
+    if (searchParams.bedrooms) params.append('bedrooms', searchParams.bedrooms);
+    if (searchParams.bathrooms) params.append('bathrooms', searchParams.bathrooms);
+    if (searchParams.minArea > 0) params.append('minArea', searchParams.minArea.toString());
+    if (searchParams.maxArea < 5000) params.append('maxArea', searchParams.maxArea.toString());
+    if (searchParams.landmark) params.append('landmark', searchParams.landmark);
+    if (searchParams.developer) params.append('developer', searchParams.developer);
+    if (searchParams.handoverYear) params.append('handoverYear', searchParams.handoverYear);
+    if (searchParams.furnishing) params.append('furnishing', searchParams.furnishing);
+    
+    // Add features and amenities as arrays
+    searchParams.features.forEach(feature => params.append('features', feature));
+    searchParams.amenities.forEach(amenity => params.append('amenities', amenity));
+    
+    // Add investment filters
+    if (searchParams.isGoldenVisaEligible) params.append('isGoldenVisaEligible', 'true');
+    if (searchParams.isMortgageAvailable) params.append('isMortgageAvailable', 'true');
     
     // Navigate to the search results page
-    window.location.href = searchUrl;
+    window.location.href = `/properties?${params.toString()}`;
   };
 
   return (
@@ -101,15 +143,42 @@ const HeroSection = () => {
                 <div>
                   <select 
                     className="w-full bg-gray-50 border border-gray-200 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                    value={searchParams.city}
+                    onChange={(e) => {
+                      // Reset location when city changes
+                      setSearchParams({...searchParams, city: e.target.value, locationId: ''});
+                    }}
+                  >
+                    <option value="">Select City (Emirate)</option>
+                    <option value="dubai">Dubai</option>
+                    <option value="abudhabi">Abu Dhabi</option>
+                    <option value="sharjah">Sharjah</option>
+                    <option value="ajman">Ajman</option>
+                    <option value="rasalkhaimah">Ras Al Khaimah</option>
+                    <option value="fujairah">Fujairah</option>
+                    <option value="ummalquwain">Umm Al Quwain</option>
+                  </select>
+                </div>
+                <div>
+                  <select 
+                    className="w-full bg-gray-50 border border-gray-200 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
                     value={searchParams.locationId}
                     onChange={(e) => setSearchParams({...searchParams, locationId: e.target.value})}
+                    disabled={!searchParams.city}
                   >
-                    <option value="">Location</option>
-                    {locations && Array.isArray(locations) ? locations.map((location: any) => (
-                      <option key={location.id} value={location.id}>
-                        {location.name}
-                      </option>
-                    )) : null}
+                    <option value="">Select Area</option>
+                    {locations && Array.isArray(locations) ? 
+                      locations
+                        .filter((location: any) => 
+                          !searchParams.city || 
+                          location.city?.toLowerCase() === searchParams.city.toLowerCase()
+                        )
+                        .map((location: any) => (
+                          <option key={location.id} value={location.id}>
+                            {location.name}
+                          </option>
+                        )) 
+                      : null}
                   </select>
                 </div>
                 <div>
@@ -122,18 +191,8 @@ const HeroSection = () => {
                     <option value="1000000">Up to AED 1M</option>
                     <option value="3000000">AED 1M - 3M</option>
                     <option value="5000000">AED 3M - 5M</option>
-                    <option value="999999999">AED 5M+</option>
-                  </select>
-                </div>
-                <div>
-                  <select 
-                    className="w-full bg-gray-50 border border-gray-200 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
-                    value={searchParams.status}
-                    onChange={(e) => setSearchParams({...searchParams, status: e.target.value})}
-                  >
-                    <option value="">Status</option>
-                    <option value="ready">Ready to Move In</option>
-                    <option value="off-plan">Off Plan</option>
+                    <option value="10000000">AED 5M - 10M</option>
+                    <option value="999999999">AED 10M+</option>
                   </select>
                 </div>
               </div>
@@ -179,15 +238,333 @@ const HeroSection = () => {
                 </button>
               </div>
 
-              {/* Advanced Filters (Optional) */}
+              {/* Advanced Filters Toggle */}
               <div className="flex justify-center">
                 <button
                   type="button"
                   className="text-primary hover:text-teal-dark text-sm flex items-center"
+                  onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
                 >
-                  Advanced Filters <i className="fas fa-chevron-down ml-1"></i>
+                  Advanced Filters 
+                  <i className={`fas fa-chevron-${showAdvancedFilters ? 'up' : 'down'} ml-1`}></i>
                 </button>
               </div>
+              
+              {/* Advanced Filters Panel */}
+              {showAdvancedFilters && (
+                <div className="mt-4 pt-4 border-t border-gray-200">
+                  <Accordion type="single" collapsible className="w-full">
+                    {/* Bedrooms & Bathrooms */}
+                    <AccordionItem value="bedrooms-bathrooms">
+                      <AccordionTrigger className="text-sm font-medium">Bedrooms & Bathrooms</AccordionTrigger>
+                      <AccordionContent>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <label className="text-sm font-medium mb-1 block">Bedrooms</label>
+                            <select 
+                              className="w-full bg-gray-50 border border-gray-200 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                              value={searchParams.bedrooms}
+                              onChange={(e) => setSearchParams({...searchParams, bedrooms: e.target.value})}
+                            >
+                              <option value="">Any</option>
+                              <option value="studio">Studio</option>
+                              <option value="1">1 Bedroom</option>
+                              <option value="2">2 Bedrooms</option>
+                              <option value="3">3 Bedrooms</option>
+                              <option value="4">4 Bedrooms</option>
+                              <option value="5">5 Bedrooms</option>
+                              <option value="6+">6+ Bedrooms</option>
+                            </select>
+                          </div>
+                          <div>
+                            <label className="text-sm font-medium mb-1 block">Bathrooms</label>
+                            <select 
+                              className="w-full bg-gray-50 border border-gray-200 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                              value={searchParams.bathrooms}
+                              onChange={(e) => setSearchParams({...searchParams, bathrooms: e.target.value})}
+                            >
+                              <option value="">Any</option>
+                              <option value="1">1 Bathroom</option>
+                              <option value="2">2 Bathrooms</option>
+                              <option value="3">3 Bathrooms</option>
+                              <option value="4">4 Bathrooms</option>
+                              <option value="5+">5+ Bathrooms</option>
+                            </select>
+                          </div>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                    
+                    {/* Area Size */}
+                    <AccordionItem value="area-size">
+                      <AccordionTrigger className="text-sm font-medium">Area Size</AccordionTrigger>
+                      <AccordionContent>
+                        <div className="mb-6">
+                          <div className="flex justify-between text-sm mb-2">
+                            <span>Min: {searchParams.minArea} sq.ft</span>
+                            <span>Max: {searchParams.maxArea} sq.ft</span>
+                          </div>
+                          <Slider
+                            defaultValue={[searchParams.minArea, searchParams.maxArea]}
+                            max={10000}
+                            step={100}
+                            onValueChange={(values) => 
+                              setSearchParams({
+                                ...searchParams, 
+                                minArea: values[0], 
+                                maxArea: values[1]
+                              })
+                            }
+                            className="my-4"
+                          />
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                    
+                    {/* Developers & Landmarks */}
+                    <AccordionItem value="developer-landmark">
+                      <AccordionTrigger className="text-sm font-medium">Developer & Landmarks</AccordionTrigger>
+                      <AccordionContent>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <label className="text-sm font-medium mb-1 block">Developer</label>
+                            <select 
+                              className="w-full bg-gray-50 border border-gray-200 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                              value={searchParams.developer}
+                              onChange={(e) => setSearchParams({...searchParams, developer: e.target.value})}
+                            >
+                              <option value="">Any Developer</option>
+                              <option value="emaar">Emaar Properties</option>
+                              <option value="damac">DAMAC Properties</option>
+                              <option value="nakheel">Nakheel</option>
+                              <option value="sobha">Sobha Realty</option>
+                              <option value="meraas">Meraas</option>
+                              <option value="aldar">Aldar Properties</option>
+                              <option value="selectgroup">Select Group</option>
+                            </select>
+                          </div>
+                          <div>
+                            <label className="text-sm font-medium mb-1 block">Nearby Landmark</label>
+                            <select 
+                              className="w-full bg-gray-50 border border-gray-200 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                              value={searchParams.landmark}
+                              onChange={(e) => setSearchParams({...searchParams, landmark: e.target.value})}
+                            >
+                              <option value="">Select Landmark</option>
+                              <option value="burj-khalifa">Burj Khalifa</option>
+                              <option value="palm-jumeirah">Palm Jumeirah</option>
+                              <option value="dubai-mall">Dubai Mall</option>
+                              <option value="dubai-marina">Dubai Marina</option>
+                              <option value="expo-city">Expo City</option>
+                              <option value="dubai-creek">Dubai Creek</option>
+                              <option value="difc">DIFC</option>
+                              <option value="mall-of-emirates">Mall of Emirates</option>
+                            </select>
+                          </div>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                    
+                    {/* Property Features */}
+                    <AccordionItem value="property-features">
+                      <AccordionTrigger className="text-sm font-medium">Property Features</AccordionTrigger>
+                      <AccordionContent>
+                        <div className="grid grid-cols-2 gap-y-2">
+                          <div className="flex items-center space-x-2">
+                            <Checkbox 
+                              id="furnished" 
+                              checked={searchParams.furnishing === 'furnished'}
+                              onCheckedChange={(checked) => 
+                                setSearchParams({...searchParams, furnishing: checked ? 'furnished' : ''})
+                              }
+                            />
+                            <Label htmlFor="furnished" className="text-sm">Furnished</Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Checkbox 
+                              id="balcony" 
+                              checked={searchParams.features.includes('balcony')}
+                              onCheckedChange={(checked) => {
+                                const newFeatures = checked 
+                                  ? [...searchParams.features, 'balcony']
+                                  : searchParams.features.filter(f => f !== 'balcony');
+                                setSearchParams({...searchParams, features: newFeatures});
+                              }}
+                            />
+                            <Label htmlFor="balcony" className="text-sm">Balcony</Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Checkbox 
+                              id="maids-room" 
+                              checked={searchParams.features.includes('maids-room')}
+                              onCheckedChange={(checked) => {
+                                const newFeatures = checked 
+                                  ? [...searchParams.features, 'maids-room']
+                                  : searchParams.features.filter(f => f !== 'maids-room');
+                                setSearchParams({...searchParams, features: newFeatures});
+                              }}
+                            />
+                            <Label htmlFor="maids-room" className="text-sm">Maid's Room</Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Checkbox 
+                              id="private-pool" 
+                              checked={searchParams.features.includes('private-pool')}
+                              onCheckedChange={(checked) => {
+                                const newFeatures = checked 
+                                  ? [...searchParams.features, 'private-pool']
+                                  : searchParams.features.filter(f => f !== 'private-pool');
+                                setSearchParams({...searchParams, features: newFeatures});
+                              }}
+                            />
+                            <Label htmlFor="private-pool" className="text-sm">Private Pool</Label>
+                          </div>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                    
+                    {/* Building Amenities */}
+                    <AccordionItem value="building-amenities">
+                      <AccordionTrigger className="text-sm font-medium">Building Amenities</AccordionTrigger>
+                      <AccordionContent>
+                        <div className="grid grid-cols-2 gap-y-2">
+                          <div className="flex items-center space-x-2">
+                            <Checkbox 
+                              id="gym" 
+                              checked={searchParams.amenities.includes('gym')}
+                              onCheckedChange={(checked) => {
+                                const newAmenities = checked 
+                                  ? [...searchParams.amenities, 'gym']
+                                  : searchParams.amenities.filter(a => a !== 'gym');
+                                setSearchParams({...searchParams, amenities: newAmenities});
+                              }}
+                            />
+                            <Label htmlFor="gym" className="text-sm">Gym</Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Checkbox 
+                              id="pool" 
+                              checked={searchParams.amenities.includes('pool')}
+                              onCheckedChange={(checked) => {
+                                const newAmenities = checked 
+                                  ? [...searchParams.amenities, 'pool']
+                                  : searchParams.amenities.filter(a => a !== 'pool');
+                                setSearchParams({...searchParams, amenities: newAmenities});
+                              }}
+                            />
+                            <Label htmlFor="pool" className="text-sm">Swimming Pool</Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Checkbox 
+                              id="security" 
+                              checked={searchParams.amenities.includes('security')}
+                              onCheckedChange={(checked) => {
+                                const newAmenities = checked 
+                                  ? [...searchParams.amenities, 'security']
+                                  : searchParams.amenities.filter(a => a !== 'security');
+                                setSearchParams({...searchParams, amenities: newAmenities});
+                              }}
+                            />
+                            <Label htmlFor="security" className="text-sm">24/7 Security</Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Checkbox 
+                              id="kids-area" 
+                              checked={searchParams.amenities.includes('kids-area')}
+                              onCheckedChange={(checked) => {
+                                const newAmenities = checked 
+                                  ? [...searchParams.amenities, 'kids-area']
+                                  : searchParams.amenities.filter(a => a !== 'kids-area');
+                                setSearchParams({...searchParams, amenities: newAmenities});
+                              }}
+                            />
+                            <Label htmlFor="kids-area" className="text-sm">Kids Play Area</Label>
+                          </div>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                    
+                    {/* Investment Filters */}
+                    <AccordionItem value="investment-filters">
+                      <AccordionTrigger className="text-sm font-medium">Investment Focused</AccordionTrigger>
+                      <AccordionContent>
+                        <div className="space-y-3">
+                          <div className="flex items-center space-x-2">
+                            <Checkbox 
+                              id="golden-visa" 
+                              checked={searchParams.isGoldenVisaEligible}
+                              onCheckedChange={(checked) => 
+                                setSearchParams({...searchParams, isGoldenVisaEligible: !!checked})
+                              }
+                            />
+                            <Label htmlFor="golden-visa" className="text-sm">Golden Visa Eligible</Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Checkbox 
+                              id="mortgage" 
+                              checked={searchParams.isMortgageAvailable}
+                              onCheckedChange={(checked) => 
+                                setSearchParams({...searchParams, isMortgageAvailable: !!checked})
+                              }
+                            />
+                            <Label htmlFor="mortgage" className="text-sm">Mortgage Available</Label>
+                          </div>
+                          <div className="mt-3">
+                            <Label className="text-sm font-medium mb-1 block">Handover Year</Label>
+                            <select 
+                              className="w-full bg-gray-50 border border-gray-200 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                              value={searchParams.handoverYear}
+                              onChange={(e) => setSearchParams({...searchParams, handoverYear: e.target.value})}
+                            >
+                              <option value="">Any Year</option>
+                              <option value="2024">2024</option>
+                              <option value="2025">2025</option>
+                              <option value="2026">2026</option>
+                              <option value="2027">2027</option>
+                              <option value="2028+">2028 and beyond</option>
+                            </select>
+                          </div>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                  
+                  <div className="mt-4 flex justify-end">
+                    <button
+                      type="button"
+                      className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-md text-sm mr-2"
+                      onClick={() => {
+                        // Reset all advanced filters
+                        setSearchParams({
+                          ...searchParams,
+                          bedrooms: '',
+                          bathrooms: '',
+                          minArea: 0,
+                          maxArea: 5000,
+                          landmark: '',
+                          developer: '',
+                          handoverYear: '',
+                          furnishing: '',
+                          view: '',
+                          amenities: [],
+                          floor: '',
+                          features: [],
+                          isGoldenVisaEligible: false,
+                          isMortgageAvailable: false
+                        });
+                      }}
+                    >
+                      Clear Filters
+                    </button>
+                    <button
+                      type="submit"
+                      className="bg-primary hover:bg-teal-dark text-white px-4 py-2 rounded-md text-sm"
+                    >
+                      Apply Filters
+                    </button>
+                  </div>
+                </div>
+              )}
             </form>
           </motion.div>
 
