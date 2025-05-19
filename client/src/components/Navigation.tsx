@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import logopng from '../assets/logo.png'
 
 const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -34,7 +35,7 @@ const Navigation = () => {
           <Link href="/">
             <div className="flex items-center cursor-pointer">
               <img 
-                src="/src/assets/desert-jewel-logo.svg" 
+                src='{logopng}'
                 alt="Desert Jewel Realty Logo" 
                 className="h-14 w-auto"
               />
