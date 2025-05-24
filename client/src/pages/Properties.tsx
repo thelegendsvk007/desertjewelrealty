@@ -46,14 +46,19 @@ const Properties = () => {
   }, [location]);
 
   // Fetch properties with search parameters
-  const { data: properties, isLoading, isError } = useQuery({
+  const { data: propertiesRaw, isLoading, isError } = useQuery({
     queryKey: ['/api/properties/search', searchParams],
     queryFn: async () => {
       const params = new URLSearchParams();
-      if (searchParams.propertyType) params.append('propertyType', searchParams.propertyType);
-      if (searchParams.locationId) params.append('locationId', searchParams.locationId);
+      // Only send valid propertyType
+      if (searchParams.propertyType && searchParams.propertyType !== 'all-types') params.append('propertyType', searchParams.propertyType);
+      // Only send valid locationId
+      if (searchParams.locationId && searchParams.locationId !== 'all-locations') params.append('locationId', String(Number(searchParams.locationId)));
+      // Only send valid maxPrice
       if (searchParams.maxPrice) params.append('price', searchParams.maxPrice.toString());
-      if (searchParams.beds) params.append('beds', searchParams.beds);
+      // Only send valid beds
+      if (searchParams.beds && searchParams.beds !== 'any') params.append('beds', String(Number(searchParams.beds)));
+      // Only send valid status
       if (searchParams.status) params.append('status', searchParams.status);
       
       const res = await fetch(`/api/properties/search?${params.toString()}`, {
@@ -65,10 +70,14 @@ const Properties = () => {
     }
   });
 
+  // Always use an array for properties
+  const properties = Array.isArray(propertiesRaw) ? propertiesRaw : [];
+
   // Fetch locations for filter
-  const { data: locations } = useQuery({
+  const { data: locationsRaw } = useQuery({
     queryKey: ['/api/locations'],
   });
+  const locations = Array.isArray(locationsRaw) ? locationsRaw : [];
 
   const handleSearch = () => {
     // Update URL with search params without page reload
@@ -161,7 +170,7 @@ const Properties = () => {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all-locations">All Locations</SelectItem>
-                      {locations?.map((location: any) => (
+                      {locations.map((location: any) => (
                         <SelectItem key={location.id} value={location.id.toString()}>
                           {location.name}
                         </SelectItem>

@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 import { Skeleton } from '@/components/ui/skeleton';
+import LeafletMap from '@/components/LeafletMap';
 
 type LocationTab = 'dubai' | 'abudhabi' | 'sharjah' | 'rasalkhaimah' | 'ajman' | 'fujairah' | 'ummalquwain';
 
@@ -113,20 +114,67 @@ const InteractiveMap = () => {
               )}
             </div>
             
-            <Link href="/properties">
-              <a className="bg-transparent border border-primary text-primary hover:bg-primary hover:text-white px-6 py-2 rounded-full font-montserrat font-medium transition-colors duration-200 inline-flex items-center">
-                View Full Map Experience <i className="fas fa-external-link-alt ml-2"></i>
-              </a>
-            </Link>
+            <a 
+              href="#" 
+              onClick={(e) => {
+                e.preventDefault();
+                // Open a modal or expand the current map
+                const mapContainer = document.querySelector('.leaflet-container');
+                if (mapContainer) {
+                  mapContainer.classList.add('fullscreen-map');
+                  // Add a close button
+                  const closeButton = document.createElement('button');
+                  closeButton.innerText = '×';
+                  closeButton.className = 'absolute top-4 right-4 bg-white rounded-full w-10 h-10 text-2xl z-50 shadow-md';
+                  closeButton.onclick = () => {
+                    mapContainer.classList.remove('fullscreen-map');
+                    closeButton.remove();
+                  };
+                  mapContainer.appendChild(closeButton);
+                }
+              }}
+              className="bg-transparent border border-primary text-primary hover:bg-primary hover:text-white px-6 py-2 rounded-full font-montserrat font-medium transition-colors duration-200 inline-flex items-center"
+            >
+              View Full Map Experience <i className="fas fa-external-link-alt ml-2"></i>
+            </a>
           </div>
           
           <div className="bg-white rounded-xl overflow-hidden shadow-lg h-[450px] relative">
-            {/* Map visualization */}
-            <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-              <img 
-                src="https://images.unsplash.com/photo-1576158114254-17d16516b9e9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
-                alt="Dubai Map" 
-                className="w-full h-full object-cover"
+            {/* Interactive OpenStreetMap */}
+            <div className="h-full">
+              <LeafletMap 
+                center={[25.0657, 55.17128]} // Centered on Dubai
+                zoom={8}
+                markers={[
+                  {
+                    position: [25.0657, 55.17128], // Dubai
+                    popup: "Dubai: 250+ Properties"
+                  },
+                  {
+                    position: [24.4539, 54.3773], // Abu Dhabi
+                    popup: "Abu Dhabi: 120+ Properties"
+                  },
+                  {
+                    position: [25.3463, 55.4209], // Sharjah
+                    popup: "Sharjah: 85+ Properties"
+                  },
+                  {
+                    position: [25.7916, 55.9426], // Ras Al Khaimah
+                    popup: "Ras Al Khaimah: 40+ Properties"
+                  },
+                  {
+                    position: [25.4111, 55.4304], // Ajman
+                    popup: "Ajman: 30+ Properties"
+                  },
+                  {
+                    position: [25.1164, 56.3417], // Fujairah
+                    popup: "Fujairah: 25+ Properties"
+                  },
+                  {
+                    position: [25.5651, 55.5532], // Umm Al Quwain
+                    popup: "Umm Al Quwain: 15+ Properties"
+                  }
+                ]}
               />
               
               {/* Map Overlay with markers */}
@@ -147,8 +195,8 @@ const InteractiveMap = () => {
                     <div className={`w-6 h-6 ${activeTab === 'dubai' ? 'bg-primary' : 'bg-secondary'} rounded-full flex items-center justify-center animate-pulse-slow`}>
                       <div className="w-3 h-3 bg-white rounded-full"></div>
                     </div>
-                    <div className="absolute top-8 left-1/2 transform -translate-x-1/2 bg-white px-3 py-1 rounded-md shadow-md">
-                      <p className="text-xs font-medium whitespace-nowrap">Dubai: 250+ Properties</p>
+                    <div className="absolute top-8 left-0 transform -translate-x-1/4 bg-white px-3 py-1 rounded-md shadow-md">
+                      <p className="text-xs font-medium whitespace-nowrap">Dubai Marina</p>
                     </div>
                   </div>
                 </motion.div>

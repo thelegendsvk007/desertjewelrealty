@@ -31,19 +31,19 @@ const ContactFloatingButton = () => {
       name: 'Call Us',
       icon: <Phone className="w-5 h-5" />,
       color: 'bg-green-500',
-      link: 'tel:+97112345678', // Replace with actual phone number
+      link: 'tel:+971589532210',
     },
     {
       name: 'Telegram',
       icon: <Send className="w-5 h-5" />,
       color: 'bg-blue-500',
-      link: 'https://t.me/desertjewelrealty', // Replace with actual Telegram username
+      link: 'https://t.me/desertjewelrealtychat',
     },
     {
       name: 'WhatsApp',
       icon: <MessageCircle className="w-5 h-5" />,
       color: 'bg-teal-600',
-      link: 'https://wa.me/971123456789', // Replace with actual WhatsApp number
+      link: 'https://wa.me/971599532210',
     },
     {
       name: 'Email',

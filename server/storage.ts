@@ -205,9 +205,18 @@ export class MemStorage implements IStorage {
       featured: true
     };
     
+    const maritimeCity: InsertLocation = {
+      name: "Dubai Maritime City",
+      city: "Dubai",
+      description: "A waterfront development offering modern residential and commercial spaces with stunning marina views.",
+      propertyCount: 15,
+      featured: true
+    };
+    
     const loc1 = this.createLocation(dubaiMarina);
     const loc2 = this.createLocation(palmJumeirah);
     const loc3 = this.createLocation(downtownDubai);
+    const loc4 = this.createLocation(maritimeCity);
     
     // Seed properties
     const property1: InsertProperty = {
@@ -219,7 +228,7 @@ export class MemStorage implements IStorage {
       beds: 5,
       baths: 6,
       area: 7500,
-      locationId: loc2.id,
+      locationId: 1,
       developerId: 1, // Emaar
       address: "Frond K, Palm Jumeirah, Dubai",
       images: JSON.stringify(["https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"]),
@@ -241,7 +250,7 @@ export class MemStorage implements IStorage {
       beds: 4,
       baths: 4.5,
       area: 5200,
-      locationId: loc1.id,
+      locationId: 2,
       developerId: 2, // Damac
       address: "Dubai Marina, Dubai",
       images: JSON.stringify(["https://images.unsplash.com/photo-1565182999561-18d7dc61c393?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"]),
@@ -263,7 +272,7 @@ export class MemStorage implements IStorage {
       beds: 2,
       baths: 2.5,
       area: 1450,
-      locationId: loc3.id,
+      locationId: 3,
       developerId: 3, // Nakheel
       address: "Downtown, Dubai",
       images: JSON.stringify(["https://images.unsplash.com/photo-1600585154526-990dced4db0d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"]),
@@ -276,9 +285,79 @@ export class MemStorage implements IStorage {
       newLaunch: true
     };
     
+    // Chelsea Residences properties
+    const chelseaResidences1BR: InsertProperty = {
+      title: "Chelsea Residences - 1 Bedroom",
+      description: "Elegant 1-bedroom apartment in the prestigious Chelsea Residences with modern amenities and waterfront views.",
+      propertyType: "Apartment",
+      status: "Off-Plan",
+      price: 2170000,
+      beds: 1,
+      baths: 1,
+      area: 750,
+      locationId: 4, // Maritime City
+      developerId: 2, // Damac Properties
+      address: "Chelsea Residences, Maritime City, Dubai",
+      images: JSON.stringify(["/assets/properties/Chelsea-1BR.png"]),
+      features: JSON.stringify(["Marina Views", "Gym", "Swimming Pool", "Concierge", "24/7 Security"]),
+      latitude: 25.0657,
+      longitude: 55.1408,
+      featured: true,
+      premium: false,
+      exclusive: false,
+      newLaunch: true
+    };
+    
+    const chelseaResidences2BR: InsertProperty = {
+      title: "Chelsea Residences - 2 Bedroom",
+      description: "Spacious 2-bedroom apartment in Chelsea Residences featuring premium finishes and panoramic marina views.",
+      propertyType: "Apartment",
+      status: "Off-Plan",
+      price: 3130000,
+      beds: 2,
+      baths: 2,
+      area: 1200,
+      locationId: 4, // Maritime City
+      developerId: 2, // Damac Properties
+      address: "Chelsea Residences, Maritime City, Dubai",
+      images: JSON.stringify(["https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"]),
+      features: JSON.stringify(["Marina Views", "Gym", "Swimming Pool", "Balcony", "Concierge", "24/7 Security"]),
+      latitude: 25.0658,
+      longitude: 55.1409,
+      featured: true,
+      premium: false,
+      exclusive: false,
+      newLaunch: true
+    };
+    
+    const chelseaResidences3BR: InsertProperty = {
+      title: "Chelsea Residences - 3 Bedroom",
+      description: "Luxurious 3-bedroom apartment in Chelsea Residences with stunning views and world-class amenities.",
+      propertyType: "Apartment",
+      status: "Off-Plan",
+      price: 4940000,
+      beds: 3,
+      baths: 3,
+      area: 1800,
+      locationId: 4, // Maritime City
+      developerId: 2, // Damac Properties
+      address: "Chelsea Residences, Maritime City, Dubai",
+      images: JSON.stringify(["https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"]),
+      features: JSON.stringify(["Marina Views", "Gym", "Swimming Pool", "Private Balcony", "Maid's Room", "Concierge", "24/7 Security"]),
+      latitude: 25.0659,
+      longitude: 55.1410,
+      featured: true,
+      premium: true,
+      exclusive: false,
+      newLaunch: true
+    };
+    
     this.createProperty(property1);
     this.createProperty(property2);
     this.createProperty(property3);
+    this.createProperty(chelseaResidences1BR);
+    this.createProperty(chelseaResidences2BR);
+    this.createProperty(chelseaResidences3BR);
   }
 
   // Developer methods

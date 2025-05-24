@@ -37,10 +37,10 @@ const AboutUs = () => {
           <div>
             <h2 className="text-3xl font-montserrat font-semibold mb-6">Our Story</h2>
             <p className="text-gray-600 mb-4">
-              Desert Jewel Realty was founded in 2008 with a vision to transform the luxury real estate landscape in the UAE. What began as a boutique agency has grown into one of Dubai's most trusted names in premium property.
+              Desert Jewel Realty was founded in 2025 with a vision to transform the luxury real estate landscape in the UAE. What began as a boutique agency is quickly becoming one of Dubai's most trusted names in premium property.
             </p>
             <p className="text-gray-600 mb-4">
-              With over 15 years of experience in the UAE real estate market, we've cultivated deep relationships with the region's top developers, giving our clients exclusive access to the most coveted properties and off-market opportunities.
+              With 5 years of experience in the UAE real estate market, we've cultivated strong relationships with the region's top developers, giving our clients exclusive access to the most coveted properties and off-market opportunities.
             </p>
             <p className="text-gray-600">
               Our reputation has been built on a foundation of integrity, personalized service, and an unwavering commitment to exceeding our clients' expectations. From first-time homebuyers to seasoned investors, we guide each client through their unique real estate journey with expertise and dedication.
@@ -54,7 +54,7 @@ const AboutUs = () => {
             />
             <div className="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-lg p-4 w-48">
               <p className="text-center font-montserrat font-semibold text-primary">
-                Established 2008
+                Established 2025
               </p>
             </div>
           </div>
@@ -126,20 +126,20 @@ const AboutUs = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           <div className="bg-white rounded-xl shadow-md overflow-hidden">
             <div className="h-64 bg-gray-200">
               <img 
                 src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=774&q=80" 
-                alt="CEO" 
+                alt="Founder" 
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="p-6 text-center">
-              <h3 className="text-xl font-montserrat font-semibold mb-1">Ahmed Al Mansouri</h3>
-              <p className="text-primary mb-4">Founder & CEO</p>
+              <h3 className="text-xl font-montserrat font-semibold mb-1">Safiyan Khan</h3>
+              <p className="text-primary mb-4">Founder</p>
               <p className="text-gray-600 mb-4">
-                With over 20 years in luxury real estate, Ahmed brings unparalleled market insight and strategic vision.
+                With over 25 years in the UAE, Safiyan brings extensive market knowledge and a deep understanding of local real estate dynamics.
               </p>
               <div className="flex justify-center space-x-3">
                 <a href="#" className="text-gray-400 hover:text-primary">
@@ -158,44 +158,16 @@ const AboutUs = () => {
           <div className="bg-white rounded-xl shadow-md overflow-hidden">
             <div className="h-64 bg-gray-200">
               <img 
-                src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=774&q=80" 
-                alt="COO" 
+                src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-1.2.1&auto=format&fit=crop&w=774&q=80" 
+                alt="Partner" 
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="p-6 text-center">
-              <h3 className="text-xl font-montserrat font-semibold mb-1">Sarah Johnson</h3>
-              <p className="text-primary mb-4">Chief Operating Officer</p>
+              <h3 className="text-xl font-montserrat font-semibold mb-1">Jiten Thakker</h3>
+              <p className="text-primary mb-4">Sales Executive</p>
               <p className="text-gray-600 mb-4">
-                Sarah oversees our operations, ensuring seamless client experiences and operational excellence.
-              </p>
-              <div className="flex justify-center space-x-3">
-                <a href="#" className="text-gray-400 hover:text-primary">
-                  <i className="fab fa-linkedin-in"></i>
-                </a>
-                <a href="#" className="text-gray-400 hover:text-primary">
-                  <i className="fab fa-twitter"></i>
-                </a>
-                <a href="#" className="text-gray-400 hover:text-primary">
-                  <i className="fas fa-envelope"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-white rounded-xl shadow-md overflow-hidden">
-            <div className="h-64 bg-gray-200">
-              <img 
-                src="https://images.unsplash.com/photo-1540569014015-19a7be504e3a?ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80" 
-                alt="Sales Director" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="p-6 text-center">
-              <h3 className="text-xl font-montserrat font-semibold mb-1">Mohammed Patel</h3>
-              <p className="text-primary mb-4">Director of Sales</p>
-              <p className="text-gray-600 mb-4">
-                Mohammed leads our elite sales team with a focus on custom solutions for high-net-worth clients.
+                Jiten brings valuable connections to the Indian market, helping expand our international client base and investment opportunities.
               </p>
               <div className="flex justify-center space-x-3">
                 <a href="#" className="text-gray-400 hover:text-primary">
@@ -213,36 +185,7 @@ const AboutUs = () => {
         </div>
       </section>
       
-      {/* Stats Section */}
-      <section className="py-16 bg-dark text-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-3xl font-montserrat font-semibold mb-4">Our Impact in Numbers</h2>
-            <p className="text-white/80">
-              Over the years, we've achieved remarkable results for our clients and partners.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-5xl font-bold text-secondary mb-2">15+</div>
-              <p className="font-montserrat">Years of Experience</p>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold text-secondary mb-2">1,500+</div>
-              <p className="font-montserrat">Properties Sold</p>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold text-secondary mb-2">3.2B+</div>
-              <p className="font-montserrat">AED in Sales Volume</p>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold text-secondary mb-2">98%</div>
-              <p className="font-montserrat">Client Satisfaction</p>
-            </div>
-          </div>
-        </div>
-      </section>
+{/* Stats section removed as requested */}
       
       {/* Testimonials Section */}
       <section className="py-16 container mx-auto px-4">

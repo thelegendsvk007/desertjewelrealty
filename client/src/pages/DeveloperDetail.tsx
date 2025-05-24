@@ -132,7 +132,7 @@ const DeveloperDetail = () => {
                 )}
                 {developer.contactPhone && (
                   <a 
-                    href={`tel:${developer.contactPhone}`}
+                    href={`tel:${developer.contactPhone || '+971589532210'}`}
                     className="inline-flex items-center text-primary hover:text-teal-dark"
                   >
                     <i className="fas fa-phone-alt mr-2"></i> Call
@@ -331,7 +331,7 @@ const DeveloperDetail = () => {
                   <i className="fas fa-envelope mr-2"></i> Contact Us
                 </a>
               </Link>
-              <a href={`tel:${developer.contactPhone || '+971 4 388 9900'}`} className="bg-white border border-primary text-primary hover:bg-primary hover:text-white px-6 py-3 rounded-md transition-colors duration-200 inline-flex items-center">
+              <a href={`tel:${developer.contactPhone || '+971589532210'}`} className="bg-white border border-primary text-primary hover:bg-primary hover:text-white px-6 py-3 rounded-md transition-colors duration-200 inline-flex items-center">
                 <i className="fas fa-phone-alt mr-2"></i> Call Now
               </a>
             </div>

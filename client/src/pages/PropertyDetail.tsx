@@ -18,9 +18,20 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { formatPrice, formatArea, parsePropertyImages, parsePropertyFeatures } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import GoldenVisaIndicator from '@/components/GoldenVisaIndicator';
+import LeafletMap from '@/components/LeafletMap';
+import { Property } from '@shared/schema';
 
 import {
   Form,
@@ -350,12 +361,16 @@ const PropertyDetail = () => {
                   <h3 className="text-xl font-montserrat font-semibold mb-6">Location</h3>
                   <div className="rounded-lg overflow-hidden h-[400px] bg-gray-100">
                     {property.latitude && property.longitude ? (
-                      <iframe 
-                        title="Property Location"
-                        className="w-full h-full border-0"
-                        src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBtRxlUgQGS8WIiRuNUKxsjlZ9eHyP-yk4&q=${property.latitude},${property.longitude}&zoom=15`}
-                        allowFullScreen
-                      ></iframe>
+                      <LeafletMap 
+                        center={[parseFloat(property.latitude), parseFloat(property.longitude)]}
+                        zoom={15}
+                        markers={[
+                          {
+                            position: [parseFloat(property.latitude), parseFloat(property.longitude)],
+                            popup: property.title
+                          }
+                        ]}
+                      />
                     ) : (
                       <div className="flex items-center justify-center h-full">
                         <p className="text-gray-500">Map location not available</p>
@@ -552,9 +567,36 @@ const PropertyDetail = () => {
                   </SheetContent>
                 </Sheet>
                 
-                <Button className="w-full bg-white border border-primary text-primary hover:bg-primary hover:text-white">
-                  <i className="fas fa-phone-alt mr-2"></i> Call Agent
-                </Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className="w-full bg-white border border-primary text-primary hover:bg-primary hover:text-white">
+                      <i className="fas fa-phone-alt mr-2"></i> Call Agent
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-sm">
+                    <DialogHeader>
+                      <DialogTitle>Contact Our Agent</DialogTitle>
+                      <DialogDescription>
+                        Our agent is ready to assist you with this property.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="flex flex-col items-center py-4">
+                      <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                        <i className="fas fa-user text-primary text-2xl"></i>
+                      </div>
+                      <p className="font-medium text-lg">Sales Agent</p>
+                      <p className="text-primary text-xl font-semibold mt-2">+971 58 953 2210</p>
+                    </div>
+                    <DialogFooter>
+                      <a 
+                        href="tel:+971589532210" 
+                        className="bg-primary text-white w-full py-2 rounded-md text-center font-medium"
+                      >
+                        Call Now
+                      </a>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
                 
                 <Button className="w-full bg-white border border-gray-200 text-foreground hover:bg-gray-100">
                   <i className="far fa-heart mr-2"></i> Save Property

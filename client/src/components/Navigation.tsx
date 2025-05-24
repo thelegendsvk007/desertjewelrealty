@@ -35,7 +35,7 @@ const Navigation = () => {
           <Link href="/">
             <div className="flex items-center cursor-pointer">
               <img 
-                src='{logopng}'
+                src= {logopng}
                 alt="Desert Jewel Realty Logo" 
                 className="h-14 w-auto"
               />
@@ -53,40 +53,14 @@ const Navigation = () => {
               </span>
             </Link>
             
-            <div className="dropdown relative group">
-              <div className={cn(
-                "font-montserrat font-medium transition-colors duration-200 flex items-center cursor-pointer",
+            <Link href="/properties">
+              <span className={cn(
+                "font-montserrat font-medium transition-colors duration-200 cursor-pointer",
                 location.startsWith('/properties') ? "text-primary" : "text-foreground hover:text-primary"
               )}>
-                Properties <i className="fas fa-chevron-down ml-1 text-xs"></i>
-              </div>
-              <div className="absolute left-0 top-full pt-2 w-48 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                <div className="bg-white shadow-lg rounded-md py-2">
-                  <div className="py-1">
-                    <Link href="/properties?type=apartment">
-                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
-                        Apartments
-                      </div>
-                    </Link>
-                    <Link href="/properties?type=villa">
-                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
-                        Villas
-                      </div>
-                    </Link>
-                    <Link href="/properties?type=penthouse">
-                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
-                        Penthouses
-                      </div>
-                    </Link>
-                    <Link href="/properties?type=off-plan">
-                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
-                        Off-Plan
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
+                Properties
+              </span>
+            </Link>
             
             <div className="dropdown relative group">
               <div className={cn(

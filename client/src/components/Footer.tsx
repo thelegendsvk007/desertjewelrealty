@@ -130,11 +130,11 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start">
                 <i className="fas fa-map-marker-alt text-primary mt-1 mr-3"></i>
-                <span className="text-gray-400">Dubai Marina, Al Marsa Street, Dubai, UAE</span>
+                <span className="text-gray-400">21C Street - Dubai Naif, Dubai, UAE</span>
               </li>
               <li className="flex items-center">
                 <i className="fas fa-phone-alt text-primary mr-3"></i>
-                <a href="tel:+97143889900" className="text-gray-400 hover:text-primary transition-colors duration-200">+971 4 388 9900</a>
+                <a href="tel:+971589532210" className="text-gray-400 hover:text-primary transition-colors duration-200">+971 58 953 2210</a>
               </li>
               <li className="flex items-center">
                 <i className="fas fa-envelope text-primary mr-3"></i>

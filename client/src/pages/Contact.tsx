@@ -6,6 +6,7 @@ import { insertInquirySchema } from '@shared/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import LeafletMap from '@/components/LeafletMap';
 
 import {
   Form,
@@ -56,10 +57,12 @@ const Contact = () => {
       // Omit the subject field when sending to the API
       const { subject, ...inquiryData } = values;
       
-      // Update the message to include the subject
-      inquiryData.message = `Subject: ${subject}\n\n${inquiryData.message}`;
+      // Update the message to include the subject and email address
+      inquiryData.message = `Subject: ${subject}\n\nTo: info@desertjewelrealty.com\n\n${inquiryData.message}`;
       
       await apiRequest('POST', '/api/inquiries', inquiryData);
+      
+      // This would be where email functionality would be implemented server-side to send to info@desertjewelrealty.com
       
       toast({
         title: "Message Sent Successfully",
@@ -258,8 +261,8 @@ const Contact = () => {
                   <div>
                     <h4 className="font-montserrat font-medium mb-1">Phone Number</h4>
                     <p className="text-gray-600">
-                      <a href="tel:+97143889900" className="hover:text-primary transition-colors duration-200">
-                        +971 4 388 9900
+                      <a href="tel:+971589532210" className="hover:text-primary transition-colors duration-200">
+                        +971 58 953 2210
                       </a>
                     </p>
                   </div>
@@ -297,8 +300,11 @@ const Contact = () => {
                   <a href="#" className="bg-[#3b5998] text-white w-10 h-10 rounded-full flex items-center justify-center hover:opacity-90">
                     <i className="fab fa-facebook-f"></i>
                   </a>
-                  <a href="#" className="bg-[#1da1f2] text-white w-10 h-10 rounded-full flex items-center justify-center hover:opacity-90">
-                    <i className="fab fa-twitter"></i>
+                  <a href="https://t.me/desertjewelrealtychat" target="_blank" rel="noopener noreferrer" className="bg-[#0088cc] text-white w-10 h-10 rounded-full flex items-center justify-center hover:opacity-90">
+                    <i className="fab fa-telegram-plane"></i>
+                  </a>
+                  <a href="https://wa.me/971599532210" target="_blank" rel="noopener noreferrer" className="bg-[#25d366] text-white w-10 h-10 rounded-full flex items-center justify-center hover:opacity-90">
+                    <i className="fab fa-whatsapp"></i>
                   </a>
                   <a href="#" className="bg-[#0e76a8] text-white w-10 h-10 rounded-full flex items-center justify-center hover:opacity-90">
                     <i className="fab fa-linkedin-in"></i>
@@ -316,7 +322,7 @@ const Contact = () => {
                 Our dedicated team is available 24/7 for urgent inquiries and premium property viewings.
               </p>
               <a 
-                href="tel:+97143889900" 
+                href="tel:+971589532210" 
                 className="bg-white text-primary hover:bg-secondary hover:text-white px-6 py-3 rounded-md transition-colors duration-200 inline-flex items-center w-full justify-center"
               >
                 <i className="fas fa-phone-alt mr-2"></i> Call Now
@@ -331,18 +337,19 @@ const Contact = () => {
         <div className="bg-[#D4AF37] text-teal-800 rounded-xl shadow-md p-8">
           <h2 className="text-2xl font-montserrat font-semibold mb-6">Our Location</h2>
           <p className="text-teal-700 mb-6">
-            Visit our luxurious office in the heart of Dubai Marina. Our elite team of real estate consultants are ready to assist you in finding your dream property or investment opportunity across the UAE.
+            Visit our luxurious office at 21C Street - Dubai Naif Dubai. Our elite team of real estate consultants are ready to assist you in finding your dream property or investment opportunity across the UAE.
           </p>
           <div className="rounded-xl overflow-hidden h-[400px]">
-            <iframe 
-              src={`https://www.google.com/maps/embed/v1/place?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}&q=Dubai+Marina,Dubai&zoom=15`}
-              width="100%" 
-              height="100%" 
-              style={{ border: 0 }} 
-              allowFullScreen={true} 
-              loading="lazy" 
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
+            <LeafletMap 
+              center={[25.2744, 55.3308]} // Coordinates for Dubai Naif
+              zoom={15}
+              markers={[
+                {
+                  position: [25.2744, 55.3308],
+                  popup: "Desert Jewel Realty - Dubai Naif Office"
+                }
+              ]}
+            />
           </div>
         </div>
       </section>
