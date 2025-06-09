@@ -44,8 +44,8 @@ const VerticalContactMenu: React.FC<VerticalContactMenuProps> = ({ className = '
       link: 'https://instagram.com/desertjewelrealty' // Replace with actual Instagram page
     },
     {
-      name: 'Chatbot',
-      icon: <BrainCircuit className="w-6 h-6" />,
+      name: 'AI Assistant',
+      icon: <span className="text-sm font-bold">AI</span>,
       color: 'bg-yellow-500',
       onClick: () => {
         setIsChatbotOpen(true);

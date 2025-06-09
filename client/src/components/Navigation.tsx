@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import logopng from '../assets/logo.png'
+import logopng from '../assets/logo.png';
+import { developersData } from '@/data/developersData';
+interface NavigationProps {}
 
 const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -52,7 +54,7 @@ const Navigation = () => {
                 Home
               </span>
             </Link>
-            
+
             <Link href="/properties">
               <span className={cn(
                 "font-montserrat font-medium transition-colors duration-200 cursor-pointer",
@@ -61,7 +63,7 @@ const Navigation = () => {
                 Properties
               </span>
             </Link>
-            
+
             <div className="dropdown relative group">
               <div className={cn(
                 "font-montserrat font-medium transition-colors duration-200 flex items-center cursor-pointer",
@@ -69,29 +71,30 @@ const Navigation = () => {
               )}>
                 Developers <i className="fas fa-chevron-down ml-1 text-xs"></i>
               </div>
-              <div className="absolute left-0 top-full pt-2 w-48 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                <div className="bg-white shadow-lg rounded-md py-2">
+              <div className="absolute left-0 top-full pt-2 w-56 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div 
+                  className="bg-white shadow-lg rounded-md py-2 max-h-96 overflow-y-auto scroll-smooth"
+                  onMouseEnter={(e) => {
+                    const container = e.currentTarget;
+                    const lastItem = container.querySelector('div:last-child');
+                    if (lastItem) {
+                      lastItem.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                    }
+                  }}
+                >
                   <div className="py-1">
-                    <Link href="/developers/1">
-                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
-                        Emaar
-                      </div>
-                    </Link>
-                    <Link href="/developers/2">
-                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
-                        Damac
-                      </div>
-                    </Link>
-                    <Link href="/developers/3">
-                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
-                        Nakheel
-                      </div>
-                    </Link>
+                    {developersData.map((developer) => (
+                      <Link key={developer.id} href={`/developers/${developer.id}`}>
+                        <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                          {developer.name}
+                        </div>
+                      </Link>
+                    ))}
                   </div>
                 </div>
               </div>
             </div>
-            
+
             <div className="dropdown relative group">
               <div className={cn(
                 "font-montserrat font-medium transition-colors duration-200 flex items-center cursor-pointer",
@@ -100,7 +103,16 @@ const Navigation = () => {
                 Tools <i className="fas fa-chevron-down ml-1 text-xs"></i>
               </div>
               <div className="absolute left-0 top-full pt-2 w-48 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                <div className="bg-white shadow-lg rounded-md py-2">
+                <div 
+                  className="bg-white shadow-lg rounded-md py-2 scroll-smooth"
+                  onMouseEnter={(e) => {
+                    const container = e.currentTarget;
+                    const lastItem = container.querySelector('div:last-child');
+                    if (lastItem) {
+                      lastItem.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                    }
+                  }}
+                >
                   <div className="py-1">
                     <Link href="/investment-tools">
                       <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
@@ -131,7 +143,7 @@ const Navigation = () => {
                 </div>
               </div>
             </div>
-            
+
             <Link href="/location-insights">
               <span className={cn(
                 "font-montserrat font-medium transition-colors duration-200 cursor-pointer",
@@ -140,7 +152,7 @@ const Navigation = () => {
                 Location Insights
               </span>
             </Link>
-            
+
             <Link href="/about">
               <span className={cn(
                 "font-montserrat font-medium transition-colors duration-200 cursor-pointer",
@@ -149,7 +161,7 @@ const Navigation = () => {
                 About Us
               </span>
             </Link>
-            
+
             <div className="dropdown relative group">
               <div className={cn(
                 "font-montserrat font-medium transition-colors duration-200 flex items-center cursor-pointer",
@@ -158,7 +170,16 @@ const Navigation = () => {
                 Contact <i className="fas fa-chevron-down ml-1 text-xs"></i>
               </div>
               <div className="absolute left-0 top-full pt-2 w-48 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                <div className="bg-white shadow-lg rounded-md py-2">
+                <div 
+                  className="bg-white shadow-lg rounded-md py-2 scroll-smooth"
+                  onMouseEnter={(e) => {
+                    const container = e.currentTarget;
+                    const lastItem = container.querySelector('div:last-child');
+                    if (lastItem) {
+                      lastItem.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                    }
+                  }}
+                >
                   <div className="py-1">
                     <Link href="/contact">
                       <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
@@ -253,6 +274,7 @@ const Navigation = () => {
                   FAQ
                 </span>
               </Link>
+
               <Link href="/contact">
                 <span className="block w-full mt-3 bg-primary text-white px-4 py-2 rounded-full font-medium text-center cursor-pointer">
                   Request a Call

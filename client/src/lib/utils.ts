@@ -46,20 +46,25 @@ export function getStatusBadgeColor(status: string) {
   }
 }
 
-export function parsePropertyImages(imagesJson: string): string[] {
+export function parsePropertyImages(images: string | string[] | undefined): string[] {
+  if (!images) return [];
+  if (Array.isArray(images)) {
+    return images;
+  }
   try {
-    return JSON.parse(imagesJson);
+    return JSON.parse(images);
   } catch (error) {
     console.error("Failed to parse property images:", error);
     return [];
   }
 }
 
-export function parsePropertyFeatures(featuresJson: string | null): string[] {
-  if (!featuresJson) return [];
+export function parsePropertyFeatures(features: string | string[] | null | undefined): string[] {
+  if (!features) return [];
+  if (Array.isArray(features)) return features;
   
   try {
-    return JSON.parse(featuresJson);
+    return JSON.parse(features);
   } catch (error) {
     console.error("Failed to parse property features:", error);
     return [];

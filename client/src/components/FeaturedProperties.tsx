@@ -1,8 +1,7 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Link } from 'wouter';
-import { useQuery } from '@tanstack/react-query';
-import { Skeleton } from '@/components/ui/skeleton';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import GoldenVisaIndicator from '@/components/GoldenVisaIndicator';
 import { 
@@ -11,13 +10,14 @@ import {
   parsePropertyImages 
 } from '@/lib/utils';
 import { Property } from '@/types';
+import { getFeaturedProperties } from '@/data/properties';
 
 const FeaturedProperties = () => {
   const [activeFilter, setActiveFilter] = useState('all');
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const autoScrollRef = useRef<NodeJS.Timeout>();
   
-  const { data: properties, isLoading, isError } = useQuery<Property[]>({
-    queryKey: ['/api/properties/featured'],
-  });
+  const properties = getFeaturedProperties();
   
   const filteredProperties = properties 
     ? activeFilter === 'all' 
@@ -30,11 +30,62 @@ const FeaturedProperties = () => {
   
   const propertyTypes = [
     { id: 'all', label: 'All' },
+    { id: 'studio', label: 'Studios' },
     { id: 'apartment', label: 'Apartments' },
     { id: 'villa', label: 'Villas' },
     { id: 'penthouse', label: 'Penthouses' },
+    { id: 'duplex', label: 'Duplexes' },
     { id: 'off-plan', label: 'Off-Plan' }
   ];
+
+  // Continuous auto-scroll functionality
+  useEffect(() => {
+    const startAutoScroll = () => {
+      if (scrollContainerRef.current && filteredProperties.length > 0) {
+        autoScrollRef.current = setInterval(() => {
+          if (scrollContainerRef.current) {
+            const container = scrollContainerRef.current;
+            const maxScroll = container.scrollWidth - container.clientWidth;
+            
+            if (container.scrollLeft >= maxScroll) {
+              container.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+              container.scrollTo({ 
+                left: container.scrollLeft + 2, 
+                behavior: 'auto' 
+              });
+            }
+          }
+        }, 30); // Smooth continuous scrolling
+      }
+    };
+
+    const stopAutoScroll = () => {
+      if (autoScrollRef.current) {
+        clearInterval(autoScrollRef.current);
+      }
+    };
+
+    // Only start auto-scroll if we have enough properties to scroll
+    if (filteredProperties.length > 3) {
+      startAutoScroll();
+    }
+
+    return () => stopAutoScroll();
+  }, [filteredProperties]);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const container = scrollContainerRef.current;
+      const scrollAmount = 400;
+      
+      if (direction === 'left') {
+        container.scrollLeft -= scrollAmount;
+      } else {
+        container.scrollLeft += scrollAmount;
+      }
+    }
+  };
 
   return (
     <section className="py-20 px-4 bg-gray-50 animated-bg">
@@ -48,7 +99,7 @@ const FeaturedProperties = () => {
         </div>
         
         {/* Property Filters */}
-        <div className="flex flex-wrap justify-center mb-12 gap-2">
+        <div className="flex flex-wrap justify-center gap-4 mb-12">
           {propertyTypes.map(type => (
             <button
               key={type.id}
@@ -62,148 +113,186 @@ const FeaturedProperties = () => {
           ))}
         </div>
         
-        {/* Property Grid */}
-        {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3].map(i => (
-              <div key={i} className="bg-white rounded-xl shadow-lg overflow-hidden">
-                <Skeleton className="h-60 w-full" />
-                <div className="p-6">
-                  <Skeleton className="h-6 w-3/4 mb-2" />
-                  <Skeleton className="h-4 w-1/2 mb-4" />
-                  <Skeleton className="h-6 w-1/4 mb-4" />
-                  <div className="border-t border-gray-100 pt-4">
-                    <div className="flex justify-between">
-                      <Skeleton className="h-4 w-16" />
-                      <Skeleton className="h-4 w-16" />
-                      <Skeleton className="h-4 w-16" />
+        {/* Property Carousel */}
+        <div className="relative">
+          {/* Navigation Arrows */}
+          <button
+            onClick={() => scroll('left')}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-300 hover:scale-110"
+            style={{
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%)',
+              backdropFilter: 'blur(10px)'
+            }}
+          >
+            <ChevronLeft className="w-6 h-6 text-primary" />
+          </button>
+          
+          <button
+            onClick={() => scroll('right')}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-300 hover:scale-110"
+            style={{
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%)',
+              backdropFilter: 'blur(10px)'
+            }}
+          >
+            <ChevronRight className="w-6 h-6 text-primary" />
+          </button>
+
+          {/* Scrollable Container */}
+          <div 
+            ref={scrollContainerRef}
+            className="flex gap-8 overflow-x-auto scrollbar-hide scroll-smooth pb-4 px-12"
+            style={{ 
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none'
+            }}
+            onMouseEnter={() => {
+              if (autoScrollRef.current) {
+                clearInterval(autoScrollRef.current);
+              }
+            }}
+            onMouseLeave={() => {
+              if (filteredProperties.length > 3) {
+                const startAutoScroll = () => {
+                  if (scrollContainerRef.current) {
+                    autoScrollRef.current = setInterval(() => {
+                      if (scrollContainerRef.current) {
+                        const container = scrollContainerRef.current;
+                        const maxScroll = container.scrollWidth - container.clientWidth;
+                        
+                        if (container.scrollLeft >= maxScroll) {
+                          container.scrollTo({ left: 0, behavior: 'smooth' });
+                        } else {
+                          container.scrollTo({ 
+                            left: container.scrollLeft + 2, 
+                            behavior: 'auto' 
+                          });
+                        }
+                      }
+                    }, 30);
+                  }
+                };
+                startAutoScroll();
+              }
+            }}
+          >
+            {filteredProperties.map((property: Property) => {
+              const imageData = typeof property.images === 'string' ? property.images : JSON.stringify(property.images);
+              const images = parsePropertyImages(imageData);
+              const featuredImage = images.length > 0 ? images[0] : '';
+              
+              return (
+                <motion.div 
+                  key={property.id}
+                  className="flex-shrink-0 w-[280px] h-[380px] property-card bg-white rounded-xl shadow-lg overflow-hidden group transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-1 flex flex-col"
+                  whileHover={{ y: -5 }}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <div className="relative h-[200px]">
+                    <img 
+                      src={featuredImage} 
+                      alt={property.title} 
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+                      {property.premium && (
+                        <Badge variant="premium">Premium</Badge>
+                      )}
+                      {property.exclusive && (
+                        <Badge variant="exclusive">Exclusive</Badge>
+                      )}
+                      {property.newLaunch && (
+                        <Badge variant="new">New Launch</Badge>
+                      )}
+                      {property.fastSelling && (
+                        <Badge variant="fastSelling">Fast Selling</Badge>
+                      )}
+                      {property.status === 'off-plan' && (
+                        <Badge variant="destructive">Off Plan</Badge>
+                      )}
+                      {property.status === 'ready' && (
+                        <Badge variant="default">Ready to Move In</Badge>
+                      )}
+                      {property.completionYear && (
+                        <Badge variant="secondary">
+                          Completion {property.completionQuarter ? `${property.completionQuarter} ` : ''}{property.completionYear}
+                        </Badge>
+                      )}
+                    </div>
+                    {property.soldOut && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/60">
+                        <div className="bg-red-600 text-white px-8 py-4 rounded-lg text-xl font-bold animate-pulse">
+                          SOLD OUT
+                        </div>
+                      </div>
+                    )}
+                    {property.comingSoon && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/60">
+                        <Badge variant="comingSoon" className="px-8 py-4 text-xl font-bold">
+                          COMING SOON
+                        </Badge>
+                      </div>
+                    )}
+                    <div className="absolute top-4 right-4">
+                      <button 
+                        className="bg-white/80 hover:bg-white text-foreground p-2 rounded-full transition-all duration-200"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          const url = `${window.location.origin}/properties/${property.id}`;
+                          if (navigator.share) {
+                            navigator.share({
+                              title: property.title,
+                              text: `Check out this property: ${property.title}`,
+                              url: url
+                            });
+                          } else {
+                            navigator.clipboard.writeText(url);
+                            // You could add a toast notification here
+                          }
+                        }}
+                      >
+                        <i className="fas fa-share-alt"></i>
+                      </button>
+                    </div>
+                    <div className="property-overlay absolute inset-0 bg-dark-darker/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <Link href={`/properties/${property.id}`}>
+                        <div className="bg-white text-foreground hover:bg-primary hover:text-white font-medium px-4 py-2 rounded-md transition-colors duration-200 cursor-pointer">
+                          View Property
+                        </div>
+                      </Link>
                     </div>
                   </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : isError ? (
-          <div className="text-center py-10 text-gray-500">
-            Unable to load properties. Please try again later.
-          </div>
-        ) : (
-          <AnimatePresence mode="wait">
-            <motion.div 
-              key={activeFilter}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            >
-              {filteredProperties.map((property: Property) => {
-                // Handle string or array for images
-                const imageData = typeof property.images === 'string' ? property.images : JSON.stringify(property.images);
-                const images = parsePropertyImages(imageData);
-                const featuredImage = images.length > 0 ? images[0] : '';
-                
-                return (
-                  <motion.div 
-                    key={property.id}
-                    className="property-card bg-white rounded-xl shadow-lg overflow-hidden group transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-1"
-                    whileHover={{ y: -5 }}
-                  >
-                    <div className="relative">
-                      <img 
-                        src={featuredImage} 
-                        alt={property.title} 
-                        className="w-full h-60 object-cover"
-                      />
-                      <div className="absolute top-4 left-4">
-                        {property.premium && (
-                          <Badge variant="premium" className="mr-2">Premium</Badge>
-                        )}
-                        {property.exclusive && (
-                          <Badge variant="exclusive" className="mr-2">Exclusive</Badge>
-                        )}
-                        {property.newLaunch && (
-                          <Badge variant="new">New Launch</Badge>
-                        )}
+                  
+                  <div className="p-4 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className="font-semibold mb-2 text-sm line-clamp-1 group-hover:text-primary transition-colors duration-200">
+                        {property.title}
+                      </h3>
+                      <p className="text-xl font-bold text-[#D4AF37] mb-1">{formatPrice(property.price)}</p>
+                      <p className="text-xs text-muted-foreground mb-3 line-clamp-1">{property.address}</p>
+                    </div>
+                    <div className="grid grid-cols-3 gap-2 text-xs text-primary">
+                      <div className="text-center">
+                        <span className="font-medium">{property.beds || 0}</span>
+                        <div>beds</div>
                       </div>
-                      <div className="absolute top-4 right-4">
-                        <button className="bg-white/80 hover:bg-white text-foreground p-2 rounded-full">
-                          <i className="far fa-heart"></i>
-                        </button>
+                      <div className="text-center">
+                        <span className="font-medium">{property.baths || 0}</span>
+                        <div>baths</div>
                       </div>
-                      {/* Property overlay */}
-                      <div className="property-overlay absolute inset-0 bg-dark-darker/40 opacity-0 transition-opacity duration-300 flex items-center justify-center">
-                        <Link href={`/properties/${property.id}`}>
-                          <a className="bg-white text-foreground hover:bg-primary hover:text-white font-medium px-4 py-2 rounded-md transition-colors duration-200">
-                            View Property
-                          </a>
-                        </Link>
+                      <div className="text-center">
+                        <span className="font-medium">{property.area ? Math.round(property.area).toLocaleString() : '0'}</span>
+                        <div>sqft</div>
                       </div>
                     </div>
-                    
-                    <div className="p-6">
-                      <div className="flex justify-between items-start mb-4">
-                        <div>
-                          <h3 className="font-montserrat text-xl font-semibold mb-1">{property.title}</h3>
-                          <p className="text-gray-500 flex items-center">
-                            <i className="fas fa-map-marker-alt text-primary mr-2"></i> {property.address}
-                          </p>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-secondary font-bold text-xl">{formatPrice(property.price)}</p>
-                        </div>
-                      </div>
-                      
-                      <div className="border-t border-gray-100 pt-4">
-                        <div className="flex justify-between text-gray-600">
-                          <div className="flex items-center">
-                            <i className="fas fa-bed text-primary mr-2"></i>
-                            <span>{property.beds} Beds</span>
-                          </div>
-                          <div className="flex items-center">
-                            <i className="fas fa-bath text-primary mr-2"></i>
-                            <span>{property.baths} Baths</span>
-                          </div>
-                          <div className="flex items-center">
-                            <i className="fas fa-ruler-combined text-primary mr-2"></i>
-                            <span>{formatArea(property.area)}</span>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="mt-6 card-actions">
-                        <div className="flex flex-wrap gap-2 mb-3">
-                          <span className="text-xs bg-gray-100 text-gray-800 px-3 py-1 rounded-full">{property.status}</span>
-                          {/* Golden Visa Indicator */}
-                          <GoldenVisaIndicator price={property.price} />
-                        </div>
-                        <div className="flex justify-end">
-                          <div className="flex space-x-2">
-                            <button className="bg-gray-100 hover:bg-gray-200 text-foreground p-2 rounded-full transition-colors duration-200">
-                              <i className="fas fa-share-alt"></i>
-                            </button>
-                            <Link href={`/properties/${property.id}`}>
-                              <a className="bg-gray-100 hover:bg-gray-200 text-foreground p-2 rounded-full transition-colors duration-200">
-                                <i className="fas fa-info-circle"></i>
-                              </a>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
-          </AnimatePresence>
-        )}
-        
-        <div className="mt-16 text-center">
-          <Link href="/properties">
-            <a className="bg-primary hover:bg-teal-dark text-white px-8 py-3 rounded-full font-montserrat font-medium transition-colors duration-200 shadow-md inline-flex items-center">
-              Explore All Properties <i className="fas fa-arrow-right ml-2"></i>
-            </a>
-          </Link>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

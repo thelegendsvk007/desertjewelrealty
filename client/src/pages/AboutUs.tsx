@@ -16,15 +16,15 @@ const AboutUs = () => {
           <img 
             src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
             alt="About Desert Jewel Realty" 
-            className="w-full h-full object-cover opacity-40"
+            className="w-full h-full object-cover opacity-30"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-dark-darker/40 to-dark-darker/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/80"></div>
         </div>
         
         <div className="container mx-auto px-4 relative">
           <div className="max-w-3xl mx-auto text-center text-white">
-            <h1 className="text-4xl md:text-5xl font-montserrat font-bold mb-4">About Desert Jewel Realty</h1>
-            <p className="text-lg text-white/80 mb-0">
+            <h1 className="text-4xl md:text-5xl font-montserrat font-bold mb-4 text-shadow-lg">About Desert Jewel Realty</h1>
+            <p className="text-lg text-white mb-0 text-shadow-md font-medium">
               Dubai's premier luxury real estate brokerage, connecting dreams to reality across the UAE
             </p>
           </div>
@@ -126,61 +126,69 @@ const AboutUs = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <div className="bg-white rounded-xl shadow-md overflow-hidden">
-            <div className="h-64 bg-gray-200">
-              <img 
-                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=774&q=80" 
-                alt="Founder" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="p-6 text-center">
-              <h3 className="text-xl font-montserrat font-semibold mb-1">Safiyan Khan</h3>
-              <p className="text-primary mb-4">Founder</p>
-              <p className="text-gray-600 mb-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+          <div className="bg-white rounded-2xl shadow-lg p-10 text-center transform transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+            <div className="mb-6">
+              <h3 className="text-2xl font-montserrat font-bold mb-2">Safiyan Khan</h3>
+              <p className="text-primary font-semibold text-lg mb-4">Founder</p>
+              <p className="text-gray-600 leading-relaxed mb-6">
                 With over 25 years in the UAE, Safiyan brings extensive market knowledge and a deep understanding of local real estate dynamics.
               </p>
-              <div className="flex justify-center space-x-3">
-                <a href="#" className="text-gray-400 hover:text-primary">
-                  <i className="fab fa-linkedin-in"></i>
-                </a>
-                <a href="#" className="text-gray-400 hover:text-primary">
-                  <i className="fab fa-twitter"></i>
-                </a>
-                <a href="#" className="text-gray-400 hover:text-primary">
-                  <i className="fas fa-envelope"></i>
-                </a>
-              </div>
             </div>
+            <div className="flex justify-center space-x-4 mb-8">
+              <a href="https://www.linkedin.com/company/desert-jewel-realty/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors">
+                <i className="fab fa-linkedin-in"></i>
+              </a>
+              <a href="https://x.com/desertjewel_?s=21" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+              <a href="https://www.facebook.com/share/1Bn4dATDGZ/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-blue-800 text-white rounded-full flex items-center justify-center hover:bg-blue-900 transition-colors">
+                <i className="fab fa-facebook-f"></i>
+              </a>
+              <a href="mailto:safiyan.khan@desertjewelrealty.com" className="w-10 h-10 bg-gray-600 text-white rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors">
+                <i className="fas fa-envelope"></i>
+              </a>
+            </div>
+            <Link 
+              href="/team/safiyan-khan" 
+              className="inline-block bg-primary text-white px-8 py-3 rounded-lg hover:bg-primary-dark transition-colors font-semibold shadow-md hover:shadow-lg"
+            >
+              View Profile
+            </Link>
           </div>
           
-          <div className="bg-white rounded-xl shadow-md overflow-hidden">
-            <div className="h-64 bg-gray-200">
-              <img 
-                src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-1.2.1&auto=format&fit=crop&w=774&q=80" 
-                alt="Partner" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="p-6 text-center">
-              <h3 className="text-xl font-montserrat font-semibold mb-1">Jiten Thakker</h3>
-              <p className="text-primary mb-4">Sales Executive</p>
-              <p className="text-gray-600 mb-4">
+          <div className="bg-white rounded-2xl shadow-lg p-10 text-center transform transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+            <div className="mb-6">
+              <h3 className="text-2xl font-montserrat font-bold mb-2">Jiten Thakker</h3>
+              <p className="text-primary font-semibold text-lg mb-4">Sales Director - India </p>
+              <p className="text-gray-600 leading-relaxed mb-6">
                 Jiten brings valuable connections to the Indian market, helping expand our international client base and investment opportunities.
               </p>
-              <div className="flex justify-center space-x-3">
-                <a href="#" className="text-gray-400 hover:text-primary">
-                  <i className="fab fa-linkedin-in"></i>
-                </a>
-                <a href="#" className="text-gray-400 hover:text-primary">
-                  <i className="fab fa-twitter"></i>
-                </a>
-                <a href="#" className="text-gray-400 hover:text-primary">
-                  <i className="fas fa-envelope"></i>
-                </a>
-              </div>
             </div>
+            <div className="flex justify-center space-x-4 mb-8">
+              <a href="https://www.linkedin.com/company/desert-jewel-realty/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors">
+                <i className="fab fa-linkedin-in"></i>
+              </a>
+              <a href="https://x.com/desertjewel_?s=21" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+              <a href="https://www.facebook.com/share/1Bn4dATDGZ/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-blue-800 text-white rounded-full flex items-center justify-center hover:bg-blue-900 transition-colors">
+                <i className="fab fa-facebook-f"></i>
+              </a>
+              <a href="mailto:jitenthakker@desertjewelrealty.com" className="w-10 h-10 bg-gray-600 text-white rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors">
+                <i className="fas fa-envelope"></i>
+              </a>
+            </div>
+            <Link 
+              href="/team/jiten-thakker" 
+              className="inline-block bg-primary text-white px-8 py-3 rounded-lg hover:bg-primary-dark transition-colors font-semibold shadow-md hover:shadow-lg"
+            >
+              View Profile
+            </Link>
           </div>
         </div>
       </section>

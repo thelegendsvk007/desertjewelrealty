@@ -1,12 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { Link } from 'wouter';
-import { Skeleton } from '@/components/ui/skeleton';
+import { developersData } from '@/data/developersData';
 
 const Developers = () => {
-  const { data: developers, isLoading, isError } = useQuery({
-    queryKey: ['/api/developers'],
-  });
+  const developers = developersData;
+  const isLoading = false;
+  const isError = false;
 
   return (
     <motion.div
@@ -22,15 +21,15 @@ const Developers = () => {
           <img 
             src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
             alt="Dubai Developers" 
-            className="w-full h-full object-cover opacity-40"
+            className="w-full h-full object-cover opacity-30"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-dark-darker/40 to-dark-darker/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/80"></div>
         </div>
         
         <div className="container mx-auto px-4 relative">
           <div className="max-w-3xl mx-auto text-center text-white">
-            <h1 className="text-4xl md:text-5xl font-montserrat font-bold mb-4">Premier UAE Developers</h1>
-            <p className="text-lg text-white/80 mb-0">
+            <h1 className="text-4xl md:text-5xl font-montserrat font-bold mb-4 text-shadow-lg">Premier UAE Developers</h1>
+            <p className="text-lg text-white mb-0 text-shadow-md font-medium">
               Discover prestigious projects from the UAE's leading property developers
             </p>
           </div>
@@ -48,67 +47,53 @@ const Developers = () => {
           </p>
         </div>
         
-        {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3, 4, 5, 6].map(i => (
-              <div key={i} className="bg-white rounded-xl shadow-lg overflow-hidden">
-                <Skeleton className="h-40 w-full" />
-                <div className="p-6">
-                  <Skeleton className="h-6 w-3/4 mb-2" />
-                  <Skeleton className="h-4 w-1/2 mb-4" />
-                  <Skeleton className="h-20 w-full mb-4" />
-                  <Skeleton className="h-8 w-full" />
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : isError ? (
-          <div className="text-center py-12">
-            <h3 className="text-xl text-red-500 font-medium mb-2">Error Loading Developers</h3>
-            <p className="text-gray-600 mb-4">We're unable to load developers at this time. Please try again later.</p>
-            <button 
-              className="bg-primary hover:bg-teal-dark text-white py-2 px-4 rounded-md transition-colors duration-200"
-              onClick={() => window.location.reload()}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {developers.map((developer, index: number) => (
+            <motion.div 
+              key={developer.id}
+              className="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              Retry
-            </button>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {developers.map((developer: any, index: number) => (
-              <motion.div 
-                key={developer.id}
-                className="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <div className="h-40 bg-gray-100 flex items-center justify-center p-6">
-                  <img 
-                    src={developer.logo} 
-                    alt={`${developer.name} Logo`} 
-                    className="max-h-full max-w-full object-contain"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-montserrat font-semibold mb-2">{developer.name}</h3>
-                  <p className="text-gray-500 mb-1">Established {developer.established}</p>
-                  <p className="text-gray-500 mb-4">{developer.projectCount}+ Projects</p>
-                  
-                  <p className="text-gray-600 mb-6 line-clamp-3">
-                    {developer.description}
-                  </p>
-                  
-                  <Link href={`/developers/${developer.id}`}>
-                    <a className="block w-full text-center bg-primary hover:bg-teal-dark text-white py-2 rounded-md transition-colors duration-200">
-                      View Projects
-                    </a>
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        )}
+              <div className="p-6">
+                <h3 className="text-xl font-montserrat font-semibold mb-2">{developer.name}</h3>
+                <p className="text-gray-500 mb-1">Established {developer.established}</p>
+                <p className="text-gray-500 mb-4">{developer.projectCount}+ Projects</p>
+                
+                <p className="text-gray-600 mb-6 line-clamp-3">
+                  {developer.description.split('.')[0] + '.'}
+                </p>
+                
+                {developer.keyProjects && developer.keyProjects.length > 0 && (
+                  <div className="mb-4">
+                    <h4 className="text-sm font-semibold text-gray-700 mb-2">Key Projects:</h4>
+                    <div className="flex flex-wrap gap-1">
+                      {developer.keyProjects.slice(0, 3).map((project, idx) => (
+                        <span key={idx} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
+                          {project}
+                        </span>
+                      ))}
+                      {developer.keyProjects.length > 3 && (
+                        <span className="text-xs text-gray-500">+{developer.keyProjects.length - 3} more</span>
+                      )}
+                    </div>
+                  </div>
+                )}
+                
+                <Link href={`/developers/${developer.id}`}>
+                  <motion.button 
+                    className="w-full bg-primary hover:bg-teal-dark text-white py-2 rounded-md transition-colors duration-200"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    View Details
+                  </motion.button>
+                </Link>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </section>
       
       {/* Developer Benefits Section */}

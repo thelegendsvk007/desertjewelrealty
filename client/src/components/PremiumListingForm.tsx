@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { apiRequest } from '@/lib/queryClient';
-import { useQueryClient } from '@tanstack/react-query';
+import { localStorageService } from '@/lib/localStorage';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -76,7 +75,7 @@ const PremiumListingForm = ({
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
   const [imagePreviewUrls, setImagePreviewUrls] = useState<string[]>([]);
   const { toast } = useToast();
-  const queryClient = useQueryClient();
+
 
   const form = useForm<PropertyFormValues>({
     resolver: zodResolver(propertyFormSchema),
@@ -130,50 +129,32 @@ const PremiumListingForm = ({
     setIsSubmitting(true);
 
     try {
-      // Create a FormData object to send the images
-      const formData = new FormData();
-      
-      // Add all form fields
-      Object.entries(data).forEach(([key, value]) => {
-        if (key !== 'images') {
-          formData.append(key, String(value));
-        }
-      });
-      
-      // Add each image
-      selectedImages.forEach((file, index) => {
-        formData.append(`images`, file);
-      });
+      // Convert images to URLs for storage
+      const imageUrls = selectedImages.length > 0 
+        ? selectedImages.map(file => URL.createObjectURL(file))
+        : ["https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"];
 
-      // For demo purposes, directly using the existing API endpoint
-      // In a real implementation, this would be a multipart/form-data request
-      const propertyData = {
-        ...data,
-        // Set properties that would come from the backend
-        images: JSON.stringify(selectedImages.length > 0 
-          ? selectedImages.map(_ => "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80")
-          : ["https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"]
-        ),
-        premium: true,
-        reviewStatus: 'pending',
-        // These are required fields in our schema
-        locationId: 1, // Default to Dubai Marina
-        developerId: 1, // Default to Emaar Properties
-        // Convert form values to appropriate types
+      // Save to local storage
+      const propertyListing = {
+        title: data.title,
+        description: data.description,
         price: Number(data.price),
-        beds: Number(data.beds),
-        baths: Number(data.baths),
+        location: data.address,
+        propertyType: data.propertyType,
+        bedrooms: Number(data.beds),
+        bathrooms: Number(data.baths),
         area: Number(data.area),
+        images: imageUrls,
+        premium: data.listingType === 'agent',
+        exclusive: false,
+        newLaunch: false,
+        features: [],
+        submittedBy: data.contactName,
+        contactEmail: data.contactEmail,
+        contactPhone: data.contactPhone
       };
       
-      // apiRequest expects url and options as separate arguments
-      await fetch('/api/properties', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(propertyData),
-      });
+      localStorageService.savePropertyListing(propertyListing);
 
       toast({
         title: 'Success!',
@@ -185,10 +166,6 @@ const PremiumListingForm = ({
       setSelectedImages([]);
       setImagePreviewUrls([]);
       setIsOpen(false);
-      
-      // Invalidate queries to refresh property lists
-      queryClient.invalidateQueries({ queryKey: ['/api/properties'] });
-      queryClient.invalidateQueries({ queryKey: ['/api/properties/featured'] });
       
     } catch (error) {
       console.error('Error submitting property:', error);

@@ -21,8 +21,8 @@ const GoldenVisaIndicator = ({ price, className = '' }: GoldenVisaIndicatorProps
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <div className={`inline-flex items-center space-x-1 bg-amber-50 text-amber-700 px-2 py-1 rounded-md cursor-help ${className}`}>
-            <BadgeCheck className="h-4 w-4 text-amber-600" />
+          <div className={`inline-flex items-center space-x-1 bg-amber-50 text-amber-700 px-2 py-1 rounded-md cursor-help animate-pulse ${className}`}>
+            <BadgeCheck className="h-4 w-4 text-amber-600 animate-bounce" />
             <span className="text-xs font-medium">Golden Visa Eligible</span>
           </div>
         </TooltipTrigger>

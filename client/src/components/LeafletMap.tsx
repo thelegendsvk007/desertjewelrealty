@@ -46,22 +46,39 @@ const LeafletMap: React.FC<LeafletMapProps> = ({
   }, []);
 
   return (
-    <MapContainer 
-      center={center}
-      zoom={zoom}
-      style={{ height: '100%', width: '100%', ...style }}
-      className={className}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
-      />
-      {markers.map((marker, index) => (
-        <Marker key={index} position={marker.position} icon={DefaultIcon}>
-          {marker.popup && <Popup>{marker.popup}</Popup>}
-        </Marker>
-      ))}
-    </MapContainer>
+    <div style={{ height: '100%', width: '100%', position: 'relative' }}>
+      <MapContainer 
+        center={center}
+        zoom={zoom}
+        style={{ 
+          height: '100%', 
+          width: '100%', 
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          ...style 
+        }}
+        className={`${className} leaflet-container-fixed`}
+        scrollWheelZoom={true}
+        doubleClickZoom={true}
+        closePopupOnClick={true}
+        dragging={true}
+        zoomSnap={1}
+        zoomDelta={1}
+        trackResize={true}
+        touchZoom={true}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
+        />
+        {markers.map((marker, index) => (
+          <Marker key={index} position={marker.position} icon={DefaultIcon}>
+            {marker.popup && <Popup>{marker.popup}</Popup>}
+          </Marker>
+        ))}
+      </MapContainer>
+    </div>
   );
 };
 

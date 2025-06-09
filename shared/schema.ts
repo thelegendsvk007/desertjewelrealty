@@ -1,102 +1,79 @@
-import { pgTable, text, serial, integer, boolean, timestamp, jsonb, real } from "drizzle-orm/pg-core";
-import { createInsertSchema } from "drizzle-zod";
-import { z } from "zod";
+import { pgTable, serial, text, timestamp, boolean, integer, jsonb } from 'drizzle-orm/pg-core';
+import { createInsertSchema } from 'drizzle-zod';
+import { z } from 'zod';
 
-// Developer Schema
-export const developers = pgTable("developers", {
-  id: serial("id").primaryKey(),
-  name: text("name").notNull(),
-  logo: text("logo").notNull(),
-  description: text("description").notNull(),
-  projectCount: integer("project_count").notNull(),
-  established: integer("established"),
-  website: text("website"),
-  contactEmail: text("contact_email"),
-  contactPhone: text("contact_phone"),
-  featured: boolean("featured").default(false),
+// Property Listings Schema
+export const propertyListings = pgTable('property_listings', {
+  id: serial('id').primaryKey(),
+  title: text('title').notNull(),
+  description: text('description'),
+  price: integer('price').notNull(),
+  location: text('location').notNull(),
+  propertyType: text('property_type').notNull(),
+  bedrooms: text('bedrooms'),
+  bathrooms: text('bathrooms'),
+  area: integer('area'),
+  status: text('status').default('pending'), // pending, approved, rejected
+  submittedBy: text('submitted_by').notNull(),
+  contactName: text('contact_name').notNull(),
+  contactPhone: text('contact_phone').notNull(),
+  contactEmail: text('contact_email').notNull(),
+  images: text('images').array().default([]),
+  features: text('features').array().default([]),
+  amenities: text('amenities').array().default([]),
+  developer: text('developer'),
+  handoverYear: text('handover_year'),
+  furnishing: text('furnishing'),
+  isGoldenVisaEligible: boolean('is_golden_visa_eligible').default(false),
+  isMortgageAvailable: boolean('is_mortgage_available').default(false),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
 });
 
-export const insertDeveloperSchema = createInsertSchema(developers).omit({
-  id: true
+// Users Schema (for authentication)
+export const users = pgTable('users', {
+  id: serial('id').primaryKey(),
+  username: text('username').unique().notNull(),
+  password: text('password').notNull(),
+  email: text('email').unique(),
+  role: text('role').default('user'), // user, admin
+  createdAt: timestamp('created_at').defaultNow(),
 });
 
-// Location Schema
-export const locations = pgTable("locations", {
-  id: serial("id").primaryKey(),
-  name: text("name").notNull(),
-  city: text("city").notNull(),
-  description: text("description"),
-  propertyCount: integer("property_count").default(0),
-  featured: boolean("featured").default(false),
+// Contact Messages Schema
+export const contactMessages = pgTable('contact_messages', {
+  id: serial('id').primaryKey(),
+  name: text('name').notNull(),
+  email: text('email').notNull(),
+  phone: text('phone').notNull(),
+  subject: text('subject').notNull(),
+  message: text('message').notNull(),
+  status: text('status').default('unread'), // unread, read, responded
+  createdAt: timestamp('created_at').defaultNow(),
 });
 
-export const insertLocationSchema = createInsertSchema(locations).omit({
-  id: true
-});
-
-// Property Schema
-export const properties = pgTable("properties", {
-  id: serial("id").primaryKey(),
-  title: text("title").notNull(),
-  description: text("description").notNull(),
-  propertyType: text("property_type").notNull(), // apartment, villa, penthouse, etc.
-  status: text("status").notNull(), // ready, off-plan, etc.
-  price: integer("price").notNull(),
-  beds: integer("beds"),
-  baths: integer("baths"),
-  area: integer("area"), // in sq ft
-  locationId: integer("location_id").notNull(),
-  developerId: integer("developer_id").notNull(),
-  address: text("address").notNull(),
-  images: jsonb("images").notNull(),
-  features: jsonb("features"), // array of features
-  latitude: real("latitude"),
-  longitude: real("longitude"),
-  featured: boolean("featured").default(false),
-  premium: boolean("premium").default(false),
-  exclusive: boolean("exclusive").default(false),
-  newLaunch: boolean("new_launch").default(false),
-  reviewStatus: text("review_status").default("pending"), // pending, approved, rejected
-  contactName: text("contact_name"), // Name of the submitter
-  contactEmail: text("contact_email"), // Email of the submitter
-  contactPhone: text("contact_phone"), // Phone of the submitter
-  listingType: text("listing_type"), // agent, private
-  createdAt: timestamp("created_at").defaultNow(),
-  updatedAt: timestamp("updated_at"),
-});
-
-export const insertPropertySchema = createInsertSchema(properties).omit({
-  id: true,
-  createdAt: true
-});
-
-// Inquiry Schema
-export const inquiries = pgTable("inquiries", {
-  id: serial("id").primaryKey(),
-  name: text("name").notNull(),
-  email: text("email").notNull(),
-  phone: text("phone").notNull(),
-  message: text("message").notNull(),
-  propertyId: integer("property_id"),
-  status: text("status").default("new").notNull(), // new, contacted, closed
-  createdAt: timestamp("created_at").defaultNow(),
-});
-
-export const insertInquirySchema = createInsertSchema(inquiries).omit({
+// Create insert schemas
+export const insertPropertyListingSchema = createInsertSchema(propertyListings).omit({
   id: true,
   createdAt: true,
-  status: true
+  updatedAt: true,
 });
 
-// Export types
-export type Developer = typeof developers.$inferSelect;
-export type InsertDeveloper = z.infer<typeof insertDeveloperSchema>;
+export const insertUserSchema = createInsertSchema(users).omit({
+  id: true,
+  createdAt: true,
+});
 
-export type Location = typeof locations.$inferSelect;
-export type InsertLocation = z.infer<typeof insertLocationSchema>;
+export const insertContactMessageSchema = createInsertSchema(contactMessages).omit({
+  id: true,
+  createdAt: true,
+  status: true,
+});
 
-export type Property = typeof properties.$inferSelect;
-export type InsertProperty = z.infer<typeof insertPropertySchema>;
-
-export type Inquiry = typeof inquiries.$inferSelect;
-export type InsertInquiry = z.infer<typeof insertInquirySchema>;
+// Create types
+export type PropertyListing = typeof propertyListings.$inferSelect;
+export type InsertPropertyListing = z.infer<typeof insertPropertyListingSchema>;
+export type User = typeof users.$inferSelect;
+export type InsertUser = z.infer<typeof insertUserSchema>;
+export type ContactMessage = typeof contactMessages.$inferSelect;
+export type InsertContactMessage = z.infer<typeof insertContactMessageSchema>;

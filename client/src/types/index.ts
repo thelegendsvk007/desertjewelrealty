@@ -1,49 +1,58 @@
-
-
 export interface Developer {
-    id: number | string;
-    name: string;
-    logo: string;
-    projectCount: string | number;
-    description?: string;
-    established?: number | string;
-    website?: string;
-    contactEmail?: string;
-    contactPhone?: string;
-    featured?: boolean;
-    [key: string]: any;
-  }
-  
-  export interface Property {
-    id: number | string;
-    images: string | string[];
-    title: string;
-    address: string;
-    price: number;
-    status: string;
-    beds: number;
-    baths: number;
-    area: number;
-    premium?: boolean;
-    exclusive?: boolean;
-    newLaunch?: boolean;
-    propertyType?: string;
-    [key: string]: any;
-  }
-  
-  export interface Development {
-    id: number | string;
-    name: string;
-    developer: string;
-    description: string;
-    price: string;
-    completion: string;
-    units: string;
-    brochure: string;
-    video: string;
-  }
+  id: number;
+  name: string;
+  logo: string;
+  projectCount: string | number;
+  description: string;
+  overviewParagraphs?: string[];
+  established?: number;
+  website?: string;
+  contactEmail?: string;
+  contactPhone?: string;
+  featured?: boolean;
+  keyProjects?: string[];
+  uniqueSellingPoints?: string[];
+  marketPosition?: string;
+}
 
-export { default as SobhaAquamontBrochure } from '../assets/brochures/Sobha_Aquamont_Downtown_UAQ.pdf?url';
-export { default as SobhaAquamontVideo } from '../assets/videos/sobha-aquamont-tour.mp4?url';
-export { default as SiniyaIslandBrochure } from '../assets/brochures/Siniya_Island_Beach_Residences.pdf?url';
-export { default as SiniyaIslandVideo } from '../assets/videos/siniya-island-tour.mp4?url';
+export interface Property {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  propertyType: string;
+  status: string;
+  address: string;
+  beds: number;
+  baths: number;
+  area: number;
+  images: string[];
+  features?: string[];
+  latitude?: number;
+  longitude?: number;
+  locationId: number;
+  developerId: number;
+  featured?: boolean;
+  premium?: boolean;
+  exclusive?: boolean;
+  newLaunch?: boolean;
+  comingSoon?: boolean;
+  soldOut?: boolean;
+  fastSelling?: boolean;
+  reviewStatus?: string;
+  contactName?: string;
+  contactEmail?: string;
+  contactPhone?: string;
+  listingType?: string;
+  createdAt?: Date;
+  updatedAt?: Date | null;
+}
+
+export interface Location {
+  id: number;
+  name: string;
+  city: string;
+  description?: string;
+  featured?: boolean;
+  propertyCount?: number;
+}

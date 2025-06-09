@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
-import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { Link } from 'wouter';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -12,18 +11,38 @@ import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
 import { Checkbox } from '@/components/ui/checkbox';
 import GoldenVisaIndicator from '@/components/GoldenVisaIndicator';
-import PremiumListingForm from '@/components/PremiumListingForm';
+import SubmitListingForm from '@/components/SubmitListingForm';
+import { propertiesData, searchProperties } from '@/data/properties';
+import { locationsData } from '@/data/locations';
+import { developersData } from '@/data/developersData';
 
 const Properties = () => {
   const [location, setLocation] = useLocation();
   const [searchParams, setSearchParams] = useState({
     propertyType: '',
     locationId: '',
+    city: '',
+    category: 'residential', // residential or commercial
     minPrice: 0,
     maxPrice: 50000000,
     beds: '',
-    status: ''
+    status: '',
+    bedrooms: '',
+    bathrooms: '',
+    minArea: 0,
+    maxArea: 5000,
+    landmark: '',
+    developer: '',
+    handoverYear: '',
+    furnishing: '',
+    features: [] as string[],
+    amenities: [] as string[],
+    isGoldenVisaEligible: false,
+    isMortgageAvailable: false
   });
+  const [sortBy, setSortBy] = useState('featured');
+  const [currentPage, setCurrentPage] = useState(1);
+  const propertiesPerPage = 10;
 
   // Parse query parameters
   useEffect(() => {
@@ -31,53 +50,213 @@ const Properties = () => {
     const type = params.get('type');
     const loc = params.get('location');
     const budget = params.get('budget');
+    const city = params.get('city');
+    const status = params.get('status');
+    const bedrooms = params.get('bedrooms');
+    const bathrooms = params.get('bathrooms');
+    const minArea = params.get('minArea');
+    const maxArea = params.get('maxArea');
+    const landmark = params.get('landmark');
+    const developer = params.get('developer');
+    const handoverYear = params.get('handoverYear');
+    const furnishing = params.get('furnishing');
+    const features = params.getAll('features');
+    const amenities = params.getAll('amenities');
+    const isGoldenVisaEligible = params.get('isGoldenVisaEligible') === 'true';
+    const isMortgageAvailable = params.get('isMortgageAvailable') === 'true';
     
-    if (type) {
-      setSearchParams(prev => ({ ...prev, propertyType: type }));
-    }
+
     
-    if (loc) {
-      setSearchParams(prev => ({ ...prev, locationId: loc }));
-    }
-    
-    if (budget) {
-      setSearchParams(prev => ({ ...prev, maxPrice: parseInt(budget) }));
-    }
+    setSearchParams(prev => ({
+      ...prev,
+      propertyType: type || '',
+      locationId: loc || '',
+      city: city ? (() => {
+        const cityMapping: { [key: string]: string } = {
+          'dubai': 'Dubai',
+          'abudhabi': 'Abu Dhabi',
+          'sharjah': 'Sharjah',
+          'ajman': 'Ajman',
+          'rasalkhaimah': 'Ras Al Khaimah',
+          'fujairah': 'Fujairah',
+          'ummalquwain': 'Umm Al Quwain'
+        };
+        return cityMapping[city.toLowerCase()] || city;
+      })() : '',
+      maxPrice: budget ? parseInt(budget) : 50000000,
+      status: status || '',
+      bedrooms: bedrooms || '',
+      bathrooms: bathrooms || '',
+      minArea: minArea ? parseInt(minArea) : 0,
+      maxArea: maxArea ? parseInt(maxArea) : 5000,
+      landmark: landmark || '',
+      developer: developer || '',
+      handoverYear: handoverYear || '',
+      furnishing: furnishing || '',
+      features: features,
+      amenities: amenities,
+      isGoldenVisaEligible,
+      isMortgageAvailable
+    }));
   }, [location]);
 
-  // Fetch properties with search parameters
-  const { data: propertiesRaw, isLoading, isError } = useQuery({
-    queryKey: ['/api/properties/search', searchParams],
-    queryFn: async () => {
-      const params = new URLSearchParams();
-      // Only send valid propertyType
-      if (searchParams.propertyType && searchParams.propertyType !== 'all-types') params.append('propertyType', searchParams.propertyType);
-      // Only send valid locationId
-      if (searchParams.locationId && searchParams.locationId !== 'all-locations') params.append('locationId', String(Number(searchParams.locationId)));
-      // Only send valid maxPrice
-      if (searchParams.maxPrice) params.append('price', searchParams.maxPrice.toString());
-      // Only send valid beds
-      if (searchParams.beds && searchParams.beds !== 'any') params.append('beds', String(Number(searchParams.beds)));
-      // Only send valid status
-      if (searchParams.status) params.append('status', searchParams.status);
-      
-      const res = await fetch(`/api/properties/search?${params.toString()}`, {
-        credentials: 'include'
-      });
-      
-      if (!res.ok) throw new Error('Failed to fetch properties');
-      return res.json();
+  // Filter properties with search parameters
+  const allProperties = propertiesData;
+  let filteredProperties = propertiesData.filter(property => {
+    // Property type filter
+    if (searchParams.propertyType && searchParams.propertyType !== '' && searchParams.propertyType !== 'all-types') {
+      if (property.propertyType.toLowerCase() !== searchParams.propertyType.toLowerCase()) {
+        return false;
+      }
+    }
+    
+    // Location filter
+    if (searchParams.locationId && searchParams.locationId !== '' && searchParams.locationId !== 'all-areas') {
+      if (property.locationId !== parseInt(searchParams.locationId)) {
+        return false;
+      }
+    }
+    
+    // Beds filter
+    if (searchParams.beds && searchParams.beds !== '' && searchParams.beds !== 'any-beds') {
+      const bedCount = searchParams.beds === '5' ? 5 : parseInt(searchParams.beds);
+      if (searchParams.beds === '5') {
+        if ((property.beds || 0) < 5) return false;
+      } else {
+        if ((property.beds || 0) !== bedCount) return false;
+      }
+    }
+    
+    // Status filter
+    if (searchParams.status && searchParams.status !== '') {
+      if (property.status !== searchParams.status) {
+        return false;
+      }
+    }
+    // Price filter
+    if (property.price < searchParams.minPrice || property.price > searchParams.maxPrice) {
+      return false;
+    }
+    
+    // City/Emirate filter
+    if (searchParams.city && searchParams.city !== '' && searchParams.city !== 'all-emirates') {
+      const locationData = locationsData.find(loc => loc.id === property.locationId);
+      if (!locationData?.city.toLowerCase().includes(searchParams.city.toLowerCase())) {
+        return false;
+      }
+    }
+    
+    // Advanced filters
+    if (searchParams.bedrooms && searchParams.bedrooms !== '' && searchParams.bedrooms !== 'any-beds') {
+      const bedroomCount = searchParams.bedrooms === 'studio' ? 0 : 
+                          searchParams.bedrooms === '6+' ? 6 : parseInt(searchParams.bedrooms);
+      if (searchParams.bedrooms === '6+') {
+        if ((property.beds || 0) < 6) return false;
+      } else {
+        if ((property.beds || 0) !== bedroomCount) return false;
+      }
+    }
+    
+    if (searchParams.bathrooms && searchParams.bathrooms !== '' && searchParams.bathrooms !== 'any-baths') {
+      const bathroomCount = searchParams.bathrooms === '5+' ? 5 : parseInt(searchParams.bathrooms);
+      if (searchParams.bathrooms === '5+') {
+        if ((property.baths || 0) < 5) return false;
+      } else {
+        if ((property.baths || 0) !== bathroomCount) return false;
+      }
+    }
+    
+    // Area filter
+    if (searchParams.minArea > 0 && (property.area || 0) < searchParams.minArea) {
+      return false;
+    }
+    if (searchParams.maxArea < 5000 && (property.area || 0) > searchParams.maxArea) {
+      return false;
+    }
+    
+    // Golden Visa eligibility
+    if (searchParams.isGoldenVisaEligible && property.price < 2000000) {
+      return false;
+    }
+    
+    // Features filter
+    if (searchParams.features.length > 0 && property.features) {
+      const hasAllFeatures = searchParams.features.every(feature => 
+        property.features?.some(propFeature => 
+          propFeature.toLowerCase().includes(feature.toLowerCase())
+        )
+      );
+      if (!hasAllFeatures) return false;
+    }
+    
+    // Amenities filter
+    if (searchParams.amenities.length > 0 && property.amenities) {
+      const hasAllAmenities = searchParams.amenities.every(amenity => 
+        property.amenities?.some(propAmenity => 
+          propAmenity.toLowerCase().includes(amenity.toLowerCase())
+        )
+      );
+      if (!hasAllAmenities) return false;
+    }
+    
+    // Developer filter
+    if (searchParams.developer && searchParams.developer !== '' && searchParams.developer !== 'any-developer') {
+      const developerId = parseInt(searchParams.developer);
+      if (property.developerId !== developerId) {
+        return false;
+      }
+    }
+    
+    // Completion year filter
+    if (searchParams.handoverYear && searchParams.handoverYear !== '' && searchParams.handoverYear !== 'any-year') {
+      if (searchParams.handoverYear === '2028') {
+        if (!property.completionYear || property.completionYear < 2028) return false;
+      } else {
+        const year = parseInt(searchParams.handoverYear);
+        if (!property.completionYear || property.completionYear !== year) return false;
+      }
+    }
+    
+    // Furnishing filter
+    if (searchParams.furnishing && searchParams.furnishing !== '' && searchParams.furnishing !== 'any-furnishing') {
+      // This would need to be added to property data structure
+      // For now, we'll skip this filter since it's not in the current property model
+    }
+    
+    return true;
+  });
+
+  // Apply sorting
+  const sortedProperties = [...filteredProperties].sort((a, b) => {
+    switch (sortBy) {
+      case 'price-asc':
+        return a.price - b.price;
+      case 'price-desc':
+        return b.price - a.price;
+      case 'newest':
+        // Sort by newest first (higher ID = newer)
+        return (b.id || 0) - (a.id || 0);
+      case 'featured':
+      default:
+        // Featured properties first, then by premium, exclusive, new launch
+        const aScore = (a.premium ? 3 : 0) + (a.exclusive ? 2 : 0) + (a.newLaunch ? 1 : 0);
+        const bScore = (b.premium ? 3 : 0) + (b.exclusive ? 2 : 0) + (b.newLaunch ? 1 : 0);
+        return bScore - aScore;
     }
   });
 
-  // Always use an array for properties
-  const properties = Array.isArray(propertiesRaw) ? propertiesRaw : [];
+  // Calculate pagination
+  const totalProperties = sortedProperties.length;
+  const totalPages = Math.ceil(totalProperties / propertiesPerPage);
+  const startIndex = (currentPage - 1) * propertiesPerPage;
+  const endIndex = startIndex + propertiesPerPage;
+  const properties = sortedProperties.slice(startIndex, endIndex);
+  
+  const isLoading = false;
+  const isError = false;
 
-  // Fetch locations for filter
-  const { data: locationsRaw } = useQuery({
-    queryKey: ['/api/locations'],
-  });
-  const locations = Array.isArray(locationsRaw) ? locationsRaw : [];
+  // Use locations from frontend data
+  const locations = locationsData;
 
   const handleSearch = () => {
     // Update URL with search params without page reload
@@ -93,11 +272,36 @@ const Properties = () => {
     setSearchParams({
       propertyType: '',
       locationId: '',
+      city: '',
+      category: 'residential',
       minPrice: 0,
       maxPrice: 50000000,
       beds: '',
-      status: ''
+      status: '',
+      bedrooms: '',
+      bathrooms: '',
+      minArea: 0,
+      maxArea: 5000,
+      landmark: '',
+      developer: '',
+      handoverYear: '',
+      furnishing: '',
+      features: [],
+      amenities: [],
+      isGoldenVisaEligible: false,
+      isMortgageAvailable: false
     });
+    setLocation('/properties');
+  };
+
+  const hasActiveFilters = () => {
+    return searchParams.propertyType !== '' || 
+           searchParams.locationId !== '' || 
+           searchParams.city !== '' || 
+           searchParams.beds !== '' || 
+           searchParams.status !== '' ||
+           searchParams.minPrice > 0 ||
+           searchParams.maxPrice < 50000000;
   };
 
   return (
@@ -114,15 +318,15 @@ const Properties = () => {
           <img 
             src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
             alt="Properties in Dubai" 
-            className="w-full h-full object-cover opacity-40"
+            className="w-full h-full object-cover opacity-30"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-dark-darker/40 to-dark-darker/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/80"></div>
         </div>
         
         <div className="container mx-auto px-4 relative">
           <div className="max-w-3xl mx-auto text-center text-white">
-            <h1 className="text-4xl md:text-5xl font-montserrat font-bold mb-4">Discover Exceptional Properties</h1>
-            <p className="text-lg text-white/80 mb-0">
+            <h1 className="text-4xl md:text-5xl font-montserrat font-bold mb-4 text-shadow-lg">Discover Exceptional Properties</h1>
+            <p className="text-lg text-white mb-0 text-shadow-md font-medium">
               Explore our curated collection of premium properties across the UAE
             </p>
           </div>
@@ -134,10 +338,37 @@ const Properties = () => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Filters Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-md p-6 sticky top-24">
+            <div className="bg-white rounded-xl shadow-md p-6">
               <h2 className="text-xl font-montserrat font-semibold mb-6">Filter Properties</h2>
               
               <div className="space-y-6">
+                {/* Category Toggle */}
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Category</label>
+                  <div className="flex bg-gray-100 rounded-lg p-1">
+                    <button
+                      className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
+                        searchParams.category === 'residential'
+                          ? 'bg-primary text-white'
+                          : 'text-gray-600 hover:text-gray-800'
+                      }`}
+                      onClick={() => setSearchParams({...searchParams, category: 'residential'})}
+                    >
+                      Residential
+                    </button>
+                    <button
+                      className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
+                        searchParams.category === 'commercial'
+                          ? 'bg-primary text-white'
+                          : 'text-gray-600 hover:text-gray-800'
+                      }`}
+                      onClick={() => setSearchParams({...searchParams, category: 'commercial'})}
+                    >
+                      Commercial
+                    </button>
+                  </div>
+                </div>
+
                 {/* Property Type */}
                 <div>
                   <label className="text-sm font-medium mb-2 block">Property Type</label>
@@ -150,27 +381,160 @@ const Properties = () => {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all-types">All Types</SelectItem>
-                      <SelectItem value="Apartment">Apartment</SelectItem>
-                      <SelectItem value="Villa">Villa</SelectItem>
-                      <SelectItem value="Penthouse">Penthouse</SelectItem>
-                      <SelectItem value="Townhouse">Townhouse</SelectItem>
+                      <SelectItem value="studio">Studio</SelectItem>
+                      <SelectItem value="apartment">Apartment</SelectItem>
+                      <SelectItem value="villa">Villa</SelectItem>
+                      <SelectItem value="penthouse">Penthouse</SelectItem>
+                      <SelectItem value="townhouse">Townhouse</SelectItem>
+                      <SelectItem value="duplex">Duplex</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 
-                {/* Location */}
+                {/* Emirate/City */}
                 <div>
-                  <label className="text-sm font-medium mb-2 block">Location</label>
+                  <label className="text-sm font-medium mb-2 block">Emirate</label>
                   <Select 
-                    value={searchParams.locationId}
-                    onValueChange={(value) => setSearchParams({...searchParams, locationId: value})}
+                    value={searchParams.city}
+                    onValueChange={(value) => setSearchParams({...searchParams, city: value, locationId: ''})}
                   >
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select location" />
+                      <SelectValue placeholder="Select Emirate" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all-locations">All Locations</SelectItem>
-                      {locations.map((location: any) => (
+                      <SelectItem value="all-emirates">All Emirates</SelectItem>
+                      <SelectItem value="dubai">Dubai</SelectItem>
+                      <SelectItem value="abudhabi">Abu Dhabi</SelectItem>
+                      <SelectItem value="sharjah">Sharjah</SelectItem>
+                      <SelectItem value="ajman">Ajman</SelectItem>
+                      <SelectItem value="rasalkhaimah">Ras Al Khaimah</SelectItem>
+                      <SelectItem value="fujairah">Fujairah</SelectItem>
+                      <SelectItem value="ummalquwain">Umm Al Quwain</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Area/Location */}
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Area</label>
+                  <Select 
+                    value={searchParams.locationId}
+                    onValueChange={(value) => setSearchParams(prev => ({...prev, locationId: value}))}
+                    disabled={!searchParams.city}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select Area" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all-areas">All Areas</SelectItem>
+                      {searchParams.city === 'dubai' && (
+                        <>
+                          <SelectItem value="palm-jumeirah">Palm Jumeirah</SelectItem>
+                          <SelectItem value="dubai-marina">Dubai Marina</SelectItem>
+                          <SelectItem value="downtown-dubai">Downtown Dubai</SelectItem>
+                          <SelectItem value="business-bay">Business Bay</SelectItem>
+                          <SelectItem value="jumeirah-lake-towers">Jumeirah Lake Towers (JLT)</SelectItem>
+                          <SelectItem value="jumeirah-village-circle">Jumeirah Village Circle (JVC)</SelectItem>
+                          <SelectItem value="jumeirah-village-triangle">Jumeirah Village Triangle (JVT)</SelectItem>
+                          <SelectItem value="dubai-silicon-oasis">Dubai Silicon Oasis</SelectItem>
+                          <SelectItem value="arabian-ranches">Arabian Ranches</SelectItem>
+                          <SelectItem value="the-springs">The Springs</SelectItem>
+                          <SelectItem value="the-meadows">The Meadows</SelectItem>
+                          <SelectItem value="emirates-hills">Emirates Hills</SelectItem>
+                          <SelectItem value="al-barari">Al Barari</SelectItem>
+                          <SelectItem value="dubai-sports-city">Dubai Sports City</SelectItem>
+                          <SelectItem value="dubai-motor-city">Dubai Motor City</SelectItem>
+                          <SelectItem value="international-city">International City</SelectItem>
+                          <SelectItem value="discovery-gardens">Discovery Gardens</SelectItem>
+                          <SelectItem value="al-furjan">Al Furjan</SelectItem>
+                          <SelectItem value="mirdif-hills">Mirdif Hills</SelectItem>
+                          <SelectItem value="dubai-south">Dubai South</SelectItem>
+                          <SelectItem value="bluewaters-island">Bluewaters Island</SelectItem>
+                          <SelectItem value="emaar-beachfront">Emaar Beachfront</SelectItem>
+                          <SelectItem value="dubai-creek-harbour">Dubai Creek Harbour</SelectItem>
+                          <SelectItem value="dubai-hills-estate">Dubai Hills Estate</SelectItem>
+                          <SelectItem value="tilal-al-ghaf">Tilal Al Ghaf</SelectItem>
+                          <SelectItem value="damac-hills">DAMAC Hills</SelectItem>
+                          <SelectItem value="damac-lagoons">DAMAC Lagoons</SelectItem>
+                          <SelectItem value="city-walk">City Walk</SelectItem>
+                          <SelectItem value="la-mer">La Mer</SelectItem>
+                          <SelectItem value="pearl-jumeirah">Pearl Jumeirah</SelectItem>
+                          <SelectItem value="dubai-harbour">Dubai Harbour</SelectItem>
+                          <SelectItem value="al-wasl">Al Wasl</SelectItem>
+                          <SelectItem value="barsha-heights">Barsha Heights (Tecom)</SelectItem>
+                          <SelectItem value="dubai-production-city">Dubai Production City</SelectItem>
+                          <SelectItem value="dubai-studio-city">Dubai Studio City</SelectItem>
+                          <SelectItem value="dubai-science-park">Dubai Science Park</SelectItem>
+                          <SelectItem value="dubai-investment-park">Dubai Investment Park (DIP)</SelectItem>
+                          <SelectItem value="difc">Dubai International Financial Centre (DIFC)</SelectItem>
+                          <SelectItem value="madinat-jumeirah-living">Madinat Jumeirah Living</SelectItem>
+                          <SelectItem value="liwan">Liwan</SelectItem>
+                          <SelectItem value="remraam">Remraam</SelectItem>
+                          <SelectItem value="al-sufouh">Al Sufouh</SelectItem>
+                        </>
+                      )}
+                      {searchParams.city === 'abudhabi' && (
+                        <>
+                          <SelectItem value="yas-island">Yas Island</SelectItem>
+                          <SelectItem value="saadiyat-island">Saadiyat Island</SelectItem>
+                          <SelectItem value="al-reem-island">Al Reem Island</SelectItem>
+                          <SelectItem value="al-maryah-island">Al Maryah Island</SelectItem>
+                          <SelectItem value="masdar-city">Masdar City</SelectItem>
+                          <SelectItem value="al-raha-beach">Al Raha Beach</SelectItem>
+                          <SelectItem value="al-ghadeer">Al Ghadeer</SelectItem>
+                          <SelectItem value="al-reef">Al Reef</SelectItem>
+                          <SelectItem value="al-shamkha">Al Shamkha</SelectItem>
+                          <SelectItem value="al-raha-gardens">Al Raha Gardens</SelectItem>
+                          <SelectItem value="hydra-village">Hydra Village</SelectItem>
+                        </>
+                      )}
+                      {searchParams.city === 'sharjah' && (
+                        <>
+                          <SelectItem value="aljada">Aljada</SelectItem>
+                          <SelectItem value="tilal-city">Tilal City</SelectItem>
+                          <SelectItem value="maryam-island">Maryam Island</SelectItem>
+                          <SelectItem value="al-mamsha">Al Mamsha</SelectItem>
+                          <SelectItem value="sharjah-waterfront-city">Sharjah Waterfront City</SelectItem>
+                          <SelectItem value="sharjah-garden-city">Sharjah Garden City</SelectItem>
+                          <SelectItem value="al-khan">Al Khan</SelectItem>
+                        </>
+                      )}
+                      {searchParams.city === 'ajman' && (
+                        <>
+                          <SelectItem value="al-zorah">Al Zorah</SelectItem>
+                          <SelectItem value="emirates-city">Emirates City</SelectItem>
+                          <SelectItem value="ajman-one">Ajman One</SelectItem>
+                          <SelectItem value="city-towers">City Towers</SelectItem>
+                          <SelectItem value="al-humaid-city">Al Humaid City</SelectItem>
+                          <SelectItem value="marmooka-city">Marmooka City</SelectItem>
+                          <SelectItem value="mermaid-city">Mermaid City</SelectItem>
+                        </>
+                      )}
+                      {searchParams.city === 'rasalkhaimah' && (
+                        <>
+                          <SelectItem value="al-hamra-village">Al Hamra Village</SelectItem>
+                          <SelectItem value="mina-al-arab">Mina Al Arab</SelectItem>
+                          <SelectItem value="al-marjan-island">Al Marjan Island</SelectItem>
+                          <SelectItem value="flamingo-villas">Flamingo Villas</SelectItem>
+                          <SelectItem value="julphar-towers">Julphar Towers</SelectItem>
+                        </>
+                      )}
+                      {searchParams.city === 'fujairah' && (
+                        <>
+                          <SelectItem value="al-faseel">Al Faseel</SelectItem>
+                          <SelectItem value="al-qurm">Al Qurm</SelectItem>
+                          <SelectItem value="address-fujairah">Address Fujairah</SelectItem>
+                          <SelectItem value="fujairah-beach">Fujairah Beach</SelectItem>
+                        </>
+                      )}
+                      {searchParams.city === 'ummalquwain' && (
+                        <>
+                          <SelectItem value="flamingo-beach">Flamingo Beach</SelectItem>
+                          <SelectItem value="al-salamah">Al Salamah</SelectItem>
+                          <SelectItem value="old-town">Old Town</SelectItem>
+                        </>
+                      )}
+                      {!searchParams.city && locations?.map((location: any) => (
                         <SelectItem key={location.id} value={location.id.toString()}>
                           {location.name}
                         </SelectItem>
@@ -187,7 +551,7 @@ const Properties = () => {
                       defaultValue={[searchParams.maxPrice]}
                       max={50000000}
                       step={500000}
-                      onValueChange={(values) => setSearchParams({...searchParams, maxPrice: values[0]})}
+                      onValueChange={(values) => setSearchParams(prev => ({...prev, maxPrice: values[0]}))}
                     />
                   </div>
                   <div className="flex items-center justify-between text-sm">
@@ -201,13 +565,13 @@ const Properties = () => {
                   <label className="text-sm font-medium mb-2 block">Bedrooms</label>
                   <Select 
                     value={searchParams.beds}
-                    onValueChange={(value) => setSearchParams({...searchParams, beds: value})}
+                    onValueChange={(value) => setSearchParams(prev => ({...prev, beds: value}))}
                   >
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Any" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">Any</SelectItem>
+                      <SelectItem value="any-beds">Any</SelectItem>
                       <SelectItem value="1">1</SelectItem>
                       <SelectItem value="2">2</SelectItem>
                       <SelectItem value="3">3</SelectItem>
@@ -225,7 +589,7 @@ const Properties = () => {
                       <Checkbox 
                         id="ready"
                         checked={searchParams.status === 'Ready'}
-                        onCheckedChange={(checked) => setSearchParams({...searchParams, status: checked ? 'Ready' : ''})}
+                        onCheckedChange={(checked) => setSearchParams(prev => ({...prev, status: checked ? 'Ready' : ''}))}
                       />
                       <label htmlFor="ready" className="text-sm">Ready to Move</label>
                     </div>
@@ -233,9 +597,250 @@ const Properties = () => {
                       <Checkbox 
                         id="offplan"
                         checked={searchParams.status === 'Off-Plan'}
-                        onCheckedChange={(checked) => setSearchParams({...searchParams, status: checked ? 'Off-Plan' : ''})}
+                        onCheckedChange={(checked) => setSearchParams(prev => ({...prev, status: checked ? 'Off-Plan' : ''}))}
                       />
                       <label htmlFor="offplan" className="text-sm">Off-Plan</label>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Advanced Filters */}
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Bathrooms</label>
+                  <Select 
+                    value={searchParams.bathrooms}
+                    onValueChange={(value) => setSearchParams(prev => ({...prev, bathrooms: value}))}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Any" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="any-baths">Any</SelectItem>
+                      <SelectItem value="1">1</SelectItem>
+                      <SelectItem value="2">2</SelectItem>
+                      <SelectItem value="3">3</SelectItem>
+                      <SelectItem value="4">4</SelectItem>
+                      <SelectItem value="5+">5+</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Area Range */}
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Area (sq ft)</label>
+                  <div className="mb-4 mt-6">
+                    <Slider
+                      defaultValue={[searchParams.minArea, searchParams.maxArea]}
+                      max={5000}
+                      min={0}
+                      step={100}
+                      onValueChange={(values) => setSearchParams(prev => ({...prev, minArea: values[0], maxArea: values[1]}))}
+                    />
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <span>{formatArea(searchParams.minArea)}</span>
+                    <span>{formatArea(searchParams.maxArea)}</span>
+                  </div>
+                </div>
+
+                {/* Developer Filter */}
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Developer</label>
+                  <Select 
+                    value={searchParams.developer}
+                    onValueChange={(value) => setSearchParams(prev => ({...prev, developer: value}))}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Any Developer" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="any-developer">Any Developer</SelectItem>
+                      {developersData.map((developer) => (
+                        <SelectItem key={developer.id} value={developer.id.toString()}>
+                          {developer.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Completion Year */}
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Completion Year</label>
+                  <Select 
+                    value={searchParams.handoverYear}
+                    onValueChange={(value) => setSearchParams(prev => ({...prev, handoverYear: value}))}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Any Year" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="any-year">Any Year</SelectItem>
+                      <SelectItem value="2024">2024</SelectItem>
+                      <SelectItem value="2025">2025</SelectItem>
+                      <SelectItem value="2026">2026</SelectItem>
+                      <SelectItem value="2027">2027</SelectItem>
+                      <SelectItem value="2028">2028+</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Furnishing */}
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Furnishing</label>
+                  <Select 
+                    value={searchParams.furnishing}
+                    onValueChange={(value) => setSearchParams(prev => ({...prev, furnishing: value}))}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Any" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="any-furnishing">Any</SelectItem>
+                      <SelectItem value="furnished">Furnished</SelectItem>
+                      <SelectItem value="unfurnished">Unfurnished</SelectItem>
+                      <SelectItem value="semi-furnished">Semi-Furnished</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Property Features */}
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Features</label>
+                  <div className="space-y-2">
+                    <div className="flex items-center space-x-2">
+                      <Checkbox 
+                        id="balcony"
+                        checked={searchParams.features.includes('balcony')}
+                        onCheckedChange={(checked) => {
+                          const newFeatures = checked 
+                            ? [...searchParams.features, 'balcony']
+                            : searchParams.features.filter(f => f !== 'balcony');
+                          setSearchParams(prev => ({...prev, features: newFeatures}));
+                        }}
+                      />
+                      <label htmlFor="balcony" className="text-sm">Balcony</label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox 
+                        id="parking"
+                        checked={searchParams.features.includes('parking')}
+                        onCheckedChange={(checked) => {
+                          const newFeatures = checked 
+                            ? [...searchParams.features, 'parking']
+                            : searchParams.features.filter(f => f !== 'parking');
+                          setSearchParams(prev => ({...prev, features: newFeatures}));
+                        }}
+                      />
+                      <label htmlFor="parking" className="text-sm">Parking</label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox 
+                        id="maidsroom"
+                        checked={searchParams.features.includes('maids room')}
+                        onCheckedChange={(checked) => {
+                          const newFeatures = checked 
+                            ? [...searchParams.features, 'maids room']
+                            : searchParams.features.filter(f => f !== 'maids room');
+                          setSearchParams(prev => ({...prev, features: newFeatures}));
+                        }}
+                      />
+                      <label htmlFor="maidsroom" className="text-sm">Maid's Room</label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox 
+                        id="study"
+                        checked={searchParams.features.includes('study')}
+                        onCheckedChange={(checked) => {
+                          const newFeatures = checked 
+                            ? [...searchParams.features, 'study']
+                            : searchParams.features.filter(f => f !== 'study');
+                          setSearchParams(prev => ({...prev, features: newFeatures}));
+                        }}
+                      />
+                      <label htmlFor="study" className="text-sm">Study Room</label>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Amenities */}
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Amenities</label>
+                  <div className="space-y-2">
+                    <div className="flex items-center space-x-2">
+                      <Checkbox 
+                        id="pool"
+                        checked={searchParams.amenities.includes('pool')}
+                        onCheckedChange={(checked) => {
+                          const newAmenities = checked 
+                            ? [...searchParams.amenities, 'pool']
+                            : searchParams.amenities.filter(a => a !== 'pool');
+                          setSearchParams(prev => ({...prev, amenities: newAmenities}));
+                        }}
+                      />
+                      <label htmlFor="pool" className="text-sm">Swimming Pool</label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox 
+                        id="gym"
+                        checked={searchParams.amenities.includes('gym')}
+                        onCheckedChange={(checked) => {
+                          const newAmenities = checked 
+                            ? [...searchParams.amenities, 'gym']
+                            : searchParams.amenities.filter(a => a !== 'gym');
+                          setSearchParams(prev => ({...prev, amenities: newAmenities}));
+                        }}
+                      />
+                      <label htmlFor="gym" className="text-sm">Gymnasium</label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox 
+                        id="playground"
+                        checked={searchParams.amenities.includes('playground')}
+                        onCheckedChange={(checked) => {
+                          const newAmenities = checked 
+                            ? [...searchParams.amenities, 'playground']
+                            : searchParams.amenities.filter(a => a !== 'playground');
+                          setSearchParams(prev => ({...prev, amenities: newAmenities}));
+                        }}
+                      />
+                      <label htmlFor="playground" className="text-sm">Children's Play Area</label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox 
+                        id="security"
+                        checked={searchParams.amenities.includes('security')}
+                        onCheckedChange={(checked) => {
+                          const newAmenities = checked 
+                            ? [...searchParams.amenities, 'security']
+                            : searchParams.amenities.filter(a => a !== 'security');
+                          setSearchParams(prev => ({...prev, amenities: newAmenities}));
+                        }}
+                      />
+                      <label htmlFor="security" className="text-sm">24/7 Security</label>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Golden Visa & Mortgage */}
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Special Options</label>
+                  <div className="space-y-2">
+                    <div className="flex items-center space-x-2">
+                      <Checkbox 
+                        id="goldenvisa"
+                        checked={searchParams.isGoldenVisaEligible}
+                        onCheckedChange={(checked) => setSearchParams(prev => ({...prev, isGoldenVisaEligible: !!checked}))}
+                      />
+                      <label htmlFor="goldenvisa" className="text-sm">Golden Visa Eligible</label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox 
+                        id="mortgage"
+                        checked={searchParams.isMortgageAvailable}
+                        onCheckedChange={(checked) => setSearchParams(prev => ({...prev, isMortgageAvailable: !!checked}))}
+                      />
+                      <label htmlFor="mortgage" className="text-sm">Mortgage Available</label>
                     </div>
                   </div>
                 </div>
@@ -268,17 +873,19 @@ const Properties = () => {
                 <h2 className="text-2xl font-montserrat font-semibold mb-4 md:mb-0">
                   {isLoading ? 'Loading properties...' : 
                    isError ? 'Error loading properties' : 
-                   `${properties.length} Properties Found`}
+                   totalProperties === 0 ? '0 Properties Found (Page 1 of 0)' :
+                   hasActiveFilters() ? 
+                     `${totalProperties} Properties Found (Page ${currentPage} of ${totalPages})` :
+                     `Total Properties - ${totalProperties} (Page ${currentPage} of ${totalPages})`}
                 </h2>
                 <div className="flex flex-col md:flex-row items-center gap-4">
-                  <PremiumListingForm 
+                  <SubmitListingForm 
                     buttonVariant="default"
                     buttonClass="bg-primary text-white mb-4 md:mb-0 w-full md:w-auto"
-                    title="Submit Your Listing"
                   />
                   <div className="flex items-center gap-2">
                     <label className="text-sm font-medium">Sort by:</label>
-                    <Select defaultValue="featured">
+                    <Select value={sortBy} onValueChange={setSortBy}>
                       <SelectTrigger className="w-[160px]">
                         <SelectValue placeholder="Sort by" />
                       </SelectTrigger>
@@ -350,30 +957,75 @@ const Properties = () => {
                         <img 
                           src={featuredImage} 
                           alt={property.title} 
-                          className="w-full h-60 object-cover"
+                          className="w-full h-80 object-cover"
                         />
-                        <div className="absolute top-4 left-4">
+                        <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                           {property.premium && (
-                            <Badge variant="premium" className="mr-2">Premium</Badge>
+                            <Badge variant="premium">Premium</Badge>
                           )}
                           {property.exclusive && (
-                            <Badge variant="exclusive" className="mr-2">Exclusive</Badge>
+                            <Badge variant="exclusive">Exclusive</Badge>
                           )}
                           {property.newLaunch && (
                             <Badge variant="new">New Launch</Badge>
                           )}
+                          {property.fastSelling && (
+                            <Badge variant="fastSelling">Fast Selling</Badge>
+                          )}
+                          {property.status === 'off-plan' && (
+                            <Badge variant="destructive">Off Plan</Badge>
+                          )}
+                          {property.status === 'ready' && (
+                            <Badge variant="default">Ready to Move In</Badge>
+                          )}
+                          {property.completionYear && (
+                            <Badge variant="secondary">
+                              Completion {property.completionQuarter ? `${property.completionQuarter} ` : ''}{property.completionYear}
+                            </Badge>
+                          )}
                         </div>
+                        {property.soldOut && (
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/60">
+                            <div className="bg-red-600 text-white px-8 py-4 rounded-lg text-xl font-bold animate-pulse">
+                              SOLD OUT
+                            </div>
+                          </div>
+                        )}
+                        {property.comingSoon && (
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/60">
+                            <Badge variant="comingSoon" className="px-8 py-4 text-xl font-bold">
+                              COMING SOON
+                            </Badge>
+                          </div>
+                        )}
                         <div className="absolute top-4 right-4">
-                          <button className="bg-white/80 hover:bg-white text-foreground p-2 rounded-full">
-                            <i className="far fa-heart"></i>
+                          <button 
+                            className="bg-white/80 hover:bg-white text-foreground p-2 rounded-full transition-all duration-200"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              const url = `${window.location.origin}/properties/${property.id}`;
+                              if (navigator.share) {
+                                navigator.share({
+                                  title: property.title,
+                                  text: `Check out this property: ${property.title}`,
+                                  url: url
+                                });
+                              } else {
+                                navigator.clipboard.writeText(url);
+                              }
+                            }}
+                          >
+                            <i className="fas fa-share-alt"></i>
                           </button>
                         </div>
-                        {/* Property overlay */}
-                        <div className="property-overlay absolute inset-0 bg-dark-darker/40 opacity-0 transition-opacity duration-300 flex items-center justify-center">
+                        
+                        {/* Hover overlay with View Property button */}
+                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                           <Link href={`/properties/${property.id}`}>
-                            <a className="bg-white text-foreground hover:bg-primary hover:text-white font-medium px-4 py-2 rounded-md transition-colors duration-200">
+                            <button className="bg-white text-gray-900 hover:bg-primary hover:text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200">
                               View Property
-                            </a>
+                            </button>
                           </Link>
                         </div>
                       </div>
@@ -387,7 +1039,12 @@ const Properties = () => {
                             </p>
                           </div>
                           <div className="text-right">
-                            <p className="text-secondary font-bold text-xl">{formatPrice(property.price)}</p>
+                            <div className="flex flex-col items-end gap-2">
+                              <p className="text-secondary font-bold text-xl">{formatPrice(property.price)}</p>
+                              <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-semibold">
+                                Starting From
+                              </span>
+                            </div>
                           </div>
                         </div>
                         
@@ -434,21 +1091,66 @@ const Properties = () => {
               </div>
             )}
             
-            {/* Pagination - would be implemented with actual pagination from API */}
-            {properties && properties.length > 0 && (
+            {/* Pagination */}
+            {totalPages > 1 && (
               <div className="mt-8 flex justify-center">
                 <nav className="flex items-center space-x-2">
-                  <a href="#" className="px-4 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-primary hover:text-white">
+                  <button 
+                    onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                    disabled={currentPage === 1}
+                    className={`px-4 py-2 rounded-md transition-colors ${
+                      currentPage === 1 
+                        ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
+                        : 'bg-gray-100 text-gray-700 hover:bg-primary hover:text-white'
+                    }`}
+                  >
                     <i className="fas fa-chevron-left mr-1"></i> Previous
-                  </a>
-                  <a href="#" className="px-4 py-2 rounded-md bg-primary text-white">1</a>
-                  <a href="#" className="px-4 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-primary hover:text-white">2</a>
-                  <a href="#" className="px-4 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-primary hover:text-white">3</a>
-                  <span className="px-2">...</span>
-                  <a href="#" className="px-4 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-primary hover:text-white">10</a>
-                  <a href="#" className="px-4 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-primary hover:text-white">
+                  </button>
+                  
+                  {/* Page numbers */}
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(pageNum => {
+                    // Show first page, last page, current page, and pages around current
+                    const showPage = pageNum === 1 || 
+                                   pageNum === totalPages || 
+                                   Math.abs(pageNum - currentPage) <= 1;
+                    
+                    if (!showPage && pageNum !== 2 && pageNum !== totalPages - 1) {
+                      // Show ellipsis for gaps
+                      if (pageNum === 2 && currentPage > 4) {
+                        return <span key={pageNum} className="px-2 text-gray-500">...</span>;
+                      }
+                      if (pageNum === totalPages - 1 && currentPage < totalPages - 3) {
+                        return <span key={pageNum} className="px-2 text-gray-500">...</span>;
+                      }
+                      return null;
+                    }
+                    
+                    return (
+                      <button
+                        key={pageNum}
+                        onClick={() => setCurrentPage(pageNum)}
+                        className={`px-4 py-2 rounded-md transition-colors ${
+                          pageNum === currentPage
+                            ? 'bg-primary text-white'
+                            : 'bg-gray-100 text-gray-700 hover:bg-primary hover:text-white'
+                        }`}
+                      >
+                        {pageNum}
+                      </button>
+                    );
+                  })}
+                  
+                  <button 
+                    onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                    disabled={currentPage === totalPages}
+                    className={`px-4 py-2 rounded-md transition-colors ${
+                      currentPage === totalPages
+                        ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                        : 'bg-gray-100 text-gray-700 hover:bg-primary hover:text-white'
+                    }`}
+                  >
                     Next <i className="fas fa-chevron-right ml-1"></i>
-                  </a>
+                  </button>
                 </nav>
               </div>
             )}

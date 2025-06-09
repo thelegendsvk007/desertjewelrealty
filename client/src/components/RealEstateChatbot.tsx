@@ -13,37 +13,65 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Loader2, Send, X, Minimize2, Maximize2, Home, Building, Map, Calendar, Calculator, BrainCircuit } from 'lucide-react';
+import { propertiesData } from '@/data/properties';
+import { formatPrice } from '@/lib/utils';
 
 // Sample conversation objects for chatbot
 const initialMessages: Message[] = [
   {
     id: 1,
     role: "agent",
-    content: "Hello! I'm Safiyan, your Desert Jewel Realty virtual assistant. How can I help you today?",
+    content: "I'm here to help with your property search. Are you looking to buy or rent in a specific area of Dubai?",
     timestamp: new Date().toISOString(),
   },
   {
     id: 2,
     role: "agent",
-    content: "I can help you with property searches, investment advice, Golden Visa eligibility, or connect you with a real estate advisor. Our new AI-powered Area Advisor can also help you compare neighborhoods in Dubai!",
+    content: "Are you looking to buy real estate or sell your property? I can help you find suitable options from our current listings.",
     timestamp: new Date().toISOString(),
   }
 ];
+
+// Function to get property suggestions based on criteria
+const getPropertySuggestions = (type?: string, budget?: number, location?: string) => {
+  let filtered = propertiesData.filter(p => p.status === 'available');
+  
+  if (type) {
+    filtered = filtered.filter(p => p.propertyType.toLowerCase().includes(type.toLowerCase()));
+  }
+  
+  if (budget) {
+    filtered = filtered.filter(p => p.price <= budget * 1.2); // 20% flexibility
+  }
+  
+  if (location) {
+    filtered = filtered.filter(p => p.address.toLowerCase().includes(location.toLowerCase()));
+  }
+  
+  return filtered.slice(0, 3); // Return top 3 matches
+};
 
 // Sample responses based on keywords
 const responsePatterns = [
   {
     keywords: ["hello", "hi", "hey", "greetings"],
     responses: [
-      "Hello! How can I help you with your real estate needs today?",
-      "Hi there! Looking for a property in Dubai? I can help you find the perfect match."
+      "Hello! Are you looking to buy or sell real estate in Dubai?",
+      "Hi there! I can help you find properties to buy or assist with selling your property."
     ]
   },
   {
     keywords: ["buy", "purchase", "invest"],
     responses: [
-      "Great time to buy property in Dubai! What type of property are you looking for? Apartment, villa, or commercial space?",
-      "Dubai offers excellent investment opportunities. What's your budget range for the property you're looking to purchase?"
+      "Excellent! I can show you available properties. What type are you interested in - apartment, villa, or townhouse?",
+      "Great choice for investment! What's your budget range and preferred location?"
+    ]
+  },
+  {
+    keywords: ["sell", "selling", "list"],
+    responses: [
+      "I can help you sell your property! To get started, please provide details about your property type, location, and estimated value.",
+      "Our team specializes in property sales. What type of property are you looking to sell and in which area?"
     ]
   },
   {
@@ -75,10 +103,10 @@ const responsePatterns = [
     ]
   },
   {
-    keywords: ["rent", "rental", "lease"],
+    keywords: ["contact", "agent", "speak", "call", "phone"],
     responses: [
-      "Dubai offers a wide range of rental properties. What area are you interested in and what's your monthly budget?",
-      "Rental yields in Dubai typically range from 5-8% depending on the location. Are you looking to rent a property or invest in a rental property?"
+      "You can contact Desert Jewel Realty at: Phone: +971 58 953 2210, Email: info@desertjewelrealty.com, Address: 21C Street - Dubai Naif, Dubai, UAE",
+      "Here are our contact details: Phone: +971 58 953 2210, Email: info@desertjewelrealty.com. We're located at 21C Street - Dubai Naif, Dubai, UAE."
     ]
   },
   {

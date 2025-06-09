@@ -1,6 +1,7 @@
 import { Link } from 'wouter';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import logopng from '../assets/logo.png';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -33,22 +34,30 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           <div>
-            <img src="/src/assets/desert-jewel-logo.svg" alt="Desert Jewel Realty Logo" className="h-16 mb-6" />
+            <img src= {logopng} alt="Desert Jewel Realty Logo" className="h-16 mb-6" />
             <p className="text-gray-400 mb-6">
               Dubai's premier luxury real estate brokerage, connecting dreams to reality across the UAE.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-primary transition-colors duration-200">
+              <a href="https://www.facebook.com/share/1Bn4dATDGZ/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors duration-200">
                 <i className="fab fa-facebook-f"></i>
               </a>
-              <a href="#" className="text-gray-400 hover:text-primary transition-colors duration-200">
+              <a href="https://www.instagram.com/desertjewelrealty/profilecard/?igsh=MXNhenlldHZtYWJhcA==" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors duration-200">
                 <i className="fab fa-instagram"></i>
               </a>
-              <a href="#" className="text-gray-400 hover:text-primary transition-colors duration-200">
+              <a href="https://www.linkedin.com/company/desert-jewel-realty/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors duration-200">
                 <i className="fab fa-linkedin-in"></i>
               </a>
-              <a href="#" className="text-gray-400 hover:text-primary transition-colors duration-200">
-                <i className="fab fa-twitter"></i>
+              <a href="https://x.com/desertjewel_?s=21" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors duration-200">
+                <svg className="w-4 h-4 inline-block" fill="currentColor" viewBox="0 0 24 24" style={{verticalAlign: 'baseline'}}>
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+              <a href="https://t.me/desertjewelrealtychat" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors duration-200">
+                <i className="fab fa-telegram-plane"></i>
+              </a>
+              <a href="https://wa.me/971589532210" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors duration-200">
+                <i className="fab fa-whatsapp"></i>
               </a>
             </div>
           </div>
@@ -90,36 +99,41 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="font-montserrat font-semibold text-lg mb-6">Areas</h3>
+            <h3 className="font-montserrat font-semibold text-lg mb-6">UAE Emirates</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/properties?location=1">
-                  <a className="text-gray-400 hover:text-primary transition-colors duration-200">Dubai Marina</a>
+                <Link href="/properties?city=dubai">
+                  <a className="text-gray-400 hover:text-primary transition-colors duration-200">Dubai</a>
                 </Link>
               </li>
               <li>
-                <Link href="/properties?location=2">
-                  <a className="text-gray-400 hover:text-primary transition-colors duration-200">Palm Jumeirah</a>
+                <Link href="/properties?city=abudhabi">
+                  <a className="text-gray-400 hover:text-primary transition-colors duration-200">Abu Dhabi</a>
                 </Link>
               </li>
               <li>
-                <Link href="/properties?location=3">
-                  <a className="text-gray-400 hover:text-primary transition-colors duration-200">Downtown Dubai</a>
+                <Link href="/properties?city=sharjah">
+                  <a className="text-gray-400 hover:text-primary transition-colors duration-200">Sharjah</a>
                 </Link>
               </li>
               <li>
-                <Link href="/properties?location=4">
-                  <a className="text-gray-400 hover:text-primary transition-colors duration-200">Business Bay</a>
+                <Link href="/properties?city=ajman">
+                  <a className="text-gray-400 hover:text-primary transition-colors duration-200">Ajman</a>
                 </Link>
               </li>
               <li>
-                <Link href="/properties?location=5">
-                  <a className="text-gray-400 hover:text-primary transition-colors duration-200">Jumeirah</a>
+                <Link href="/properties?city=rasalkhaimah">
+                  <a className="text-gray-400 hover:text-primary transition-colors duration-200">Ras Al Khaimah</a>
                 </Link>
               </li>
               <li>
-                <Link href="/properties?location=6">
-                  <a className="text-gray-400 hover:text-primary transition-colors duration-200">Arabian Ranches</a>
+                <Link href="/properties?city=fujairah">
+                  <a className="text-gray-400 hover:text-primary transition-colors duration-200">Fujairah</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/properties?city=ummalquwain">
+                  <a className="text-gray-400 hover:text-primary transition-colors duration-200">Umm Al Quwain</a>
                 </Link>
               </li>
             </ul>
@@ -130,7 +144,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start">
                 <i className="fas fa-map-marker-alt text-primary mt-1 mr-3"></i>
-                <span className="text-gray-400">21C Street - Dubai Naif, Dubai, UAE</span>
+                <span className="text-gray-400">Dubai, UAE</span>
               </li>
               <li className="flex items-center">
                 <i className="fas fa-phone-alt text-primary mr-3"></i>
@@ -169,9 +183,21 @@ const Footer = () => {
           </p>
           <div className="mt-4 md:mt-0">
             <ul className="flex flex-wrap justify-center md:justify-end gap-4 text-sm text-gray-500">
-              <li><a href="#" className="hover:text-primary transition-colors duration-200">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors duration-200">Terms of Service</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors duration-200">Cookies Policy</a></li>
+              <li>
+                <Link href="/privacy-policy">
+                  <a className="hover:text-primary transition-colors duration-200">Privacy Policy</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms-of-service">
+                  <a className="hover:text-primary transition-colors duration-200">Terms of Service</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/cookies-policy">
+                  <a className="hover:text-primary transition-colors duration-200">Cookies Policy</a>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

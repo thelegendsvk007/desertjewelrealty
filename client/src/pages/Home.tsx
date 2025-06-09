@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import HeroSection from '@/components/HeroSection';
 import DeveloperShowcase from '@/components/DeveloperShowcase';
 import FeaturedProperties from '@/components/FeaturedProperties';
-import InteractiveMap from '@/components/InteractiveMap';
 import FeaturedDevelopment from '@/components/FeaturedDevelopment';
 import BlogAndNews from '@/components/BlogAndNews';
 import RealEstateLawGuide from '@/components/RealEstateLawGuide';
@@ -19,7 +18,6 @@ const Home = () => {
       <HeroSection />
       <DeveloperShowcase />
       <FeaturedProperties />
-      <InteractiveMap />
       <FeaturedDevelopment />
       <BlogAndNews />
       <RealEstateLawGuide />

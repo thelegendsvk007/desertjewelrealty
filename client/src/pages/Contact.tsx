@@ -1,8 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { apiRequest } from '@/lib/queryClient';
-import { insertInquirySchema } from '@shared/schema';
+import { localStorageService } from '@/lib/localStorage';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -21,18 +20,16 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-// Extend schema for form validation
-const contactFormSchema = insertInquirySchema.extend({
+// Form validation schema
+const contactFormSchema = z.object({
+  name: z.string().min(1, { message: "Name is required." }),
   email: z.string().email({ message: "Please enter a valid email address." }),
   phone: z.string().min(7, { message: "Phone number must be at least 7 characters." }),
   message: z.string().min(10, { message: "Message must be at least 10 characters." }),
   subject: z.string().min(1, { message: "Please select a subject." }),
 });
 
-// Add subject field to form values
-type ContactFormValues = z.infer<typeof contactFormSchema> & {
-  subject: string;
-};
+type ContactFormValues = z.infer<typeof contactFormSchema>;
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -46,23 +43,21 @@ const Contact = () => {
       email: "",
       phone: "",
       message: "",
-      subject: "",
-      propertyId: undefined
+      subject: ""
     },
   });
 
   const onSubmit = async (values: ContactFormValues) => {
     setIsSubmitting(true);
     try {
-      // Omit the subject field when sending to the API
-      const { subject, ...inquiryData } = values;
-      
-      // Update the message to include the subject and email address
-      inquiryData.message = `Subject: ${subject}\n\nTo: info@desertjewelrealty.com\n\n${inquiryData.message}`;
-      
-      await apiRequest('POST', '/api/inquiries', inquiryData);
-      
-      // This would be where email functionality would be implemented server-side to send to info@desertjewelrealty.com
+      // Save to local storage
+      localStorageService.saveContactMessage({
+        name: values.name,
+        email: values.email,
+        phone: values.phone,
+        subject: values.subject,
+        message: values.message
+      });
       
       toast({
         title: "Message Sent Successfully",
@@ -95,15 +90,15 @@ const Contact = () => {
           <img 
             src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
             alt="Contact Us" 
-            className="w-full h-full object-cover opacity-40"
+            className="w-full h-full object-cover opacity-30"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-dark-darker/40 to-dark-darker/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/80"></div>
         </div>
         
         <div className="container mx-auto px-4 relative">
           <div className="max-w-3xl mx-auto text-center text-white">
-            <h1 className="text-4xl md:text-5xl font-montserrat font-bold mb-4">Contact Us</h1>
-            <p className="text-lg text-white/80 mb-0">
+            <h1 className="text-4xl md:text-5xl font-montserrat font-bold mb-4 text-shadow-lg">Contact Us</h1>
+            <p className="text-lg text-white mb-0 text-shadow-md font-medium">
               Get in touch with our team of real estate experts
             </p>
           </div>
@@ -250,7 +245,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h4 className="font-montserrat font-medium mb-1">Office Address</h4>
-                    <p className="text-gray-600">Dubai Marina, Al Marsa Street, Dubai, UAE</p>
+                    <p className="text-gray-600">Dubai, UAE</p>
                   </div>
                 </div>
                 
@@ -297,20 +292,25 @@ const Contact = () => {
               <div className="mt-8">
                 <h4 className="font-montserrat font-medium mb-4">Connect With Us</h4>
                 <div className="flex space-x-4">
-                  <a href="#" className="bg-[#3b5998] text-white w-10 h-10 rounded-full flex items-center justify-center hover:opacity-90">
+                  <a href="https://www.facebook.com/share/1Bn4dATDGZ/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="bg-[#3b5998] text-white w-10 h-10 rounded-full flex items-center justify-center hover:opacity-90">
                     <i className="fab fa-facebook-f"></i>
                   </a>
                   <a href="https://t.me/desertjewelrealtychat" target="_blank" rel="noopener noreferrer" className="bg-[#0088cc] text-white w-10 h-10 rounded-full flex items-center justify-center hover:opacity-90">
                     <i className="fab fa-telegram-plane"></i>
                   </a>
-                  <a href="https://wa.me/971599532210" target="_blank" rel="noopener noreferrer" className="bg-[#25d366] text-white w-10 h-10 rounded-full flex items-center justify-center hover:opacity-90">
+                  <a href="https://wa.me/971589532210" target="_blank" rel="noopener noreferrer" className="bg-[#25d366] text-white w-10 h-10 rounded-full flex items-center justify-center hover:opacity-90">
                     <i className="fab fa-whatsapp"></i>
                   </a>
-                  <a href="#" className="bg-[#0e76a8] text-white w-10 h-10 rounded-full flex items-center justify-center hover:opacity-90">
+                  <a href="https://www.linkedin.com/company/desert-jewel-realty/" target="_blank" rel="noopener noreferrer" className="bg-[#0e76a8] text-white w-10 h-10 rounded-full flex items-center justify-center hover:opacity-90">
                     <i className="fab fa-linkedin-in"></i>
                   </a>
-                  <a href="#" className="bg-[#c32aa3] text-white w-10 h-10 rounded-full flex items-center justify-center hover:opacity-90">
+                  <a href="https://www.instagram.com/desertjewelrealty/profilecard/?igsh=MXNhenlldHZtYWJhcA==" target="_blank" rel="noopener noreferrer" className="bg-[#c32aa3] text-white w-10 h-10 rounded-full flex items-center justify-center hover:opacity-90">
                     <i className="fab fa-instagram"></i>
+                  </a>
+                  <a href="https://x.com/desertjewel_?s=21" target="_blank" rel="noopener noreferrer" className="bg-black text-white w-10 h-10 rounded-full flex items-center justify-center hover:opacity-90">
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
                   </a>
                 </div>
               </div>
@@ -337,16 +337,16 @@ const Contact = () => {
         <div className="bg-[#D4AF37] text-teal-800 rounded-xl shadow-md p-8">
           <h2 className="text-2xl font-montserrat font-semibold mb-6">Our Location</h2>
           <p className="text-teal-700 mb-6">
-            Visit our luxurious office at 21C Street - Dubai Naif Dubai. Our elite team of real estate consultants are ready to assist you in finding your dream property or investment opportunity across the UAE.
+            Visit our luxurious office at Dubai. Our elite team of real estate consultants are ready to assist you in finding your dream property or investment opportunity across the UAE.
           </p>
           <div className="rounded-xl overflow-hidden h-[400px]">
             <LeafletMap 
-              center={[25.2744, 55.3308]} // Coordinates for Dubai Naif
+              center={[25.209805, 55.273272]} 
               zoom={15}
               markers={[
                 {
-                  position: [25.2744, 55.3308],
-                  popup: "Desert Jewel Realty - Dubai Naif Office"
+                  position: [25.209805, 55.273272],
+                  popup: "Desert Jewel Realty - Dubai Office"
                 }
               ]}
             />

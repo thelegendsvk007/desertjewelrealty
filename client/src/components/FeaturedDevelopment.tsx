@@ -3,8 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 
-// Import assets from the index.ts file in types
-import { SobhaAquamontBrochure, SobhaAquamontVideo, SiniyaIslandBrochure, SiniyaIslandVideo } from '../types';
+import SobhaAquamontBrochure from '../assets/brochures/Sobha_Aquamont_Downtown_UAQ.pdf?url';
+import SobhaAquamontVideo from '../assets/videos/sobha-aquamont-tour.mp4?url';
+import SiniyaIslandBrochure from '../assets/brochures/Siniya_Island_Beach_Residences.pdf?url';
+import SiniyaIslandVideo from '../assets/videos/siniya-island-tour.mp4?url';
+import ChelseaResidencesBrochure from '../assets/brochures/chelseabrochure.pdf'
+import ChelseaResidencesVideo from '../assets/videos/chelsea.mp4'
 
 const FeaturedDevelopment = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -23,6 +27,18 @@ const FeaturedDevelopment = () => {
       brochure: SobhaAquamontBrochure,
       video: SobhaAquamontVideo
     },
+    {
+  id: 'chelsea',
+  name: "Chelsea Residences",
+  developer: "Damac",
+  description: "An elegant urban oasis in the heart of the city, Chelsea Residences by Damac redefines upscale living with contemporary design, smart home features, and premium amenities. Perfectly positioned for both comfort and connectivity.",
+  price: "AED 2.17M+",
+  completion: "December 2029",
+  units: "1-3 BR",
+  brochure: ChelseaResidencesBrochure,
+  video: ChelseaResidencesVideo
+},
+
     {
       id: 'siniya-island',
       name: "Beach Residences at Siniya Island",

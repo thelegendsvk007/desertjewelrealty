@@ -42,6 +42,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { formatPrice, formatArea } from "@/lib/utils";
+import ContactMessages from "./ContactMessages";
 
 export default function AdminDashboard() {
   const { user, logoutMutation } = useAuth();
@@ -672,6 +673,7 @@ export default function AdminDashboard() {
                   </Badge>
                 )}
               </TabsTrigger>
+              <TabsTrigger value="messages">Contact Messages</TabsTrigger>
               <TabsTrigger value="enhanced">Enhanced Management</TabsTrigger>
               <TabsTrigger value="stats">Property Stats</TabsTrigger>
               <TabsTrigger value="leads">Lead Management</TabsTrigger>
@@ -1231,6 +1233,11 @@ export default function AdminDashboard() {
                   )}
                 </TabsContent>
               </Tabs>
+            </TabsContent>
+
+            {/* Contact Messages Tab */}
+            <TabsContent value="messages">
+              <ContactMessages />
             </TabsContent>
 
             {/* Lead Management Tab */}

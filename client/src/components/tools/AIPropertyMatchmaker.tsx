@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'wouter';
 import {
   Card,
   CardContent,
@@ -30,7 +31,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Loader2, Home, MapPin, Battery, ThumbsUp, BadgeCheck, Trees, Building } from 'lucide-react';
+import { propertiesData } from '@/data/properties';
+import { locationsData } from '@/data/locations';
+import { formatPrice, formatArea, parsePropertyImages } from '@/lib/utils';
 
 // Define schema for the form
 const formSchema = z.object({
@@ -47,7 +52,72 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-// Mock recommended properties based on user preferences
+// Function to generate AI recommendations based on user preferences
+const generateRecommendations = (preferences: FormValues) => {
+  const { budget, propertyType, bedrooms, location, lifestyle, investmentGoal, amenities } = preferences;
+  
+  // Filter properties based on preferences
+  let matchedProperties = propertiesData.filter(property => {
+    // Budget filter
+    const maxBudget = budget ? parseInt(budget) : Infinity;
+    if (property.price > maxBudget) return false;
+    
+    // Property type filter
+    if (propertyType && property.propertyType.toLowerCase() !== propertyType.toLowerCase()) return false;
+    
+    // Bedrooms filter
+    if (bedrooms && bedrooms !== 'any') {
+      const propertyBeds = property.beds || 0;
+      if (bedrooms === 'studio' && propertyBeds !== 0) return false;
+      if (bedrooms !== 'studio' && propertyBeds !== parseInt(bedrooms)) return false;
+    }
+    
+    // Location filter using actual location data
+    if (location && location !== 'no-preference') {
+      const locationData = locationsData.find(loc => loc.id === property.locationId);
+      const locationSlug = location.replace(/-/g, ' ');
+      if (!locationData?.name.toLowerCase().includes(locationSlug.toLowerCase())) return false;
+    }
+    
+    return true;
+  });
+  
+  // Sort by relevance and add match scores
+  const scoredProperties = matchedProperties.map(property => {
+    let score = 70; // Base score
+    
+    // Boost score for premium properties
+    if (property.premium) score += 10;
+    if (property.exclusive) score += 8;
+    if (property.newLaunch) score += 5;
+    
+    // Lifestyle preferences scoring
+    if (lifestyle.includes('luxury') && property.premium) score += 15;
+    if (lifestyle.includes('family') && (property.beds || 0) >= 3) score += 10;
+    if (lifestyle.includes('investment') && (property.propertyType === 'Apartment' || property.status === 'Off-Plan')) score += 12;
+    if (lifestyle.includes('beachfront') && property.locationId === 2) score += 20; // Palm Jumeirah
+    
+    // Investment goal scoring
+    if (investmentGoal === 'rental-income' && property.propertyType === 'Apartment') score += 10;
+    if (investmentGoal === 'capital-appreciation' && property.status === 'Off-Plan') score += 15;
+    if (investmentGoal === 'golden-visa' && property.price >= 2000000) score += 12;
+    
+    // Cap score at 98%
+    score = Math.min(score, 98);
+    
+    return {
+      ...property,
+      matchScore: score
+    };
+  });
+  
+  // Sort by match score and return top 3
+  return scoredProperties
+    .sort((a, b) => b.matchScore - a.matchScore)
+    .slice(0, 3);
+};
+
+// Mock recommended properties based on user preferences - kept for fallback
 const mockRecommendations = [
   {
     id: 101,
@@ -158,9 +228,10 @@ const AIPropertyMatchmaker: React.FC<AIPropertyMatchmakerProps> = ({ className }
       await new Promise(resolve => setTimeout(resolve, 250));
     }
     
-    // Simulate API call to get recommendations
+    // Generate real property recommendations
     setTimeout(() => {
-      setRecommendations(mockRecommendations);
+      const realRecommendations = generateRecommendations(data);
+      setRecommendations(realRecommendations);
       setIsLoading(false);
       setStep(3);
     }, 1000);
@@ -272,13 +343,11 @@ const AIPropertyMatchmaker: React.FC<AIPropertyMatchmakerProps> = ({ className }
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="dubai-marina">Dubai Marina</SelectItem>
-                  <SelectItem value="palm-jumeirah">Palm Jumeirah</SelectItem>
-                  <SelectItem value="downtown-dubai">Downtown Dubai</SelectItem>
-                  <SelectItem value="business-bay">Business Bay</SelectItem>
-                  <SelectItem value="jumeirah-beach-residence">JBR</SelectItem>
-                  <SelectItem value="arabian-ranches">Arabian Ranches</SelectItem>
-                  <SelectItem value="dubai-hills">Dubai Hills</SelectItem>
+                  {locationsData.map((location) => (
+                    <SelectItem key={location.id} value={location.name.toLowerCase().replace(/\s+/g, '-')}>
+                      {location.name}
+                    </SelectItem>
+                  ))}
                   <SelectItem value="no-preference">No Preference</SelectItem>
                 </SelectContent>
               </Select>
@@ -583,39 +652,64 @@ const AIPropertyMatchmaker: React.FC<AIPropertyMatchmakerProps> = ({ className }
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {recommendations?.map((property) => (
-          <Card key={property.id} className="overflow-hidden h-full flex flex-col">
-            <div className="relative h-48">
-              <img 
-                src={property.images[0]} 
-                alt={property.title} 
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              <div className="absolute top-2 right-2 bg-primary text-white text-sm font-bold px-2 py-1 rounded-md">
-                {property.matchScore}% Match
+        {recommendations?.map((property) => {
+          const images = parsePropertyImages(property.images);
+          const featuredImage = images.length > 0 ? images[0] : '';
+          const locationData = locationsData.find(loc => loc.id === property.locationId);
+          
+          return (
+            <Card key={property.id} className="overflow-hidden h-full flex flex-col">
+              <div className="relative h-48">
+                <img 
+                  src={featuredImage} 
+                  alt={property.title} 
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute top-2 left-2 flex flex-wrap gap-1">
+                  {property.premium && (
+                    <Badge variant="premium">Premium</Badge>
+                  )}
+                  {property.exclusive && (
+                    <Badge variant="exclusive">Exclusive</Badge>
+                  )}
+                  {property.newLaunch && (
+                    <Badge variant="new">New Launch</Badge>
+                  )}
+                  {property.soldOut && (
+                    <Badge variant="soldOut">Sold Out</Badge>
+                  )}
+                  {property.fastSelling && (
+                    <Badge variant="fastSelling">Fast Selling</Badge>
+                  )}
+                </div>
+                <div className="absolute top-2 right-2 bg-primary text-white text-sm font-bold px-2 py-1 rounded-md">
+                  {property.matchScore}% Match
+                </div>
               </div>
-            </div>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg">{property.title}</CardTitle>
-              <CardDescription className="line-clamp-1">{property.location}</CardDescription>
-            </CardHeader>
-            <CardContent className="pb-2 flex-grow">
-              <div className="flex justify-between mb-2">
-                <span className="font-medium text-lg">{property.price.toLocaleString()} AED</span>
-                <span className="text-sm text-muted-foreground">{property.type}</span>
-              </div>
-              <div className="flex gap-4 text-sm mb-3">
-                <span>{property.bedrooms} {property.bedrooms === 0 ? "Studio" : property.bedrooms === 1 ? "Bed" : "Beds"}</span>
-                <span>{property.bathrooms} {property.bathrooms === 1 ? "Bath" : "Baths"}</span>
-                <span>{property.area} sq.ft</span>
-              </div>
-              <p className="text-sm line-clamp-2 text-muted-foreground">{property.description}</p>
-            </CardContent>
-            <CardFooter className="pt-0">
-              <Button className="w-full">View Property</Button>
-            </CardFooter>
-          </Card>
-        ))}
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg">{property.title}</CardTitle>
+                <CardDescription className="line-clamp-1">{locationData?.name || property.address}</CardDescription>
+              </CardHeader>
+              <CardContent className="pb-2 flex-grow">
+                <div className="flex justify-between mb-2">
+                  <span className="font-medium text-lg">{formatPrice(property.price)}</span>
+                  <span className="text-sm text-muted-foreground">{property.propertyType}</span>
+                </div>
+                <div className="flex gap-4 text-sm mb-3">
+                  <span>{property.beds} {property.beds === 0 ? "Studio" : property.beds === 1 ? "Bed" : "Beds"}</span>
+                  <span>{property.baths} {property.baths === 1 ? "Bath" : "Baths"}</span>
+                  <span>{formatArea(property.area)}</span>
+                </div>
+                <p className="text-sm line-clamp-2 text-muted-foreground">{property.description}</p>
+              </CardContent>
+              <CardFooter className="pt-0">
+                <Link href={`/properties/${property.id}`}>
+                  <Button className="w-full">View Property</Button>
+                </Link>
+              </CardFooter>
+            </Card>
+          );
+        })}
       </div>
       
       <div className="flex justify-between mt-8">

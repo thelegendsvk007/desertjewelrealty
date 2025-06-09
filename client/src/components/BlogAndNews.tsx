@@ -1,78 +1,28 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
-import { useBlog, BlogPost } from '@/context/BlogContext';
-
-// Fallback data in case the context fails
-const localBlogPosts: BlogPost[] = [
-  {
-    id: 1,
-    title: "2025 UAE Real Estate Market Outlook",
-    excerpt: "Insights into market trends, hotspots, and investment opportunities in the UAE property market.",
-    content: `<h2>2025 UAE Real Estate Market Outlook</h2><p>The UAE real estate market continues to show remarkable resilience and growth in 2025, with several key trends emerging that shape investment opportunities across the emirates.</p>`,
-    category: "Market Trends",
-    date: "May 2, 2025",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-    readTime: "5 min read"
-  },
-  {
-    id: 2,
-    title: "New Regulations for Foreign Property Investors",
-    excerpt: "Understanding the latest regulatory changes affecting non-resident property buyers in the UAE.",
-    content: `<h2>New Regulations for Foreign Property Investors</h2><p>The UAE government has introduced several significant regulatory changes in 2025 that impact foreign property investors, creating both new opportunities and considerations for international buyers.</p>`,
-    category: "Regulations",
-    date: "April 28, 2025",
-    image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-    readTime: "4 min read"
-  },
-  {
-    id: 3,
-    title: "Guide to Off-Plan Investment in Dubai",
-    excerpt: "A comprehensive guide to investing in off-plan properties and maximizing returns.",
-    content: `<h2>Guide to Off-Plan Investment in Dubai</h2><p>Off-plan property investment continues to be a popular strategy in Dubai's real estate market, offering potentially higher returns but requiring careful consideration of various factors.</p>`,
-    category: "Investment Guide",
-    date: "April 15, 2025",
-    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-    readTime: "7 min read"
-  }
-];
+import { useBlogFeed, BlogPost } from '@/hooks/useBlogFeed';
+import { Calendar, Clock, ExternalLink, Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const BlogAndNews = () => {
-  const blogContext = useBlog();
-  const [localCurrentPost, setLocalCurrentPost] = useState<BlogPost | null>(null);
+  const { posts, loading, error } = useBlogFeed();
+  const [currentPost, setCurrentPost] = useState<BlogPost | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  
-  // Use context data if available, otherwise use local data
-  const posts = blogContext?.posts?.length > 0 ? blogContext.posts : localBlogPosts;
-  const currentPost = blogContext?.currentPost || localCurrentPost;
-  const setCurrentPost = blogContext?.setCurrentPost || setLocalCurrentPost;
+  const [isHovered, setIsHovered] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const autoScrollRef = useRef<NodeJS.Timeout>();
   
   // Function to get related posts
   const getRelatedPosts = (post: BlogPost, count: number = 2): BlogPost[] => {
-    if (blogContext?.getRelatedPosts) {
-      return blogContext.getRelatedPosts(post, count);
-    }
+    if (!posts || posts.length === 0) return [];
     
-    // Fallback implementation
-    const sameCategoryPosts = posts.filter(p => 
-      p.id !== post.id && p.category === post.category
-    );
-    
-    if (sameCategoryPosts.length >= count) {
-      return sameCategoryPosts.slice(0, count);
-    }
-    
-    const otherPosts = posts.filter(p => 
-      p.id !== post.id && p.category !== post.category
-    );
-    
-    return [
-      ...sameCategoryPosts,
-      ...otherPosts.slice(0, count - sameCategoryPosts.length)
-    ];
+    // Filter out the current post and get the first few
+    return posts
+      .filter(p => p.guid !== post.guid)
+      .slice(0, count);
   };
 
   const openArticle = (post: BlogPost) => {
@@ -80,143 +30,375 @@ const BlogAndNews = () => {
     setIsDialogOpen(true);
   };
 
+  const truncateText = (text: string, maxLength: number = 150): string => {
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + '...';
+  };
+
+  const formatDate = (dateString: string): string => {
+    try {
+      return new Date(dateString).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    } catch {
+      return dateString;
+    }
+  };
+
+  const extractTextFromHtml = (html: string): string => {
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    return div.textContent || div.innerText || '';
+  };
+
+  // Continuous auto-scroll functionality for blog carousel
+  useEffect(() => {
+    const startAutoScroll = () => {
+      if (scrollContainerRef.current && posts.length > 0) {
+        autoScrollRef.current = setInterval(() => {
+          if (scrollContainerRef.current) {
+            const container = scrollContainerRef.current;
+            const maxScroll = container.scrollWidth - container.clientWidth;
+            
+            if (container.scrollLeft >= maxScroll) {
+              container.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+              container.scrollTo({ 
+                left: container.scrollLeft + 2, 
+                behavior: 'auto' 
+              });
+            }
+          }
+        }, 30); // Continuous smooth scrolling
+      }
+    };
+
+    const stopAutoScroll = () => {
+      if (autoScrollRef.current) {
+        clearInterval(autoScrollRef.current);
+      }
+    };
+
+    if (posts.length > 3) {
+      startAutoScroll();
+    }
+
+    return () => stopAutoScroll();
+  }, [posts]);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const container = scrollContainerRef.current;
+      const cardWidth = 400;
+      
+      if (direction === 'left') {
+        container.scrollTo({ 
+          left: container.scrollLeft - cardWidth, 
+          behavior: 'smooth' 
+        });
+      } else {
+        container.scrollTo({ 
+          left: container.scrollLeft + cardWidth, 
+          behavior: 'smooth' 
+        });
+      }
+    }
+  };
+
+  if (loading) {
+    return (
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">UAE Real Estate Blog & News</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Stay informed with the latest market trends, new regulations, and investment guides for UAE real estate.
+            </p>
+          </div>
+          <div className="flex justify-center items-center py-16">
+            <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+            <span className="ml-3 text-gray-600">Loading latest articles...</span>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">UAE Real Estate Blog & News</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Stay informed with the latest market trends, new regulations, and investment guides for UAE real estate.
+            </p>
+          </div>
+          <div className="text-center py-16">
+            <p className="text-red-600 mb-4">Unable to load latest articles</p>
+            <p className="text-gray-600">Please check back later</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className="py-20 px-4 bg-gray-50 animated-bg">
-      <div className="container mx-auto">
-        <div className="mb-16 text-center">
-          <h2 className="text-3xl font-montserrat font-semibold mb-2">UAE Real Estate Blog & News</h2>
-          <div className="w-20 h-1 bg-primary mx-auto mb-6"></div>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+    <section className="py-24 bg-white">
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">UAE Real Estate Blog & News</h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Stay informed with the latest market trends, new regulations, and investment guides for UAE real estate.
           </p>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {posts.map((post) => (
-            <motion.div
-              key={post.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: post.id * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <Card className="h-full flex flex-col hover:shadow-lg transition-shadow duration-300">
-                <div className="relative h-48 overflow-hidden rounded-t-lg">
-                  <img 
-                    src={post.image} 
-                    alt={post.title} 
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <Badge variant="secondary" className="bg-primary text-white hover:bg-primary">
-                      {post.category}
-                    </Badge>
-                  </div>
-                </div>
-                <CardHeader>
-                  <div className="flex justify-between items-center mb-2 text-sm text-gray-500">
-                    <span>{post.date}</span>
-                    <span>{post.readTime}</span>
-                  </div>
-                  <CardTitle className="text-xl">{post.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                  <CardDescription className="text-gray-600">{post.excerpt}</CardDescription>
-                </CardContent>
-                <CardFooter>
-                  <Button 
-                    variant="ghost" 
-                    className="text-primary hover:text-primary hover:bg-primary/10"
-                    onClick={() => openArticle(post)}
-                  >
-                    Read Article <i className="fas fa-arrow-right ml-2"></i>
-                  </Button>
-                </CardFooter>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-        
-        <div className="mt-12 text-center">
-          <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white">
-            View All Articles <i className="fas fa-external-link-alt ml-2"></i>
-          </Button>
-        </div>
-      </div>
 
-      {/* Article Dialog */}
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
-          {currentPost && (
+        {/* Blog Carousel */}
+        <div className="relative">
+          {/* Navigation Arrows */}
+          {posts.length > 3 && (
             <>
-              <DialogHeader>
-                <div className="flex items-center gap-2 mb-2">
-                  <Badge className="bg-primary text-white">
-                    {currentPost.category}
-                  </Badge>
-                  <span className="text-sm text-gray-500">{currentPost.date} · {currentPost.readTime}</span>
-                </div>
-                <DialogTitle className="text-2xl font-montserrat">{currentPost.title}</DialogTitle>
-                <DialogDescription>{currentPost.excerpt}</DialogDescription>
-              </DialogHeader>
-              
-              <div className="my-4">
-                <img 
-                  src={currentPost.image} 
-                  alt={currentPost.title}
-                  className="w-full h-64 object-cover rounded-md mb-6" 
-                />
-                <div 
-                  className="prose prose-emerald max-w-none" 
-                  dangerouslySetInnerHTML={{ __html: currentPost.content }}
-                />
-              </div>
-              
-              {/* Recommended Related Articles */}
-              {currentPost && (
-                <div className="mt-10 pt-8 border-t border-gray-200">
-                  <h3 className="text-xl font-montserrat font-semibold mb-4">Recommended Articles</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {getRelatedPosts(currentPost, 2).map((relatedPost) => (
-                      <div 
-                        key={relatedPost.id}
-                        className="flex cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors"
-                        onClick={() => {
-                          setCurrentPost(relatedPost);
-                          // Scroll to top of dialog
-                          setTimeout(() => {
-                            const dialogContent = document.querySelector('[role="dialog"]');
-                            if (dialogContent) dialogContent.scrollTop = 0;
-                          }, 10);
-                        }}
-                      >
-                        <div className="flex-shrink-0 w-20 h-20 mr-4">
-                          <img 
-                            src={relatedPost.image} 
-                            alt={relatedPost.title} 
-                            className="w-full h-full object-cover rounded" 
-                          />
-                        </div>
-                        <div>
-                          <Badge variant="outline" className="mb-1 text-xs">
-                            {relatedPost.category}
-                          </Badge>
-                          <h4 className="font-medium text-sm line-clamp-2">{relatedPost.title}</h4>
-                          <p className="text-xs text-gray-500 mt-1">{relatedPost.readTime}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-              
-              <DialogFooter className="mt-6">
-                <Button onClick={() => setIsDialogOpen(false)}>Close</Button>
-              </DialogFooter>
+              <button
+                onClick={() => scroll('left')}
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-2 hover:bg-gray-50 transition-colors"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                onClick={() => scroll('right')}
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-2 hover:bg-gray-50 transition-colors"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
             </>
           )}
-        </DialogContent>
-      </Dialog>
+
+          {/* Carousel Container */}
+          <div
+            ref={scrollContainerRef}
+            className="flex gap-6 overflow-x-auto scroll-smooth"
+            style={{ 
+              scrollbarWidth: 'none', 
+              msOverflowStyle: 'none'
+            }}
+            onMouseEnter={() => {
+              if (autoScrollRef.current) {
+                clearInterval(autoScrollRef.current);
+              }
+            }}
+            onMouseLeave={() => {
+              if (posts.length > 3) {
+                const startAutoScroll = () => {
+                  if (scrollContainerRef.current) {
+                    autoScrollRef.current = setInterval(() => {
+                      if (scrollContainerRef.current) {
+                        const container = scrollContainerRef.current;
+                        const maxScroll = container.scrollWidth - container.clientWidth;
+                        
+                        if (container.scrollLeft >= maxScroll) {
+                          container.scrollTo({ left: 0, behavior: 'smooth' });
+                        } else {
+                          container.scrollTo({ 
+                            left: container.scrollLeft + 2, 
+                            behavior: 'auto' 
+                          });
+                        }
+                      }
+                    }, 30);
+                  }
+                };
+                startAutoScroll();
+              }
+            }}
+          >
+            {posts.map((post, index) => (
+              <motion.div
+                key={post.guid}
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="flex-none w-80"
+              >
+                <Card className="h-full hover:shadow-xl transition-all duration-300 group cursor-pointer">
+                  <div className="aspect-video overflow-hidden rounded-t-lg">
+                    <img
+                      src={post.thumbnail || 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'}
+                      alt={post.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  
+                  <CardHeader>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Badge variant="secondary" className="text-xs">
+                        {Array.isArray(post.categories) ? post.categories[0] : 'Real Estate'}
+                      </Badge>
+                    </div>
+                    <CardTitle className="text-lg line-clamp-2 group-hover:text-blue-600 transition-colors">
+                      {post.title}
+                    </CardTitle>
+                  </CardHeader>
+
+                  <CardContent>
+                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        <span>{formatDate(post.pubDate)}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-4 h-4" />
+                        <span>5 min read</span>
+                      </div>
+                    </div>
+                    <p className="text-gray-600 line-clamp-3">
+                      {truncateText(extractTextFromHtml(post.description))}
+                    </p>
+                  </CardContent>
+
+                  <CardFooter>
+                    <Button 
+                      variant="outline" 
+                      className="w-full group-hover:bg-blue-600 group-hover:text-white transition-colors"
+                      onClick={() => openArticle(post)}
+                    >
+                      Read Article
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Article Dialog */}
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+            {currentPost && (
+              <>
+                <DialogHeader>
+                  <div className="aspect-video overflow-hidden rounded-lg mb-4">
+                    <img
+                      src={currentPost.thumbnail || 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'}
+                      alt={currentPost.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <DialogTitle className="text-2xl font-bold text-left">
+                    {currentPost.title}
+                  </DialogTitle>
+                  <DialogDescription className="text-left">
+                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        <span>{formatDate(currentPost.pubDate)}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-4 h-4" />
+                        <span>5 min read</span>
+                      </div>
+                      <Badge variant="secondary">
+                        {Array.isArray(currentPost.categories) ? currentPost.categories[0] : 'Real Estate'}
+                      </Badge>
+                    </div>
+                  </DialogDescription>
+                </DialogHeader>
+                
+                <div className="prose max-w-none">
+                  <div dangerouslySetInnerHTML={{ __html: currentPost.content || currentPost.description }} />
+                  
+                  {/* Additional article information */}
+                  <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+                    <h4 className="font-semibold text-lg mb-3">About This Article</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <strong>Published:</strong> {formatDate(currentPost.pubDate)}
+                      </div>
+                      <div>
+                        <strong>Category:</strong> {Array.isArray(currentPost.categories) ? currentPost.categories[0] : 'Real Estate'}
+                      </div>
+                      <div>
+                        <strong>Source:</strong> UAE Real Estate News
+                      </div>
+                      <div>
+                        <strong>Reading Time:</strong> ~5 minutes
+                      </div>
+                    </div>
+                    
+                    <div className="mt-4">
+                      <strong>Key Topics:</strong>
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {(Array.isArray(currentPost.categories) ? currentPost.categories : ['Real Estate', 'Property Investment', 'UAE Market']).map((category, index) => (
+                          <Badge key={index} variant="outline" className="text-xs">
+                            {category}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div className="mt-4">
+                      <p className="text-gray-600">
+                        This article provides insights into the UAE real estate market, covering current trends, 
+                        investment opportunities, and regulatory updates that impact property buyers and investors.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <DialogFooter className="flex justify-between items-center mt-6">
+                  <div className="flex gap-2">
+                    <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
+                      Close
+                    </Button>
+                    <Button asChild>
+                      <a href={currentPost.link} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        Read Full Article
+                      </a>
+                    </Button>
+                  </div>
+                </DialogFooter>
+
+                {/* Related Articles */}
+                {getRelatedPosts(currentPost).length > 0 && (
+                  <div className="mt-8 pt-6 border-t">
+                    <h3 className="text-lg font-semibold mb-4">Related Articles</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {getRelatedPosts(currentPost).map((relatedPost) => (
+                        <Card 
+                          key={relatedPost.guid}
+                          className="cursor-pointer hover:shadow-md transition-shadow"
+                          onClick={() => {
+                            setCurrentPost(relatedPost);
+                          }}
+                        >
+                          <CardHeader className="pb-2">
+                            <CardTitle className="text-sm line-clamp-2">
+                              {relatedPost.title}
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <p className="text-xs text-gray-600 line-clamp-2">
+                              {truncateText(extractTextFromHtml(relatedPost.description), 100)}
+                            </p>
+                            <div className="flex items-center gap-2 mt-2">
+                              <Calendar className="w-3 h-3 text-gray-400" />
+                              <span className="text-xs text-gray-500">
+                                {formatDate(relatedPost.pubDate)}
+                              </span>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+          </DialogContent>
+        </Dialog>
+      </div>
     </section>
   );
 };
