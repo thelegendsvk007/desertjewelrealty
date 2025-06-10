@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'wouter';
+import { Filter, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
 import { formatPrice, formatArea, parsePropertyImages } from '@/lib/utils';
@@ -42,6 +44,7 @@ const Properties = () => {
   });
   const [sortBy, setSortBy] = useState('featured');
   const [currentPage, setCurrentPage] = useState(1);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
   const propertiesPerPage = 10;
 
   // Parse query parameters
@@ -335,9 +338,333 @@ const Properties = () => {
       
       {/* Main Content */}
       <section className="py-12 container mx-auto px-4">
+        {/* Mobile Filter Button */}
+        <div className="lg:hidden mb-6">
+          <Button
+            onClick={() => setShowMobileFilters(true)}
+            className="w-full flex items-center justify-center gap-2 bg-primary text-white py-3 rounded-xl"
+          >
+            <Filter size={20} />
+            Filter Properties
+          </Button>
+        </div>
+
+        {/* Mobile Filter Modal */}
+        <AnimatePresence>
+          {showMobileFilters && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/50 z-50 lg:hidden"
+              onClick={() => setShowMobileFilters(false)}
+            >
+              <motion.div
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ type: "spring", damping: 20 }}
+                className="absolute right-0 top-0 h-full w-full max-w-sm bg-white shadow-xl"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Mobile Filter Header - Sticky */}
+                <div className="sticky top-0 bg-white z-10 flex justify-between items-center p-4 border-b shadow-sm">
+                  <h3 className="text-lg font-semibold text-gray-800">Filter Properties</h3>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setShowMobileFilters(false)}
+                    className="text-gray-500 hover:text-gray-700"
+                  >
+                    <X size={24} />
+                  </Button>
+                </div>
+
+                {/* Mobile Filter Content - Scrollable */}
+                <div className="overflow-y-auto h-full pb-20 px-4 py-4">
+                  <div className="space-y-6">
+                    {/* Category Toggle */}
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Category</label>
+                      <div className="flex bg-gray-100 rounded-lg p-1">
+                        <button
+                          className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
+                            searchParams.category === 'residential'
+                              ? 'bg-primary text-white'
+                              : 'text-gray-600 hover:text-gray-800'
+                          }`}
+                          onClick={() => setSearchParams({...searchParams, category: 'residential'})}
+                        >
+                          Residential
+                        </button>
+                        <button
+                          className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
+                            searchParams.category === 'commercial'
+                              ? 'bg-primary text-white'
+                              : 'text-gray-600 hover:text-gray-800'
+                          }`}
+                          onClick={() => setSearchParams({...searchParams, category: 'commercial'})}
+                        >
+                          Commercial
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Property Type */}
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Property Type</label>
+                      <Select 
+                        value={searchParams.propertyType}
+                        onValueChange={(value) => setSearchParams({...searchParams, propertyType: value})}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select property type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all-types">All Types</SelectItem>
+                          <SelectItem value="studio">Studio</SelectItem>
+                          <SelectItem value="apartment">Apartment</SelectItem>
+                          <SelectItem value="villa">Villa</SelectItem>
+                          <SelectItem value="penthouse">Penthouse</SelectItem>
+                          <SelectItem value="townhouse">Townhouse</SelectItem>
+                          <SelectItem value="duplex">Duplex</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    {/* Emirate/City */}
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Emirate</label>
+                      <Select 
+                        value={searchParams.city}
+                        onValueChange={(value) => setSearchParams({...searchParams, city: value, locationId: ''})}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select emirate" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all-emirates">All Emirates</SelectItem>
+                          <SelectItem value="Dubai">Dubai</SelectItem>
+                          <SelectItem value="Abu Dhabi">Abu Dhabi</SelectItem>
+                          <SelectItem value="Sharjah">Sharjah</SelectItem>
+                          <SelectItem value="Ajman">Ajman</SelectItem>
+                          <SelectItem value="Ras Al Khaimah">Ras Al Khaimah</SelectItem>
+                          <SelectItem value="Fujairah">Fujairah</SelectItem>
+                          <SelectItem value="Umm Al Quwain">Umm Al Quwain</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {/* Area/Location */}
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Area</label>
+                      <Select 
+                        value={searchParams.locationId}
+                        onValueChange={(value) => setSearchParams({...searchParams, locationId: value})}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select area" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all-areas">All Areas</SelectItem>
+                          {locations
+                            .filter(location => 
+                              !searchParams.city || 
+                              searchParams.city === 'all-emirates' || 
+                              location.city === searchParams.city
+                            )
+                            .map((location) => (
+                              <SelectItem key={location.id} value={location.id.toString()}>
+                                {location.name}
+                              </SelectItem>
+                            ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {/* Price Range */}
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">
+                        Price Range: AED {searchParams.minPrice.toLocaleString()} - AED {searchParams.maxPrice.toLocaleString()}
+                      </label>
+                      <div className="space-y-4">
+                        <div>
+                          <label className="text-xs text-gray-500">Min Price</label>
+                          <Slider
+                            value={[searchParams.minPrice]}
+                            onValueChange={(value) => setSearchParams({...searchParams, minPrice: value[0]})}
+                            max={50000000}
+                            step={100000}
+                            className="w-full"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-xs text-gray-500">Max Price</label>
+                          <Slider
+                            value={[searchParams.maxPrice]}
+                            onValueChange={(value) => setSearchParams({...searchParams, maxPrice: value[0]})}
+                            max={50000000}
+                            step={100000}
+                            className="w-full"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Bedrooms */}
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Bedrooms</label>
+                      <Select 
+                        value={searchParams.beds}
+                        onValueChange={(value) => setSearchParams({...searchParams, beds: value})}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Any bedrooms" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="any-beds">Any</SelectItem>
+                          <SelectItem value="studio">Studio</SelectItem>
+                          <SelectItem value="1">1 Bedroom</SelectItem>
+                          <SelectItem value="2">2 Bedrooms</SelectItem>
+                          <SelectItem value="3">3 Bedrooms</SelectItem>
+                          <SelectItem value="4">4 Bedrooms</SelectItem>
+                          <SelectItem value="5">5+ Bedrooms</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {/* Property Status */}
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Property Status</label>
+                      <Select 
+                        value={searchParams.status}
+                        onValueChange={(value) => setSearchParams({...searchParams, status: value})}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Any status" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="">Any Status</SelectItem>
+                          <SelectItem value="Ready to Move">Ready to Move</SelectItem>
+                          <SelectItem value="Off-Plan">Off-Plan</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {/* Property Features */}
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Features</label>
+                      <div className="space-y-2">
+                        {['balcony', 'parking', 'maids room', 'study'].map((feature) => (
+                          <div key={feature} className="flex items-center space-x-2">
+                            <Checkbox 
+                              id={`mobile-${feature}`}
+                              checked={searchParams.features.includes(feature)}
+                              onCheckedChange={(checked) => {
+                                const newFeatures = checked 
+                                  ? [...searchParams.features, feature]
+                                  : searchParams.features.filter(f => f !== feature);
+                                setSearchParams(prev => ({...prev, features: newFeatures}));
+                              }}
+                            />
+                            <label htmlFor={`mobile-${feature}`} className="text-sm capitalize">
+                              {feature === 'maids room' ? "Maid's Room" : feature === 'study' ? 'Study Room' : feature}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Amenities */}
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Amenities</label>
+                      <div className="space-y-2">
+                        {['pool', 'gym', 'playground', 'security'].map((amenity) => (
+                          <div key={amenity} className="flex items-center space-x-2">
+                            <Checkbox 
+                              id={`mobile-${amenity}`}
+                              checked={searchParams.amenities.includes(amenity)}
+                              onCheckedChange={(checked) => {
+                                const newAmenities = checked 
+                                  ? [...searchParams.amenities, amenity]
+                                  : searchParams.amenities.filter(a => a !== amenity);
+                                setSearchParams(prev => ({...prev, amenities: newAmenities}));
+                              }}
+                            />
+                            <label htmlFor={`mobile-${amenity}`} className="text-sm">
+                              {amenity === 'pool' ? 'Swimming Pool' : 
+                               amenity === 'gym' ? 'Gymnasium' : 
+                               amenity === 'playground' ? "Children's Play Area" : 
+                               amenity === 'security' ? '24/7 Security' : amenity}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Special Options */}
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Special Options</label>
+                      <div className="space-y-2">
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="mobile-goldenvisa"
+                            checked={searchParams.isGoldenVisaEligible}
+                            onCheckedChange={(checked) => setSearchParams(prev => ({...prev, isGoldenVisaEligible: !!checked}))}
+                          />
+                          <label htmlFor="mobile-goldenvisa" className="text-sm">Golden Visa Eligible</label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="mobile-mortgage"
+                            checked={searchParams.isMortgageAvailable}
+                            onCheckedChange={(checked) => setSearchParams(prev => ({...prev, isMortgageAvailable: !!checked}))}
+                          />
+                          <label htmlFor="mobile-mortgage" className="text-sm">Mortgage Available</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Mobile Filter Footer - Sticky */}
+                <div className="sticky bottom-0 bg-white border-t p-4 space-y-2">
+                  <Button 
+                    className="w-full bg-primary hover:bg-primary/90 text-white py-3"
+                    onClick={() => {
+                      handleSearch();
+                      setShowMobileFilters(false);
+                    }}
+                  >
+                    Apply Filters
+                  </Button>
+                  <Button 
+                    variant="outline"
+                    className="w-full py-3"
+                    onClick={() => {
+                      clearFilters();
+                      setShowMobileFilters(false);
+                    }}
+                  >
+                    Clear All Filters
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className="w-full py-2 text-gray-500"
+                    onClick={() => setShowMobileFilters(false)}
+                  >
+                    <X size={16} className="mr-2" />
+                    Close
+                  </Button>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Filters Sidebar */}
-          <div className="lg:col-span-1">
+          {/* Filters Sidebar - Desktop Only */}
+          <div className="lg:col-span-1 hidden lg:block">
             <div className="bg-white rounded-xl shadow-md p-6">
               <h2 className="text-xl font-montserrat font-semibold mb-6">Filter Properties</h2>
               
@@ -685,24 +1012,6 @@ const Properties = () => {
                   </Select>
                 </div>
 
-                {/* Furnishing */}
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Furnishing</label>
-                  <Select 
-                    value={searchParams.furnishing}
-                    onValueChange={(value) => setSearchParams(prev => ({...prev, furnishing: value}))}
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Any" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="any-furnishing">Any</SelectItem>
-                      <SelectItem value="furnished">Furnished</SelectItem>
-                      <SelectItem value="unfurnished">Unfurnished</SelectItem>
-                      <SelectItem value="semi-furnished">Semi-Furnished</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
 
                 {/* Property Features */}
                 <div>

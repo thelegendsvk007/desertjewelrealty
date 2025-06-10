@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useLocation } from 'wouter';
 import { developersData } from '@/data/developersData';
 
 const HeroSection = () => {
+  const [, setLocation] = useLocation();
   const [searchParams, setSearchParams] = useState({
     propertyType: '',
     category: 'residential', // residential or commercial
@@ -64,8 +66,8 @@ const HeroSection = () => {
     if (searchParams.isGoldenVisaEligible) params.append('isGoldenVisaEligible', 'true');
     if (searchParams.isMortgageAvailable) params.append('isMortgageAvailable', 'true');
     
-    // Navigate to the search results page
-    window.location.href = `/properties?${params.toString()}`;
+    // Navigate to the search results page using client-side routing
+    setLocation(`/properties?${params.toString()}`);
   };
 
   return (
