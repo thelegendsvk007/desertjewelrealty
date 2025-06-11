@@ -6,6 +6,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Search, MapPin, Clock, Users, Wifi, Car, Train, Bus, Ship, Zap, Home } from 'lucide-react';
+import metro from '../assets/insights/metro.webp'
+import bus from '../assets/insights/bus.webp'
+import ferry from '../assets/insights/ferry.webp'
+import tram from '../assets/insights/tram.webp'
+import monorail from '../assets/insights/monorail.webp'
 
 interface TransportType {
   id: string;
@@ -69,6 +74,8 @@ const transportTypes: TransportType[] = [
 ];
 
 // Complete Red Line Metro Stations (R11-R38)
+
+// Complete Red Line Metro Stations (R11-R38)
 const redLineStations: TransportStation[] = [
   {
     id: 1,
@@ -79,7 +86,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Bus Routes 5, 6, 13", "Taxi Service"],
     walkableAmenities: ["Centrepoint Mall", "Residential Areas", "Community Center"],
     nearbyProperties: 25,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2009,
     description: "Terminal station of the Red Line serving the Al Rashidiya area with direct access to Centrepoint shopping complex."
   },
@@ -92,7 +99,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Bus Routes 7, 8", "Intercity Bus"],
     walkableAmenities: ["Emirates Aviation University", "Residential Communities"],
     nearbyProperties: 18,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2009,
     description: "Station serving the aviation hub area with connections to Emirates facilities and educational institutions."
   },
@@ -105,7 +112,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Airport Shuttle", "Bus Routes 4, 11", "Taxi Service"],
     walkableAmenities: ["Terminal 3", "Duty Free", "Hotels", "Restaurants"],
     nearbyProperties: 12,
-    image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2010,
     description: "Direct access to Dubai International Airport Terminal 3, serving millions of passengers annually."
   },
@@ -118,7 +125,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Airport Shuttle", "Bus Routes", "Taxi Service"],
     walkableAmenities: ["Terminal 1", "Duty Free", "Hotels", "Car Rental"],
     nearbyProperties: 8,
-    image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2010,
     description: "Airport Terminal 1 station serving domestic and regional flights."
   },
@@ -131,7 +138,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Bus Routes", "Taxi Service"],
     walkableAmenities: ["Business Centers", "Hotels", "Restaurants"],
     nearbyProperties: 15,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2009,
     description: "Commercial district station serving Garhoud business area."
   },
@@ -144,7 +151,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Bus Routes 33, 42", "Shopping Shuttle"],
     walkableAmenities: ["Deira City Centre", "Hotels", "Restaurants", "Shopping"],
     nearbyProperties: 45,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2009,
     description: "Major shopping and entertainment hub in Deira district."
   },
@@ -157,7 +164,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Bus Routes", "Traditional Transport"],
     walkableAmenities: ["Al Rigga Street", "Shopping", "Hotels", "Restaurants"],
     nearbyProperties: 38,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2009,
     description: "Historic commercial street station in the heart of Deira."
   },
@@ -170,7 +177,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Bus Network Hub", "Water Taxi", "Abra Traditional Boats"],
     walkableAmenities: ["Union Square", "Grand Souq Deira", "Heritage Areas", "Hotels"],
     nearbyProperties: 55,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2009,
     description: "Major interchange station connecting Red and Green lines."
   },
@@ -183,7 +190,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Bus Network", "BurJuman Shopping Shuttle"],
     walkableAmenities: ["BurJuman Centre", "Dubai Museum", "Bastakiya Quarter", "Textile Souq"],
     nearbyProperties: 52,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2009,
     description: "Historic Bur Dubai station with shopping and cultural access."
   },
@@ -196,7 +203,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Bus Routes", "Banking District Shuttle"],
     walkableAmenities: ["Abu Dhabi Commercial Bank", "Business Centers", "Restaurants"],
     nearbyProperties: 28,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2009,
     description: "Banking and financial district station."
   },
@@ -209,7 +216,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Bus Routes 12, 13", "Al Satwa Access"],
     walkableAmenities: ["Max Fashion", "Shopping Centers", "Restaurants"],
     nearbyProperties: 32,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2009,
     description: "Retail and commercial area station."
   },
@@ -222,7 +229,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Bus Routes", "Exhibition Shuttle"],
     walkableAmenities: ["World Trade Centre", "Exhibition Halls", "Hotels", "Business Centers"],
     nearbyProperties: 35,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2009,
     description: "Major business and exhibition center station."
   },
@@ -235,7 +242,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Bus Routes", "Emirates Towers Shuttle"],
     walkableAmenities: ["Emirates Towers", "Boulevard", "Hotels", "Business Centers"],
     nearbyProperties: 42,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2009,
     description: "Iconic twin towers business district station."
   },
@@ -248,7 +255,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Bus Routes", "DIFC Shuttle"],
     walkableAmenities: ["DIFC", "Financial Institutions", "Restaurants", "Art Galleries"],
     nearbyProperties: 48,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2009,
     description: "Dubai International Financial Centre station."
   },
@@ -261,7 +268,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Dubai Trolley", "Bus Routes F13, 27, 28, 29"],
     walkableAmenities: ["Dubai Mall", "Burj Khalifa", "Dubai Fountain", "Souk Al Bahar", "Address Hotels"],
     nearbyProperties: 85,
-    image: "https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2010,
     description: "Premier station serving Downtown Dubai with direct access to the world's tallest building and largest shopping mall."
   },
@@ -274,7 +281,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Bus Routes 21A, 21B", "Water Taxi"],
     walkableAmenities: ["Business Bay Mall", "Canal Walk", "Restaurants", "Corporate Towers"],
     nearbyProperties: 72,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2010,
     description: "Central business district station serving the rapidly growing Business Bay area with canal-side developments."
   },
@@ -287,7 +294,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Bus Routes", "Tech Shuttle"],
     walkableAmenities: ["ONPASSIVE", "Tech Companies", "Business Centers"],
     nearbyProperties: 30,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2010,
     description: "Technology company headquarters station."
   },
@@ -300,7 +307,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Bus Routes", "Financial Services"],
     walkableAmenities: ["Equiti Group", "Financial Services", "Business Centers"],
     nearbyProperties: 28,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2010,
     description: "Financial services hub station."
   },
@@ -313,7 +320,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Bus Routes 84, F30, F33"],
     walkableAmenities: ["Mall of the Emirates", "Ski Dubai", "Kempinski Hotel", "Al Barsha Pond Park"],
     nearbyProperties: 65,
-    image: "https://images.unsplash.com/photo-1608569731245-fa26b9a4458f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2010,
     description: "Shopping and entertainment hub with direct mall access and proximity to Ski Dubai indoor slopes."
   },
@@ -326,7 +333,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Bus Routes", "Banking Services"],
     walkableAmenities: ["Mashreq Bank", "Business Centers", "Hotels"],
     nearbyProperties: 32,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2010,
     description: "Banking and financial services station."
   },
@@ -339,7 +346,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Dubai Tram", "Bus Routes X28, F55"],
     walkableAmenities: ["Tech Companies", "Business Parks", "Restaurants", "Hotels"],
     nearbyProperties: 42,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2010,
     description: "Technology and business hub serving major corporations and startups in Dubai's tech ecosystem."
   },
@@ -352,7 +359,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Dubai Tram", "Bus Routes"],
     walkableAmenities: ["Al Khail Gate", "Marina Development", "Hotels"],
     nearbyProperties: 48,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2010,
     description: "Marina area development station."
   },
@@ -365,7 +372,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Dubai Tram", "Bus Routes 8, F37, X28"],
     walkableAmenities: ["Sobha Realty", "Marina Towers", "Restaurants"],
     nearbyProperties: 52,
-    image: "https://images.unsplash.com/photo-1594397508722-5dcbf412b865?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2010,
     description: "Property development center in Marina district."
   },
@@ -378,7 +385,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Dubai Tram", "Bus Routes"],
     walkableAmenities: ["DMCC", "Marina Walk", "The Beach JBR", "Restaurants", "Yacht Club"],
     nearbyProperties: 95,
-    image: "https://images.unsplash.com/photo-1594397508722-5dcbf412b865?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2010,
     description: "Dubai Multi Commodities Centre station with direct tram connections to JBR and beachfront areas."
   },
@@ -391,7 +398,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Port Shuttle", "Industrial Area Transport"],
     walkableAmenities: ["Jebel Ali Port", "Free Zone", "Industrial Areas"],
     nearbyProperties: 25,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2010,
     description: "Port and free zone industrial area station."
   },
@@ -404,7 +411,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Bus Routes", "Shopping Mall Shuttle"],
     walkableAmenities: ["Ibn Battuta Mall", "Hotels", "Restaurants", "Theme Courts"],
     nearbyProperties: 35,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2010,
     description: "Themed shopping mall station with unique architectural courts."
   },
@@ -417,7 +424,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Bus Routes", "Industrial Area Shuttle"],
     walkableAmenities: ["Energy Companies", "Industrial Facilities", "Business Centers"],
     nearbyProperties: 18,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2020,
     description: "Energy sector and industrial area station."
   },
@@ -430,7 +437,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Residential Shuttle", "Community Transport"],
     walkableAmenities: ["Danube Properties", "Residential Areas", "Community Centers"],
     nearbyProperties: 22,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2020,
     description: "Residential development area station."
   },
@@ -443,7 +450,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Financial Services", "Community Transport"],
     walkableAmenities: ["UAE Exchange", "Financial Services", "Shopping Centers"],
     nearbyProperties: 20,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2020,
     description: "Financial services and exchange center station."
   },
@@ -456,7 +463,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Community Shuttle", "Gardens Transport"],
     walkableAmenities: ["The Gardens Community", "Shopping Centers", "Parks"],
     nearbyProperties: 48,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2020,
     description: "Garden community station serving residential developments."
   },
@@ -469,7 +476,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Community Shuttle", "Bus Routes"],
     walkableAmenities: ["Discovery Gardens Community", "Shopping Centers", "Parks"],
     nearbyProperties: 55,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2020,
     description: "Community station serving Discovery Gardens residential area."
   },
@@ -482,7 +489,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Al Furjan Shuttle", "Community Transport"],
     walkableAmenities: ["Al Furjan Community", "Shopping Centers", "Schools", "Parks"],
     nearbyProperties: 42,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2020,
     description: "Residential community station serving Al Furjan development."
   },
@@ -495,7 +502,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Golf Estate Shuttle", "Residential Transport"],
     walkableAmenities: ["Golf Courses", "Luxury Residences", "Club Houses", "Sports Facilities"],
     nearbyProperties: 28,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2020,
     description: "Luxury golf community station serving premium residential and sports facilities."
   },
@@ -508,7 +515,7 @@ const redLineStations: TransportStation[] = [
     connections: ["DIP Shuttle", "Business Transport"],
     walkableAmenities: ["Dubai Investment Park", "Business Centers", "Shopping", "Restaurants"],
     nearbyProperties: 38,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2020,
     description: "Investment and business park station serving commercial and residential areas."
   },
@@ -521,7 +528,7 @@ const redLineStations: TransportStation[] = [
     connections: ["Bus Routes to Al Maktoum Airport", "Shuttle Services"],
     walkableAmenities: ["Expo City Dubai", "Country Pavilions", "Hotels", "Restaurants"],
     nearbyProperties: 35,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2020,
     description: "Terminal station serving the Expo 2020 site, now a permanent city development with ongoing attractions."
   }
@@ -538,7 +545,7 @@ const greenLineStations: TransportStation[] = [
     connections: ["Bus Routes 5, 6", "Intercity Transport"],
     walkableAmenities: ["Etisalat Academy", "Residential Areas", "Shopping Centers"],
     nearbyProperties: 28,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2011,
     description: "Northern terminus of Green Line serving Al Qusais residential and commercial areas."
   },
@@ -551,7 +558,7 @@ const greenLineStations: TransportStation[] = [
     connections: ["Bus Routes", "Community Shuttle"],
     walkableAmenities: ["Al Qusais Residential", "Community Centers", "Schools"],
     nearbyProperties: 32,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2011,
     description: "Residential community station in Al Qusais area."
   },
@@ -564,7 +571,7 @@ const greenLineStations: TransportStation[] = [
     connections: ["Airport Shuttle", "Free Zone Transport"],
     walkableAmenities: ["DAFZ Companies", "Business Centers", "Hotels"],
     nearbyProperties: 25,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2011,
     description: "Dubai Airport Free Zone business district station."
   },
@@ -577,7 +584,7 @@ const greenLineStations: TransportStation[] = [
     connections: ["Bus Routes", "Cross-Border Transport"],
     walkableAmenities: ["Al Nahda Mall", "Residential Areas", "Community Centers"],
     nearbyProperties: 42,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2011,
     description: "Border community station serving Al Nahda residential area."
   },
@@ -590,7 +597,7 @@ const greenLineStations: TransportStation[] = [
     connections: ["Bus Routes", "Sports Facility Access"],
     walkableAmenities: ["Sports Facilities", "Stadium", "Community Areas"],
     nearbyProperties: 28,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2011,
     description: "Sports and recreation facility station."
   },
@@ -603,7 +610,7 @@ const greenLineStations: TransportStation[] = [
     connections: ["Bus Routes", "Leadership Institute Access"],
     walkableAmenities: ["Mohammed Bin Rashid Leadership Institute", "Educational Centers"],
     nearbyProperties: 35,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2011,
     description: "Leadership and educational institution station."
   },
@@ -616,7 +623,7 @@ const greenLineStations: TransportStation[] = [
     connections: ["Bus Routes", "Traditional Transport"],
     walkableAmenities: ["Traditional Markets", "Residential Areas", "Mosques"],
     nearbyProperties: 42,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2011,
     description: "Traditional Deira neighborhood station."
   },
@@ -629,7 +636,7 @@ const greenLineStations: TransportStation[] = [
     connections: ["Bus Routes", "Local Transport"],
     walkableAmenities: ["Residential Areas", "Local Markets", "Community Centers"],
     nearbyProperties: 38,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2011,
     description: "Residential area station in Deira."
   },
@@ -642,7 +649,7 @@ const greenLineStations: TransportStation[] = [
     connections: ["Bus Routes", "Heritage Access"],
     walkableAmenities: ["Heritage Areas", "Traditional Markets", "Cultural Sites"],
     nearbyProperties: 45,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2011,
     description: "Heritage and cultural district station."
   },
@@ -655,7 +662,7 @@ const greenLineStations: TransportStation[] = [
     connections: ["Bus Network Hub", "Water Taxi", "Abra Traditional Boats"],
     walkableAmenities: ["Union Square", "Grand Souq Deira", "Heritage Areas", "Hotels"],
     nearbyProperties: 55,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2010,
     description: "Major interchange station connecting Red and Green lines in the heart of historic Deira."
   },
@@ -668,7 +675,7 @@ const greenLineStations: TransportStation[] = [
     connections: ["Bus Routes", "Souq Access"],
     walkableAmenities: ["Baniyas Square", "Traditional Souqs", "Banks", "Hotels"],
     nearbyProperties: 52,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2011,
     description: "Central square and traditional shopping area."
   },
@@ -681,7 +688,7 @@ const greenLineStations: TransportStation[] = [
     connections: ["Bus Routes 33, 42", "Water Taxi", "Traditional Abra"],
     walkableAmenities: ["Gold Souq", "Spice Souq", "Deira City Centre", "Traditional Markets"],
     nearbyProperties: 48,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2010,
     description: "Gateway to Dubai's famous Gold Souq and traditional trading districts."
   },
@@ -694,7 +701,7 @@ const greenLineStations: TransportStation[] = [
     connections: ["Water Taxi", "Traditional Abra"],
     walkableAmenities: ["Traditional Markets", "Heritage Area", "Waterfront"],
     nearbyProperties: 28,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2011,
     description: "Historic waterfront area station."
   },
@@ -707,7 +714,7 @@ const greenLineStations: TransportStation[] = [
     connections: ["Bus Network Hub", "Ferry Terminal", "Traditional Abra"],
     walkableAmenities: ["Al Ghubaiba Bus Station", "Ferry Terminal", "Traditional Souqs"],
     nearbyProperties: 45,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2011,
     description: "Major transport hub with bus and ferry connections."
   },
@@ -720,7 +727,7 @@ const greenLineStations: TransportStation[] = [
     connections: ["Bus Routes", "Shopping Access"],
     walkableAmenities: ["Sharaf DG", "Electronics Shopping", "Business Centers"],
     nearbyProperties: 32,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2011,
     description: "Electronics retail and business district station."
   },
@@ -733,7 +740,7 @@ const greenLineStations: TransportStation[] = [
     connections: ["Bus Network", "BurJuman Shopping Shuttle"],
     walkableAmenities: ["BurJuman Centre", "Dubai Museum", "Bastakiya Quarter", "Textile Souq"],
     nearbyProperties: 52,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2010,
     description: "Historic Bur Dubai station with access to cultural sites and traditional souqs."
   },
@@ -746,7 +753,7 @@ const greenLineStations: TransportStation[] = [
     connections: ["Bus Routes", "Medical District Access"],
     walkableAmenities: ["Oud Metha Area", "Business Centers", "Restaurants"],
     nearbyProperties: 38,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2011,
     description: "Central Oud Metha district station."
   },
@@ -759,7 +766,7 @@ const greenLineStations: TransportStation[] = [
     connections: ["Bus Routes 10, 17", "Medical Shuttle Services"],
     walkableAmenities: ["Hospitals", "Medical Centers", "Dubai Creek", "Hotels"],
     nearbyProperties: 38,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2010,
     description: "Specialized station serving Dubai's medical district and healthcare facilities."
   },
@@ -772,7 +779,7 @@ const greenLineStations: TransportStation[] = [
     connections: ["Bus Routes", "Waterfront Access"],
     walkableAmenities: ["Al Jadaf Shipyard", "Cultural District", "Dubai Creek"],
     nearbyProperties: 35,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2011,
     description: "Cultural and maritime heritage district station."
   },
@@ -785,7 +792,7 @@ const greenLineStations: TransportStation[] = [
     connections: ["Water Taxi", "Bus Routes 14, 15"],
     walkableAmenities: ["Dubai Creek", "Creek Island", "Future Developments", "Waterfront Dining"],
     nearbyProperties: 45,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2010,
     description: "Southern terminus serving the historic Creek area and emerging Dubai Creek Harbour development."
   }
@@ -802,7 +809,7 @@ const tramStations: TransportStation[] = [
     connections: ["Bus Routes 8, 84", "Beach Shuttle"],
     walkableAmenities: ["The Beach JBR", "JBR Walk", "Restaurants", "Beach Access", "Hotels"],
     nearbyProperties: 68,
-    image: "https://images.unsplash.com/photo-1513415431789-427cc2a0a96d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    image: tram,
     openYear: 2014,
     description: "Beachfront tram station serving the popular JBR residential and entertainment district."
   },
@@ -815,7 +822,7 @@ const tramStations: TransportStation[] = [
     connections: ["Bus Routes 8, 84"],
     walkableAmenities: ["JBR Towers", "Marina Walk Extension", "Beach Access", "Restaurants"],
     nearbyProperties: 52,
-    image: "https://images.unsplash.com/photo-1513415431789-427cc2a0a96d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    image: tram,
     openYear: 2014,
     description: "Secondary JBR station providing additional access to residential towers and amenities."
   },
@@ -828,7 +835,7 @@ const tramStations: TransportStation[] = [
     connections: ["Bus Routes", "JLT Shuttle"],
     walkableAmenities: ["JLT Towers", "Business Centers", "Restaurants", "Shopping"],
     nearbyProperties: 85,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: tram,
     openYear: 2014,
     description: "Major business and residential district station serving Jumeirah Lakes Towers."
   },
@@ -841,7 +848,7 @@ const tramStations: TransportStation[] = [
     connections: ["Marina Mall Shuttle", "Ferry Terminal"],
     walkableAmenities: ["Dubai Marina Mall", "Marina Walk", "Restaurants", "Ferry Terminal"],
     nearbyProperties: 62,
-    image: "https://images.unsplash.com/photo-1594397508722-5dcbf412b865?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    image: tram,
     openYear: 2014,
     description: "Shopping and entertainment hub in Dubai Marina with ferry connections."
   },
@@ -854,7 +861,7 @@ const tramStations: TransportStation[] = [
     connections: ["Dubai Metro Red Line", "Bus Network", "Ferry Terminal"],
     walkableAmenities: ["Marina Walk", "Marina Towers", "Restaurants", "Yacht Club"],
     nearbyProperties: 95,
-    image: "https://images.unsplash.com/photo-1594397508722-5dcbf412b865?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    image: tram,
     openYear: 2014,
     description: "Central Marina station connecting to metro with access to luxury residential towers."
   },
@@ -867,7 +874,7 @@ const tramStations: TransportStation[] = [
     connections: ["Marina Promenade", "Bus Routes"],
     walkableAmenities: ["Marina Towers", "Marina Promenade", "Restaurants", "Shopping"],
     nearbyProperties: 72,
-    image: "https://images.unsplash.com/photo-1594397508722-5dcbf412b865?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    image: tram,
     openYear: 2014,
     description: "Marina waterfront station with access to residential towers and promenade."
   },
@@ -880,7 +887,7 @@ const tramStations: TransportStation[] = [
     connections: ["Hotel Shuttles", "Beach Access"],
     walkableAmenities: ["Le Meridien Mina Seyahi", "Beach Resort", "Water Sports", "Hotels"],
     nearbyProperties: 25,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: tram,
     openYear: 2014,
     description: "Beachfront resort area station serving luxury hotels and beach facilities."
   },
@@ -893,7 +900,7 @@ const tramStations: TransportStation[] = [
     connections: ["Metro Feeder Bus", "Business Shuttles"],
     walkableAmenities: ["Media Companies", "Business Centers", "Restaurants", "Hotels"],
     nearbyProperties: 35,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: tram,
     openYear: 2014,
     description: "Business district station serving media and telecommunications companies."
   },
@@ -906,7 +913,7 @@ const tramStations: TransportStation[] = [
     connections: ["Palm Monorail", "Bus Routes", "Taxi Services"],
     walkableAmenities: ["Palm Gateway", "Hotels", "Nakheel Mall", "Restaurants"],
     nearbyProperties: 28,
-    image: "https://images.unsplash.com/photo-1583422409516-2895a77efded?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: tram,
     openYear: 2014,
     description: "Gateway station to Palm Jumeirah with monorail connections to the trunk and fronds."
   },
@@ -919,7 +926,7 @@ const tramStations: TransportStation[] = [
     connections: ["Bus Routes", "University Shuttles"],
     walkableAmenities: ["Universities", "Educational Centers", "Student Housing", "Libraries"],
     nearbyProperties: 22,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: tram,
     openYear: 2014,
     description: "Educational hub serving multiple universities and training institutions."
   },
@@ -932,7 +939,7 @@ const tramStations: TransportStation[] = [
     connections: ["Bus Routes to Mall of Emirates", "Hotel Shuttles"],
     walkableAmenities: ["Hotels", "Beach Access", "Restaurants", "Wild Wadi Water Park"],
     nearbyProperties: 18,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: tram,
     openYear: 2014,
     description: "Terminal station serving Al Sufouh hotel district and beach areas."
   }
@@ -949,7 +956,7 @@ const monorailStations: TransportStation[] = [
     connections: ["Dubai Tram", "Bus Routes", "Taxi Services"],
     walkableAmenities: ["Palm Gateway", "Hotels", "Shopping", "Restaurants"],
     nearbyProperties: 28,
-    image: "https://images.unsplash.com/photo-1583422409516-2895a77efded?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: monorail,
     openYear: 2009,
     description: "Main entrance to Palm Jumeirah with tram connections."
   },
@@ -962,7 +969,7 @@ const monorailStations: TransportStation[] = [
     connections: ["Palm Shuttle", "Taxi Services"],
     walkableAmenities: ["Golden Mile Galleria", "Shopping", "Restaurants", "Beach Access"],
     nearbyProperties: 42,
-    image: "https://images.unsplash.com/photo-1583422409516-2895a77efded?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: monorail,
     openYear: 2009,
     description: "Shopping and dining hub on Palm Jumeirah trunk."
   },
@@ -975,7 +982,7 @@ const monorailStations: TransportStation[] = [
     connections: ["Palm Shuttle", "Walking Paths"],
     walkableAmenities: ["Al Ittihad Park", "Green Spaces", "Walking Trails", "Beach Access"],
     nearbyProperties: 35,
-    image: "https://images.unsplash.com/photo-1583422409516-2895a77efded?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: monorail,
     openYear: 2009,
     description: "Park and recreation area station."
   },
@@ -988,7 +995,7 @@ const monorailStations: TransportStation[] = [
     connections: ["Shopping Shuttle", "Palm Transport"],
     walkableAmenities: ["Nakheel Mall", "Shopping", "Dining", "Entertainment"],
     nearbyProperties: 48,
-    image: "https://images.unsplash.com/photo-1583422409516-2895a77efded?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: monorail,
     openYear: 2009,
     description: "Major shopping destination on Palm Jumeirah."
   },
@@ -1001,7 +1008,7 @@ const monorailStations: TransportStation[] = [
     connections: ["Resort Shuttles", "Water Transport"],
     walkableAmenities: ["The Pointe", "Dining", "Entertainment", "Fountain Shows"],
     nearbyProperties: 25,
-    image: "https://images.unsplash.com/photo-1583422409516-2895a77efded?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: monorail,
     openYear: 2009,
     description: "Entertainment and dining destination."
   },
@@ -1014,7 +1021,7 @@ const monorailStations: TransportStation[] = [
     connections: ["Resort Transport", "Hotel Shuttles"],
     walkableAmenities: ["Atlantis Resort", "Aquaventure", "Lost Chambers", "Restaurants"],
     nearbyProperties: 15,
-    image: "https://images.unsplash.com/photo-1583422409516-2895a77efded?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: monorail,
     openYear: 2009,
     description: "Terminal station at Atlantis resort complex."
   }
@@ -1031,7 +1038,7 @@ const ferryTerminals: TransportStation[] = [
     connections: ["Dubai Metro", "Dubai Tram", "Bus Network"],
     walkableAmenities: ["Marina Walk", "Restaurants", "Yacht Club", "Shopping"],
     nearbyProperties: 85,
-    image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: ferry,
     openYear: 2007,
     description: "Primary ferry terminal offering scenic water transport connections across Dubai's coastline."
   },
@@ -1044,7 +1051,7 @@ const ferryTerminals: TransportStation[] = [
     connections: ["Bus Network", "Traditional Souqs Access"],
     walkableAmenities: ["Traditional Souqs", "Heritage Area", "Restaurants", "Museums"],
     nearbyProperties: 42,
-    image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: ferry,
     openYear: 2007,
     description: "Historic waterfront terminal connecting modern ferry services with traditional abra boats."
   },
@@ -1057,7 +1064,7 @@ const ferryTerminals: TransportStation[] = [
     connections: ["Metro Business Bay", "Water Taxi"],
     walkableAmenities: ["Dubai Canal", "Canal Walk", "Restaurants", "Shopping"],
     nearbyProperties: 65,
-    image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: ferry,
     openYear: 2016,
     description: "Modern canal transport station serving Business Bay area."
   }
@@ -1075,7 +1082,7 @@ const busStations: TransportStation[] = [
     connections: ["Metro Green Line", "Ferry Terminal", "Traditional Abra"],
     walkableAmenities: ["Traditional Souqs", "Heritage Area", "Dubai Museum", "Restaurants"],
     nearbyProperties: 48,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 1990,
     description: "Major intercity bus hub serving heritage areas and connecting to all emirates."
   },
@@ -1088,7 +1095,7 @@ const busStations: TransportStation[] = [
     connections: ["Metro Red/Green Lines", "Traditional Transport"],
     walkableAmenities: ["Union Square", "Shopping", "Heritage Areas", "Hotels"],
     nearbyProperties: 55,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 1985,
     description: "Central bus terminal at major metro interchange with emirate connections."
   },
@@ -1101,7 +1108,7 @@ const busStations: TransportStation[] = [
     connections: ["Metro Green Line", "Traditional Abra", "Water Taxi"],
     walkableAmenities: ["Gold Souq", "Spice Souq", "Traditional Markets", "Heritage Sites"],
     nearbyProperties: 42,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 1980,
     description: "Historic market area bus station serving traditional trading districts."
   },
@@ -1114,7 +1121,7 @@ const busStations: TransportStation[] = [
     connections: ["Metro Red Line", "Shopping Shuttles"],
     walkableAmenities: ["Mall of the Emirates", "Ski Dubai", "Hotels", "Restaurants"],
     nearbyProperties: 65,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 2005,
     description: "Major shopping center transport hub with seasonal attractions access."
   },
@@ -1127,7 +1134,7 @@ const busStations: TransportStation[] = [
     connections: ["Metro Red Line", "Mall Shuttles"],
     walkableAmenities: ["Ibn Battuta Mall", "Theme Courts", "Hotels", "Restaurants"],
     nearbyProperties: 35,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 2005,
     description: "Western Dubai transport hub with themed mall and theme park access."
   },
@@ -1140,7 +1147,7 @@ const busStations: TransportStation[] = [
     connections: ["Community Transport", "Local Shuttles"],
     walkableAmenities: ["Al Satwa Market", "Community Centers", "Traditional Areas"],
     nearbyProperties: 38,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 1995,
     description: "Community-focused transport station with seasonal event access."
   },
@@ -1153,7 +1160,7 @@ const busStations: TransportStation[] = [
     connections: ["Metro Green Line", "Industrial Shuttles"],
     walkableAmenities: ["Residential Areas", "Industrial Zones", "Community Centers"],
     nearbyProperties: 28,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 2000,
     description: "Industrial and residential area transport hub with Sharjah connections."
   },
@@ -1166,7 +1173,7 @@ const busStations: TransportStation[] = [
     connections: ["Mountain Transport", "Heritage Village Access"],
     walkableAmenities: ["Hatta Heritage Village", "Hatta Dam", "Mountain Resorts", "Adventure Sports"],
     nearbyProperties: 15,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 1990,
     description: "Mountain destination transport hub serving Hatta tourism and heritage areas."
   },
@@ -1179,7 +1186,7 @@ const busStations: TransportStation[] = [
     connections: ["Traditional Transport", "Heritage Areas"],
     walkableAmenities: ["Traditional Markets", "Heritage Buildings", "Local Shopping"],
     nearbyProperties: 32,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 1985,
     description: "Traditional area bus station serving heritage and cultural districts."
   },
@@ -1193,7 +1200,7 @@ const busStations: TransportStation[] = [
     connections: ["Abu Dhabi Metro (Planned)", "City Transport"],
     walkableAmenities: ["Al Wahda Mall", "Business Centers", "Hotels"],
     nearbyProperties: 45,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 1995,
     description: "Major Abu Dhabi transport hub with Dubai connections."
   },
@@ -1206,7 +1213,7 @@ const busStations: TransportStation[] = [
     connections: ["Industrial Shuttles", "Worker Housing"],
     walkableAmenities: ["Industrial Areas", "Worker Accommodations", "Shopping Centers"],
     nearbyProperties: 25,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 2000,
     description: "Industrial district transport hub serving Musaffah area."
   },
@@ -1219,7 +1226,7 @@ const busStations: TransportStation[] = [
     connections: ["Government Transport", "Tourism Shuttles"],
     walkableAmenities: ["Government Buildings", "Cultural Sites", "Hotels", "Museums"],
     nearbyProperties: 38,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 1990,
     description: "Central Abu Dhabi terminal serving government and tourism areas."
   },
@@ -1232,7 +1239,7 @@ const busStations: TransportStation[] = [
     connections: ["Community Transport", "Residential Shuttles"],
     walkableAmenities: ["Al Shahama Community", "Shopping Centers", "Schools"],
     nearbyProperties: 32,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 2000,
     description: "Residential community station serving Al Shahama area."
   },
@@ -1245,7 +1252,7 @@ const busStations: TransportStation[] = [
     connections: ["Business Shuttles", "Modern Transport"],
     walkableAmenities: ["Mohammed Bin Zayed City", "Modern Developments", "Business Centers"],
     nearbyProperties: 42,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 2005,
     description: "Modern city development station serving MBZ City."
   },
@@ -1258,7 +1265,7 @@ const busStations: TransportStation[] = [
     connections: ["Government Transport", "Authority Services"],
     walkableAmenities: ["Traffic Authority", "Government Services", "Administrative Centers"],
     nearbyProperties: 25,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 1995,
     description: "Government services station serving traffic and administrative authorities."
   },
@@ -1271,7 +1278,7 @@ const busStations: TransportStation[] = [
     connections: ["Island Transport", "Tourism Shuttles"],
     walkableAmenities: ["Bani Yas Island", "Wildlife Reserve", "Hotels", "Nature Activities"],
     nearbyProperties: 15,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 2010,
     description: "Island destination station serving Bani Yas wildlife and tourism area."
   },
@@ -1284,7 +1291,7 @@ const busStations: TransportStation[] = [
     connections: ["Industrial Shuttles", "Academic Transport"],
     walkableAmenities: ["Industrial City of Abu Dhabi", "Technology Centers", "Academic Institutions"],
     nearbyProperties: 28,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 2005,
     description: "Industrial and academic zone station serving ICAD development."
   },
@@ -1298,7 +1305,7 @@ const busStations: TransportStation[] = [
     connections: ["Sharjah Metro (Planned)", "City Transport"],
     walkableAmenities: ["Al Jubail Shopping", "Traditional Areas", "Museums"],
     nearbyProperties: 38,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 1990,
     description: "Major Sharjah transport hub with Dubai and emirates connections."
   },
@@ -1311,7 +1318,7 @@ const busStations: TransportStation[] = [
     connections: ["Traditional Transport", "Heritage Areas"],
     walkableAmenities: ["Al Rolla Square", "Traditional Souqs", "Heritage Museums"],
     nearbyProperties: 42,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 1985,
     description: "Historic Sharjah area transport serving traditional and cultural districts."
   },
@@ -1324,7 +1331,7 @@ const busStations: TransportStation[] = [
     connections: ["Commercial Transport", "Business Centers"],
     walkableAmenities: ["King Abdul Aziz Street", "Commercial Buildings", "Business Centers"],
     nearbyProperties: 35,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 1990,
     description: "Commercial district station serving King Abdul Aziz Street business area."
   },
@@ -1337,7 +1344,7 @@ const busStations: TransportStation[] = [
     connections: ["Government Transport", "Administrative Centers"],
     walkableAmenities: ["Government Buildings", "Administrative Centers", "Public Services"],
     nearbyProperties: 28,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 1988,
     description: "Government and administrative district transport station."
   },
@@ -1350,7 +1357,7 @@ const busStations: TransportStation[] = [
     connections: ["Cultural Transport", "Museum Shuttles"],
     walkableAmenities: ["King Faisal Street", "Cultural Centers", "Museums", "Art Galleries"],
     nearbyProperties: 32,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 1990,
     description: "Cultural district station serving arts and heritage areas."
   },
@@ -1363,7 +1370,7 @@ const busStations: TransportStation[] = [
     connections: ["Industrial Shuttles", "Worker Housing"],
     walkableAmenities: ["Industrial Areas", "Factories", "Worker Accommodations"],
     nearbyProperties: 15,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 1992,
     description: "Industrial district station serving factories and worker communities."
   },
@@ -1376,7 +1383,7 @@ const busStations: TransportStation[] = [
     connections: ["Dubai Transport", "Park Shuttles"],
     walkableAmenities: ["Al Nahda Park", "Recreation Areas", "Border Shopping"],
     nearbyProperties: 45,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 1995,
     description: "Cross-border station serving Al Nahda park and recreation areas."
   },
@@ -1389,7 +1396,7 @@ const busStations: TransportStation[] = [
     connections: ["Mall Transport", "Entertainment Shuttles"],
     walkableAmenities: ["Sahara Centre", "Shopping", "Entertainment", "Restaurants"],
     nearbyProperties: 38,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 2000,
     description: "Shopping and entertainment hub station at Sahara Centre."
   },
@@ -1403,7 +1410,7 @@ const busStations: TransportStation[] = [
     connections: ["City Transport", "Beach Access"],
     walkableAmenities: ["Ajman Museum", "Traditional Areas", "Beach Access"],
     nearbyProperties: 28,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 1992,
     description: "Main Ajman transport hub with Dubai connections and heritage access."
   },
@@ -1416,7 +1423,7 @@ const busStations: TransportStation[] = [
     connections: ["Government Transport", "Municipal Services"],
     walkableAmenities: ["Ajman Municipality", "Government Buildings", "Public Services"],
     nearbyProperties: 22,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 1990,
     description: "Government and municipal services transport station."
   },
@@ -1429,7 +1436,7 @@ const busStations: TransportStation[] = [
     connections: ["Shopping Shuttles", "Beach Transport"],
     walkableAmenities: ["Ajman City Centre", "Shopping", "Beach Areas"],
     nearbyProperties: 35,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 2005,
     description: "Shopping and entertainment transport hub in Ajman."
   },
@@ -1442,7 +1449,7 @@ const busStations: TransportStation[] = [
     connections: ["Industrial Shuttles", "Worker Housing"],
     walkableAmenities: ["Jurf Industrial Area", "Worker Accommodations", "Industrial Facilities"],
     nearbyProperties: 18,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 1995,
     description: "Industrial area station serving Jurf industrial district and worker communities."
   },
@@ -1456,7 +1463,7 @@ const busStations: TransportStation[] = [
     connections: ["City Transport", "Adventure Tours"],
     walkableAmenities: ["Traditional Markets", "Adventure Sports", "Mountain Access"],
     nearbyProperties: 22,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 1995,
     description: "Northern emirates transport hub with adventure and mountain access."
   },
@@ -1469,7 +1476,7 @@ const busStations: TransportStation[] = [
     connections: ["Tourism Transport", "Beach Shuttles"],
     walkableAmenities: ["RAK Museums", "Beach Areas", "Traditional Sites"],
     nearbyProperties: 18,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: bus,
     openYear: 1990,
     description: "RAK city transport serving tourism and heritage attractions."
   }
@@ -1486,7 +1493,7 @@ const blueLIneStations: TransportStation[] = [
     connections: ["Green Line Transfer", "Water Taxi", "Bus Routes"],
     walkableAmenities: ["Dubai Creek", "Creek Island", "Waterfront Dining", "Heritage Areas"],
     nearbyProperties: 0,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2029,
     description: "Major interchange station connecting Blue Line with existing Green Line at Dubai Creek."
   },
@@ -1499,7 +1506,7 @@ const blueLIneStations: TransportStation[] = [
     connections: ["Festival City Shuttle", "Bus Routes"],
     walkableAmenities: ["Dubai Festival City Mall", "Hotels", "Marina", "Golf Course"],
     nearbyProperties: 0,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2029,
     description: "Shopping and entertainment destination station at Dubai Festival City."
   },
@@ -1512,7 +1519,7 @@ const blueLIneStations: TransportStation[] = [
     connections: ["Water Taxi", "Creek Harbour Shuttle"],
     walkableAmenities: ["Creek Island", "Future Developments", "Hotels", "Restaurants"],
     nearbyProperties: 0,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2029,
     description: "Future metro station serving the expanding Dubai Creek Harbour mega-development."
   },
@@ -1525,7 +1532,7 @@ const blueLIneStations: TransportStation[] = [
     connections: ["Industrial Shuttle", "Wildlife Sanctuary Access"],
     walkableAmenities: ["Ras Al Khor Wildlife Sanctuary", "Industrial Areas", "Nature Reserve"],
     nearbyProperties: 0,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2029,
     description: "Environmental and industrial area station near the famous wildlife sanctuary."
   },
@@ -1538,7 +1545,7 @@ const blueLIneStations: TransportStation[] = [
     connections: ["International City Shuttle", "Bus Network"],
     walkableAmenities: ["International City Shopping", "Residential Areas", "Cultural Districts"],
     nearbyProperties: 0,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2029,
     description: "Major interchange station serving the diverse International City community."
   },
@@ -1551,7 +1558,7 @@ const blueLIneStations: TransportStation[] = [
     connections: ["International City Transport", "Residential Shuttles"],
     walkableAmenities: ["International City Districts", "Shopping Centers", "Community Centers"],
     nearbyProperties: 0,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2029,
     description: "Secondary station serving International City residential and commercial areas."
   },
@@ -1564,7 +1571,7 @@ const blueLIneStations: TransportStation[] = [
     connections: ["Tech Park Shuttles", "University Transport"],
     walkableAmenities: ["Tech Companies", "Residential Areas", "Shopping Centers", "Schools"],
     nearbyProperties: 0,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2029,
     description: "Technology hub station serving Silicon Oasis tech companies and residential community."
   },
@@ -1577,7 +1584,7 @@ const blueLIneStations: TransportStation[] = [
     connections: ["University Shuttles", "Student Transport"],
     walkableAmenities: ["Universities", "Student Housing", "Libraries", "Research Centers"],
     nearbyProperties: 0,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2029,
     description: "Educational hub station serving multiple international universities and colleges."
   },
@@ -1590,7 +1597,7 @@ const blueLIneStations: TransportStation[] = [
     connections: ["Red Line Transfer", "Bus Network", "Centrepoint Shuttle"],
     walkableAmenities: ["Centrepoint Mall", "Shopping Centers", "Residential Areas"],
     nearbyProperties: 0,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2029,
     description: "Major interchange connecting Blue Line with existing Red Line at Centrepoint."
   },
@@ -1603,7 +1610,7 @@ const blueLIneStations: TransportStation[] = [
     connections: ["Mirdif Shuttle", "Community Transport"],
     walkableAmenities: ["Mirdif City Centre", "Residential Areas", "Community Centers", "Parks"],
     nearbyProperties: 0,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2029,
     description: "Family-oriented station serving the Mirdif residential community and shopping center."
   },
@@ -1616,7 +1623,7 @@ const blueLIneStations: TransportStation[] = [
     connections: ["Al Warqa Shuttle", "Residential Transport"],
     walkableAmenities: ["Al Warqa Mall", "Residential Areas", "Community Centers", "Schools"],
     nearbyProperties: 0,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2029,
     description: "Residential area station serving Al Warqa community and local amenities."
   },
@@ -1629,7 +1636,7 @@ const blueLIneStations: TransportStation[] = [
     connections: ["International City Network", "Dragon Mart Shuttle"],
     walkableAmenities: ["Dragon Mart", "International Districts", "Shopping", "Restaurants"],
     nearbyProperties: 0,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2029,
     description: "Third station in International City serving Dragon Mart and cultural districts."
   },
@@ -1642,7 +1649,7 @@ const blueLIneStations: TransportStation[] = [
     connections: ["Al Rashidiya Transport", "Community Shuttles"],
     walkableAmenities: ["Al Rashidiya Community", "Shopping Centers", "Residential Areas"],
     nearbyProperties: 0,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2029,
     description: "Community station serving Al Rashidiya residential and commercial areas."
   },
@@ -1655,7 +1662,7 @@ const blueLIneStations: TransportStation[] = [
     connections: ["Depot Services", "Maintenance Facility"],
     walkableAmenities: ["Metro Depot", "Industrial Areas", "Transport Facilities"],
     nearbyProperties: 0,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: metro,
     openYear: 2029,
     description: "Terminal depot station serving metro maintenance and operational facilities."
   }

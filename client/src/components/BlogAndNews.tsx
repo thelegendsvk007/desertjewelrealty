@@ -11,9 +11,10 @@ const BlogAndNews = () => {
   const { posts, loading, error } = useBlogFeed();
   const [currentPost, setCurrentPost] = useState<BlogPost | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const autoScrollRef = useRef<NodeJS.Timeout>();
+  const touchStartRef = useRef<number>(0);
   
   // Function to get related posts
   const getRelatedPosts = (post: BlogPost, count: number = 2): BlogPost[] => {
@@ -53,58 +54,88 @@ const BlogAndNews = () => {
     return div.textContent || div.innerText || '';
   };
 
-  // Continuous auto-scroll functionality for blog carousel
-  useEffect(() => {
-    const startAutoScroll = () => {
-      if (scrollContainerRef.current && posts.length > 0) {
-        autoScrollRef.current = setInterval(() => {
-          if (scrollContainerRef.current) {
-            const container = scrollContainerRef.current;
-            const maxScroll = container.scrollWidth - container.clientWidth;
-            
-            if (container.scrollLeft >= maxScroll) {
-              container.scrollTo({ left: 0, behavior: 'smooth' });
-            } else {
-              container.scrollTo({ 
-                left: container.scrollLeft + 2, 
-                behavior: 'auto' 
-              });
-            }
+  const startAutoScroll = () => {
+    if (scrollContainerRef.current && posts.length > 0 && isAutoPlaying) {
+      autoScrollRef.current = setInterval(() => {
+        if (scrollContainerRef.current && isAutoPlaying) {
+          const container = scrollContainerRef.current;
+          const cardWidth = 400; // Card width + gap
+          const maxScroll = container.scrollWidth - container.clientWidth;
+          
+          if (container.scrollLeft >= maxScroll - 10) {
+            container.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            container.scrollTo({ 
+              left: container.scrollLeft + cardWidth, 
+              behavior: 'smooth' 
+            });
           }
-        }, 30); // Continuous smooth scrolling
-      }
-    };
+        }
+      }, 4000); // 4 seconds interval
+    }
+  };
 
-    const stopAutoScroll = () => {
-      if (autoScrollRef.current) {
-        clearInterval(autoScrollRef.current);
-      }
-    };
+  const stopAutoScroll = () => {
+    if (autoScrollRef.current) {
+      clearInterval(autoScrollRef.current);
+      autoScrollRef.current = undefined;
+    }
+  };
 
-    if (posts.length > 3) {
+  // Auto-scroll functionality for blog carousel
+  useEffect(() => {
+    if (posts.length > 1 && isAutoPlaying) {
       startAutoScroll();
     }
 
     return () => stopAutoScroll();
-  }, [posts]);
+  }, [posts, isAutoPlaying]);
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
       const container = scrollContainerRef.current;
-      const cardWidth = 400;
+      const cardWidth = 400; // Card width + gap
+      
+      // Stop auto-scroll when arrows are clicked
+      stopAutoScroll();
+      setIsAutoPlaying(false);
       
       if (direction === 'left') {
-        container.scrollTo({ 
-          left: container.scrollLeft - cardWidth, 
-          behavior: 'smooth' 
-        });
+        container.scrollBy({ left: -cardWidth, behavior: 'smooth' });
       } else {
-        container.scrollTo({ 
-          left: container.scrollLeft + cardWidth, 
-          behavior: 'smooth' 
-        });
+        container.scrollBy({ left: cardWidth, behavior: 'smooth' });
       }
     }
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartRef.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const touchEnd = e.changedTouches[0].clientX;
+    const diff = touchStartRef.current - touchEnd;
+    
+    // Stop auto-scroll on touch interaction
+    stopAutoScroll();
+    setIsAutoPlaying(false);
+    
+    // Swipe threshold
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        // Swipe left (next)
+        scroll('right');
+      } else {
+        // Swipe right (previous)
+        scroll('left');
+      }
+    }
+  };
+
+  const handleCardTouch = () => {
+    // Stop auto-scroll when card is touched
+    stopAutoScroll();
+    setIsAutoPlaying(false);
   };
 
   if (loading) {
@@ -183,35 +214,8 @@ const BlogAndNews = () => {
               scrollbarWidth: 'none', 
               msOverflowStyle: 'none'
             }}
-            onMouseEnter={() => {
-              if (autoScrollRef.current) {
-                clearInterval(autoScrollRef.current);
-              }
-            }}
-            onMouseLeave={() => {
-              if (posts.length > 3) {
-                const startAutoScroll = () => {
-                  if (scrollContainerRef.current) {
-                    autoScrollRef.current = setInterval(() => {
-                      if (scrollContainerRef.current) {
-                        const container = scrollContainerRef.current;
-                        const maxScroll = container.scrollWidth - container.clientWidth;
-                        
-                        if (container.scrollLeft >= maxScroll) {
-                          container.scrollTo({ left: 0, behavior: 'smooth' });
-                        } else {
-                          container.scrollTo({ 
-                            left: container.scrollLeft + 2, 
-                            behavior: 'auto' 
-                          });
-                        }
-                      }
-                    }, 30);
-                  }
-                };
-                startAutoScroll();
-              }
-            }}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
           >
             {posts.map((post, index) => (
               <motion.div
@@ -221,7 +225,10 @@ const BlogAndNews = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="flex-none w-80"
               >
-                <Card className="h-full hover:shadow-xl transition-all duration-300 group cursor-pointer">
+                <Card 
+                  className="h-full hover:shadow-xl transition-all duration-300 group cursor-pointer"
+                  onTouchStart={handleCardTouch}
+                >
                   <div className="aspect-video overflow-hidden rounded-t-lg">
                     <img
                       src={post.thumbnail || 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'}

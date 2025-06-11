@@ -56,7 +56,7 @@ const HeroSection = () => {
 
   // Background images for rotation
   const backgroundImages = [
-    "https://images.unsplash.com/photo-1582407947304-fd86f028f716?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+     "https://images.unsplash.com/photo-1582407947304-fd86f028f716?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
     "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
     "https://images.unsplash.com/photo-1549180030-48bf079fb38a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
     "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
@@ -171,17 +171,7 @@ const HeroSection = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
           >
-            {/* Mobile Filter Toggle Button */}
-            <div className="md:hidden mb-4">
-              <Button
-                type="button"
-                onClick={() => setShowMobileFilters(!showMobileFilters)}
-                className="w-full flex items-center justify-center gap-2 bg-primary text-white py-3 rounded-xl"
-              >
-                <Filter size={20} />
-                {showMobileFilters ? 'Hide Filters' : 'Show Filters'}
-              </Button>
-            </div>
+
 
             <form onSubmit={handleSearch}>
               {/* Category Toggle - Always visible */}
@@ -212,206 +202,164 @@ const HeroSection = () => {
                 </div>
               </div>
               
-              {/* Mobile Filter Modal */}
-              <AnimatePresence>
-                {showMobileFilters && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="md:hidden overflow-hidden"
-                  >
-                    <div className="max-h-[50vh] overflow-y-auto bg-gray-50 rounded-lg p-4 mb-6">
-                      {/* Mobile Filter Header with Close Button */}
-                      <div className="sticky top-0 bg-gray-50 z-10 flex justify-between items-center pb-3 mb-3 border-b">
-                        <h3 className="font-semibold text-gray-800">Search Filters</h3>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => setShowMobileFilters(false)}
-                          className="text-gray-500 hover:text-gray-700"
-                        >
-                          <X size={20} />
-                        </Button>
-                      </div>
-
-                      {/* Mobile Filter Content */}
-                      <div className="space-y-4">
-                        {/* Property Type */}
-                        <div>
-                          <label className="text-sm font-medium text-gray-700 mb-2 block">Property Type</label>
-                          <select 
-                            className="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300"
-                            value={searchParams.propertyType}
-                            onChange={(e) => setSearchParams({...searchParams, propertyType: e.target.value})}
-                          >
-                            <option value="">Property Type</option>
-                            {searchParams.category === 'residential' ? (
-                              <>
-                                <option value="apartment">Apartment</option>
-                                <option value="villa">Villa</option>
-                                <option value="penthouse">Penthouse</option>
-                                <option value="townhouse">Townhouse</option>
-                                <option value="studio">Studio</option>
-                                <option value="duplex">Duplex</option>
-                              </>
-                            ) : (
-                              <>
-                                <option value="office">Office</option>
-                                <option value="retail">Retail Space</option>
-                                <option value="warehouse">Warehouse</option>
-                                <option value="showroom">Showroom</option>
-                                <option value="building">Full Building</option>
-                                <option value="land">Commercial Land</option>
-                              </>
-                            )}
-                          </select>
-                        </div>
-
-                        {/* City */}
-                        <div>
-                          <label className="text-sm font-medium text-gray-700 mb-2 block">City (Emirate)</label>
-                          <select 
-                            className="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300"
-                            value={searchParams.city}
-                            onChange={(e) => {
-                              setSearchParams({...searchParams, city: e.target.value, locationId: ''});
-                            }}
-                          >
-                            <option value="">Select City (Emirate)</option>
-                            <option value="dubai">Dubai</option>
-                            <option value="abudhabi">Abu Dhabi</option>
-                            <option value="sharjah">Sharjah</option>
-                            <option value="ajman">Ajman</option>
-                            <option value="rasalkhaimah">Ras Al Khaimah</option>
-                            <option value="fujairah">Fujairah</option>
-                            <option value="ummalquwain">Umm Al Quwain</option>
-                          </select>
-                        </div>
-
-                        {/* Area */}
-                        <div>
-                          <label className="text-sm font-medium text-gray-700 mb-2 block">Area</label>
-                          <select 
-                            className="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 disabled:bg-gray-100 disabled:text-gray-400"
-                            value={searchParams.locationId}
-                            onChange={(e) => setSearchParams({...searchParams, locationId: e.target.value})}
-                            disabled={!searchParams.city}
-                          >
-                            <option value="">Select Area</option>
-                            {searchParams.city === 'dubai' && (
-                              <>
-                                <option value="palm-jumeirah">Palm Jumeirah</option>
-                                <option value="dubai-marina">Dubai Marina</option>
-                                <option value="downtown-dubai">Downtown Dubai</option>
-                                <option value="business-bay">Business Bay</option>
-                                <option value="jumeirah-lake-towers">Jumeirah Lake Towers (JLT)</option>
-                                <option value="dubai-hills-estate">Dubai Hills Estate</option>
-                                <option value="dubai-creek-harbour">Dubai Creek Harbour</option>
-                                <option value="emaar-beachfront">Emaar Beachfront</option>
-                                <option value="dubai-harbour">Dubai Harbour</option>
-                                <option value="city-walk">City Walk</option>
-                              </>
-                            )}
-                            {searchParams.city === 'abudhabi' && (
-                              <>
-                                <option value="yas-island">Yas Island</option>
-                                <option value="saadiyat-island">Saadiyat Island</option>
-                                <option value="al-reem-island">Al Reem Island</option>
-                                <option value="al-maryah-island">Al Maryah Island</option>
-                                <option value="masdar-city">Masdar City</option>
-                              </>
-                            )}
-                          </select>
-                        </div>
-
-                        {/* Budget */}
-                        <div>
-                          <label className="text-sm font-medium text-gray-700 mb-2 block">Budget</label>
-                          <select 
-                            className="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300"
-                            value={searchParams.budget}
-                            onChange={(e) => setSearchParams({...searchParams, budget: e.target.value})}
-                          >
-                            <option value="">Budget</option>
-                            <option value="1000000">Up to AED 1M</option>
-                            <option value="3000000">AED 1M - 3M</option>
-                            <option value="5000000">AED 3M - 5M</option>
-                            <option value="10000000">AED 5M - 10M</option>
-                            <option value="999999999">AED 10M+</option>
-                          </select>
-                        </div>
-
-                        {/* Developer */}
-                        <div>
-                          <label className="text-sm font-medium text-gray-700 mb-2 block">Developer</label>
-                          <select 
-                            className="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300"
-                            value={searchParams.developer}
-                            onChange={(e) => setSearchParams({...searchParams, developer: e.target.value})}
-                          >
-                            <option value="">Developer</option>
-                            {developersData.map((developer) => (
-                              <option key={developer.id} value={developer.id.toString()}>
-                                {developer.name}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-
-                        {/* Property Status Filter Buttons */}
-                        <div>
-                          <label className="text-sm font-medium text-gray-700 mb-2 block">Property Status</label>
-                          <div className="flex flex-wrap gap-2">
-                            <button
-                              type="button"
-                              className={`px-4 py-2 rounded-xl transition-all duration-300 text-sm font-semibold ${
-                                searchParams.status === 'Ready to Move' 
-                                  ? 'bg-primary text-white' 
-                                  : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-primary'
-                              }`}
-                              onClick={() => setSearchParams({
-                                ...searchParams, 
-                                status: searchParams.status === 'Ready to Move' ? '' : 'Ready to Move'
-                              })}
-                            >
-                              Ready to Move In
-                            </button>
-                            <button
-                              type="button"
-                              className={`px-4 py-2 rounded-xl transition-all duration-300 text-sm font-semibold ${
-                                searchParams.status === 'Off-Plan' 
-                                  ? 'bg-primary text-white' 
-                                  : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-primary'
-                              }`}
-                              onClick={() => setSearchParams({
-                                ...searchParams, 
-                                status: searchParams.status === 'Off-Plan' ? '' : 'Off-Plan'
-                              })}
-                            >
-                              Off Plan
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Mobile sticky close button at bottom */}
-                      <div className="sticky bottom-0 bg-gray-50 pt-4 mt-4 border-t">
-                        <Button
-                          type="button"
-                          variant="outline"
-                          onClick={() => setShowMobileFilters(false)}
-                          className="w-full flex items-center justify-center gap-2"
-                        >
-                          <X size={16} />
-                          Close Filters
-                        </Button>
-                      </div>
+              {/* Mobile Filter Section - Always visible */}
+              <div className="md:hidden mb-6">
+                <div className="max-h-[60vh] overflow-y-auto bg-gray-50 rounded-lg p-4">
+                  <h3 className="font-semibold text-gray-800 mb-4">Search Filters</h3>
+                  
+                  {/* Mobile Filter Content */}
+                  <div className="space-y-4">
+                    {/* Property Type */}
+                    <div>
+                      <select 
+                        className="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300"
+                        value={searchParams.propertyType}
+                        onChange={(e) => setSearchParams({...searchParams, propertyType: e.target.value})}
+                      >
+                        <option value="">Property Type</option>
+                        {searchParams.category === 'residential' ? (
+                          <>
+                            <option value="apartment">Apartment</option>
+                            <option value="villa">Villa</option>
+                            <option value="penthouse">Penthouse</option>
+                            <option value="townhouse">Townhouse</option>
+                            <option value="studio">Studio</option>
+                            <option value="duplex">Duplex</option>
+                          </>
+                        ) : (
+                          <>
+                            <option value="office">Office</option>
+                            <option value="retail">Retail Space</option>
+                            <option value="warehouse">Warehouse</option>
+                            <option value="showroom">Showroom</option>
+                            <option value="building">Full Building</option>
+                            <option value="land">Commercial Land</option>
+                          </>
+                        )}
+                      </select>
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+
+                    {/* City */}
+                    <div>
+                      <select 
+                        className="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300"
+                        value={searchParams.city}
+                        onChange={(e) => {
+                          setSearchParams({...searchParams, city: e.target.value, locationId: ''});
+                        }}
+                      >
+                        <option value="">Select City (Emirate)</option>
+                        <option value="dubai">Dubai</option>
+                        <option value="abudhabi">Abu Dhabi</option>
+                        <option value="sharjah">Sharjah</option>
+                        <option value="ajman">Ajman</option>
+                        <option value="rasalkhaimah">Ras Al Khaimah</option>
+                        <option value="fujairah">Fujairah</option>
+                        <option value="ummalquwain">Umm Al Quwain</option>
+                      </select>
+                    </div>
+
+                    {/* Area */}
+                    <div>
+                      <select 
+                        className="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300 disabled:bg-gray-100 disabled:text-gray-400"
+                        value={searchParams.locationId}
+                        onChange={(e) => setSearchParams({...searchParams, locationId: e.target.value})}
+                        disabled={!searchParams.city}
+                      >
+                        <option value="">Select Area</option>
+                        {searchParams.city === 'dubai' && (
+                          <>
+                            <option value="palm-jumeirah">Palm Jumeirah</option>
+                            <option value="dubai-marina">Dubai Marina</option>
+                            <option value="downtown-dubai">Downtown Dubai</option>
+                            <option value="business-bay">Business Bay</option>
+                            <option value="jumeirah-lake-towers">Jumeirah Lake Towers (JLT)</option>
+                            <option value="dubai-hills-estate">Dubai Hills Estate</option>
+                            <option value="dubai-creek-harbour">Dubai Creek Harbour</option>
+                            <option value="emaar-beachfront">Emaar Beachfront</option>
+                            <option value="dubai-harbour">Dubai Harbour</option>
+                            <option value="city-walk">City Walk</option>
+                          </>
+                        )}
+                        {searchParams.city === 'abudhabi' && (
+                          <>
+                            <option value="yas-island">Yas Island</option>
+                            <option value="saadiyat-island">Saadiyat Island</option>
+                            <option value="al-reem-island">Al Reem Island</option>
+                            <option value="al-maryah-island">Al Maryah Island</option>
+                            <option value="masdar-city">Masdar City</option>
+                          </>
+                        )}
+                      </select>
+                    </div>
+
+                    {/* Budget */}
+                    <div>
+                      <select 
+                        className="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300"
+                        value={searchParams.budget}
+                        onChange={(e) => setSearchParams({...searchParams, budget: e.target.value})}
+                      >
+                        <option value="">Budget</option>
+                        <option value="1000000">Up to AED 1M</option>
+                        <option value="3000000">AED 1M - 3M</option>
+                        <option value="5000000">AED 3M - 5M</option>
+                        <option value="10000000">AED 5M - 10M</option>
+                        <option value="999999999">AED 10M+</option>
+                      </select>
+                    </div>
+
+                    {/* Developer */}
+                    <div>
+                      <select 
+                        className="w-full bg-white border-2 border-gray-200 rounded-xl px-4 py-3 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-300"
+                        value={searchParams.developer}
+                        onChange={(e) => setSearchParams({...searchParams, developer: e.target.value})}
+                      >
+                        <option value="">Developer</option>
+                        {developersData.map((developer) => (
+                          <option key={developer.id} value={developer.id.toString()}>
+                            {developer.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {/* Property Status Filter Buttons */}
+                    <div className="flex flex-wrap gap-2">
+                      <button
+                        type="button"
+                        className={`px-4 py-2 rounded-xl transition-all duration-300 text-sm font-semibold ${
+                          searchParams.status === 'Ready to Move' 
+                            ? 'bg-primary text-white' 
+                            : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-primary'
+                        }`}
+                        onClick={() => setSearchParams({
+                          ...searchParams, 
+                          status: searchParams.status === 'Ready to Move' ? '' : 'Ready to Move'
+                        })}
+                      >
+                        Ready to Move In
+                      </button>
+                      <button
+                        type="button"
+                        className={`px-4 py-2 rounded-xl transition-all duration-300 text-sm font-semibold ${
+                          searchParams.status === 'Off-Plan' 
+                            ? 'bg-primary text-white' 
+                            : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-primary'
+                        }`}
+                        onClick={() => setSearchParams({
+                          ...searchParams, 
+                          status: searchParams.status === 'Off-Plan' ? '' : 'Off-Plan'
+                        })}
+                      >
+                        Off Plan
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               {/* Desktop Filter Grid */}
               <div className="hidden md:block">
@@ -562,7 +510,7 @@ const HeroSection = () => {
               </div>
 
               {/* Search Button - Always visible */}
-              <div className="flex justify-center">
+              <div className="flex justify-center mt-6">
                 <button 
                   type="submit"
                   className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-3 md:px-10 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 w-full sm:w-auto"

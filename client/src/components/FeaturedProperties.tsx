@@ -14,8 +14,10 @@ import { getFeaturedProperties } from '@/data/properties';
 
 const FeaturedProperties = () => {
   const [activeFilter, setActiveFilter] = useState('all');
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const autoScrollRef = useRef<NodeJS.Timeout>();
+  const touchStartRef = useRef<number>(0);
   
   const properties = getFeaturedProperties();
   
@@ -38,53 +40,95 @@ const FeaturedProperties = () => {
     { id: 'off-plan', label: 'Off-Plan' }
   ];
 
-  // Continuous auto-scroll functionality
-  useEffect(() => {
-    const startAutoScroll = () => {
-      if (scrollContainerRef.current && filteredProperties.length > 0) {
-        autoScrollRef.current = setInterval(() => {
-          if (scrollContainerRef.current) {
-            const container = scrollContainerRef.current;
-            const maxScroll = container.scrollWidth - container.clientWidth;
-            
-            if (container.scrollLeft >= maxScroll) {
-              container.scrollTo({ left: 0, behavior: 'smooth' });
-            } else {
-              container.scrollTo({ 
-                left: container.scrollLeft + 2, 
-                behavior: 'auto' 
-              });
-            }
+  const startAutoScroll = () => {
+    if (scrollContainerRef.current && filteredProperties.length > 0 && isAutoPlaying) {
+      autoScrollRef.current = setInterval(() => {
+        if (scrollContainerRef.current && isAutoPlaying) {
+          const container = scrollContainerRef.current;
+          const containerWidth = container.clientWidth;
+          const maxScroll = container.scrollWidth - container.clientWidth;
+          
+          // Center the cards by scrolling by container width
+          const scrollAmount = containerWidth > 768 ? 300 : containerWidth * 0.8;
+          
+          if (container.scrollLeft >= maxScroll - 10) {
+            container.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            container.scrollBy({ 
+              left: scrollAmount, 
+              behavior: 'smooth' 
+            });
           }
-        }, 30); // Smooth continuous scrolling
-      }
-    };
+        }
+      }, 4000); // 4 seconds interval
+    }
+  };
 
-    const stopAutoScroll = () => {
-      if (autoScrollRef.current) {
-        clearInterval(autoScrollRef.current);
-      }
-    };
+  const stopAutoScroll = () => {
+    if (autoScrollRef.current) {
+      clearInterval(autoScrollRef.current);
+      autoScrollRef.current = undefined;
+    }
+  };
 
-    // Only start auto-scroll if we have enough properties to scroll
-    if (filteredProperties.length > 3) {
+  // Auto-scroll functionality
+  useEffect(() => {
+    if (filteredProperties.length > 1 && isAutoPlaying) {
       startAutoScroll();
     }
 
     return () => stopAutoScroll();
-  }, [filteredProperties]);
+  }, [filteredProperties, isAutoPlaying]);
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
       const container = scrollContainerRef.current;
-      const scrollAmount = 400;
+      const containerWidth = container.clientWidth;
+      const cardWidth = 300; // Card width + gap
+      
+      // Stop auto-scroll when arrows are clicked
+      stopAutoScroll();
+      setIsAutoPlaying(false);
+      
+      // Center the cards by scrolling by container width
+      const scrollAmount = containerWidth > 768 ? cardWidth : containerWidth * 0.8;
       
       if (direction === 'left') {
-        container.scrollLeft -= scrollAmount;
+        container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
       } else {
-        container.scrollLeft += scrollAmount;
+        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
       }
     }
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartRef.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const touchEnd = e.changedTouches[0].clientX;
+    const diff = touchStartRef.current - touchEnd;
+    
+    // Stop auto-scroll on touch interaction
+    stopAutoScroll();
+    setIsAutoPlaying(false);
+    
+    // Swipe threshold
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        // Swipe left (next)
+        scroll('right');
+      } else {
+        // Swipe right (previous)
+        scroll('left');
+      }
+    }
+  };
+
+  const handleCardTouch = () => {
+    // Stop auto-scroll when card is touched
+    stopAutoScroll();
+    setIsAutoPlaying(false);
   };
 
   return (
@@ -141,40 +185,13 @@ const FeaturedProperties = () => {
           {/* Scrollable Container */}
           <div 
             ref={scrollContainerRef}
-            className="flex gap-8 overflow-x-auto scrollbar-hide scroll-smooth pb-4 px-12"
+            className="flex gap-8 overflow-x-auto scrollbar-hide scroll-smooth pb-4 px-12 snap-x snap-mandatory"
             style={{ 
               scrollbarWidth: 'none',
               msOverflowStyle: 'none'
             }}
-            onMouseEnter={() => {
-              if (autoScrollRef.current) {
-                clearInterval(autoScrollRef.current);
-              }
-            }}
-            onMouseLeave={() => {
-              if (filteredProperties.length > 3) {
-                const startAutoScroll = () => {
-                  if (scrollContainerRef.current) {
-                    autoScrollRef.current = setInterval(() => {
-                      if (scrollContainerRef.current) {
-                        const container = scrollContainerRef.current;
-                        const maxScroll = container.scrollWidth - container.clientWidth;
-                        
-                        if (container.scrollLeft >= maxScroll) {
-                          container.scrollTo({ left: 0, behavior: 'smooth' });
-                        } else {
-                          container.scrollTo({ 
-                            left: container.scrollLeft + 2, 
-                            behavior: 'auto' 
-                          });
-                        }
-                      }
-                    }, 30);
-                  }
-                };
-                startAutoScroll();
-              }
-            }}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
           >
             {filteredProperties.map((property: Property) => {
               const imageData = typeof property.images === 'string' ? property.images : JSON.stringify(property.images);
@@ -184,11 +201,12 @@ const FeaturedProperties = () => {
               return (
                 <motion.div 
                   key={property.id}
-                  className="flex-shrink-0 w-[280px] h-[380px] property-card bg-white rounded-xl shadow-lg overflow-hidden group transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-1 flex flex-col"
+                  className="flex-shrink-0 w-[280px] h-[380px] property-card bg-white rounded-xl shadow-lg overflow-hidden group transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-1 flex flex-col snap-center"
                   whileHover={{ y: -5 }}
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5 }}
+                  onTouchStart={handleCardTouch}
                 >
                   <div className="relative h-[200px]">
                     <img 

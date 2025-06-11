@@ -341,7 +341,10 @@ const Properties = () => {
         {/* Mobile Filter Button */}
         <div className="lg:hidden mb-6">
           <Button
-            onClick={() => setShowMobileFilters(true)}
+            onClick={() => {
+              console.log('Filter button clicked, setting showMobileFilters to true');
+              setShowMobileFilters(true);
+            }}
             className="w-full flex items-center justify-center gap-2 bg-primary text-white py-3 rounded-xl"
           >
             <Filter size={20} />
@@ -356,15 +359,18 @@ const Properties = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/50 z-50 lg:hidden"
-              onClick={() => setShowMobileFilters(false)}
+              className="fixed inset-0 bg-black/50 z-[9999] lg:hidden"
+              onClick={() => {
+                console.log('Background clicked, closing modal');
+                setShowMobileFilters(false);
+              }}
             >
               <motion.div
                 initial={{ x: "100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "100%" }}
-                transition={{ type: "spring", damping: 20 }}
-                className="absolute right-0 top-0 h-full w-full max-w-sm bg-white shadow-xl"
+                transition={{ type: "spring", damping: 20, stiffness: 100 }}
+                className="absolute right-0 top-0 h-full w-full max-w-sm bg-white shadow-xl overflow-hidden"
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Mobile Filter Header - Sticky */}
@@ -1011,7 +1017,6 @@ const Properties = () => {
                     </SelectContent>
                   </Select>
                 </div>
-
 
                 {/* Property Features */}
                 <div>
