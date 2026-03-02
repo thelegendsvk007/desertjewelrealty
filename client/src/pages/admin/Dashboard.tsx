@@ -63,7 +63,11 @@ export default function AdminDashboard() {
 
   // Fetch all properties
   const { data: properties, isLoading: propertiesLoading } = useQuery({
-    queryKey: ["/api/properties"],
+    queryKey: ["growth-api-properties"],
+    queryFn: async () => {
+      const res = await fetch("https://autonomous-workforce.replit.app/api/public/properties");
+      return res.json();
+    },
     retry: false,
   });
 
