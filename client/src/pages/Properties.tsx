@@ -120,6 +120,17 @@ const Properties = () => {
   }, [location]);
 
   // Filter properties with search parameters
+  const [apiProperties, setApiProperties] = useState<any[]>([]);
+
+useEffect(() => {
+  fetch("https://autonomous-workforce.replit.app/api/public/properties")
+    .then(res => res.json())
+    .then(data => setApiProperties(data))
+    .catch(() => {});
+}, []);
+
+const allProperties = [...propertiesData, ...apiProperties];
+let filteredProperties = allProperties.filter(property => {
   const allProperties = propertiesData;
   let filteredProperties = propertiesData.filter(property => {
     // Text search filter - searches in title, address, developer name, and city
