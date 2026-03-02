@@ -1,0 +1,241 @@
+import { Developer } from '../../../shared/schema';
+import emaarLogo from '@/assets/developers/emaar.jpg';
+import damacLogo from '@/assets/developers/damac.jpg';
+import nakheelLogo from '@/assets/developers/nakheel.jpg';
+import aldarLogo from '@/assets/developers/aldar.jpg';
+import sobhaLogo from '@/assets/developers/sobha.jpg';
+import dubaiPropertiesLogo from '@/assets/developers/dubai_properties.jpg';
+import meraasLogo from '@/assets/developers/meraas.jpg';
+import aradaLogo from '@/assets/developers/arada.jpg';
+import eagleHillsLogo from '@/assets/developers/eagle_hills.jpg';
+import object1Logo from '@/assets/developers/object_1.jpg';
+import samanaLogo from '@/assets/developers/samana.jpg';
+import binghattiLogo from '@/assets/developers/binghatti.jpg';
+import danubeLogo from '@/assets/developers/danube.jpg';
+import ellingtonLogo from '@/assets/developers/ellington.jpg';
+import nshamaLogo from '@/assets/developers/nshama.jpg';
+import aziziLogo from '@/assets/developers/azizi.jpg';
+import selectGroupLogo from '@/assets/developers/select_group.jpg';
+import magLogo from '@/assets/developers/mag.jpg';
+import bloomLogo from '@/assets/developers/bloom.jpg';
+import tigerLogo from '@/assets/developers/tiger.jpg';
+import solLogo from '@/assets/developers/sol.jpg';
+import modonLogo from '@/assets/developers/modon.jpg';
+import rakLogo from '@/assets/developers/rak.jpg';
+import gfsLogo from '@/assets/developers/gfs.jpg';
+import reportageLogo from '@/assets/developers/reportage.jpg';
+import nabniLogo from '@/assets/developers/nabni.jpg';
+
+
+export const developersData: Developer[] = [
+  {
+    id: 1,
+    name: "Emaar Properties",
+    logo: emaarLogo,
+    projectCount: 150,
+    description: "One of the world’s leading real estate developers, known for iconic projects like Burj Khalifa and Dubai Mall.",
+    established: 1997,
+    website: "https://www.emaar.com",
+    contactEmail: "contact@emaar.ae",
+    contactPhone: "+971 4 366 1688",
+    featured: true
+  },
+  {
+    id: 2,
+    name: "Damac Properties",
+    logo: damacLogo,
+    projectCount: 120,
+    description: "A leading luxury developer in Dubai, delivering high-end residential, commercial, and leisure properties.",
+    established: 2002,
+    website: "https://www.damacproperties.com",
+    contactEmail: "",
+    contactPhone: "+971 4 373 1000",
+    featured: true
+  },
+  {
+    id: 3,
+    name: "Sobha Realty",
+    logo: sobhaLogo,
+    projectCount: 60,
+    description: "A premium developer known for quality craftsmanship and luxury residences in Dubai and beyond.",
+    established: 1976,
+    website: "https://www.sobharealty.com",
+    contactEmail: "",
+    contactPhone: "+971 4 423 2000",
+    featured: true
+  },
+  {
+    id: 4,
+    name: "Aldar Properties PJSC",
+    logo: aldarLogo,
+    projectCount: 50,
+    description: "A leading developer in Abu Dhabi and Dubai, known for sustainable and community-focused projects.",
+    established: 2004,
+    website: "https://www.aldar.com",
+    contactEmail: "info@aldar.com",
+    contactPhone: "+971 2 810 5555",
+    featured: false
+  },
+  {
+    id: 5,
+    name: "Nakheel",
+    logo: nakheelLogo,
+    projectCount: 70,
+    description: "Creator of iconic projects like Palm Jumeirah, offering luxury waterfront residences in Dubai.",
+    established: 2000,
+    website: "https://www.nakheel.com",
+    contactEmail: "",
+    contactPhone: "+971 4 390 3333",
+    featured: true
+  },
+  {
+    id: 6,
+    name: "Danube Properties",
+    logo: danubeLogo,
+    projectCount: 40,
+    description: "A developer offering affordable luxury residences with innovative payment plans in Dubai.",
+    established: 1993,
+    website: "https://www.danubeproperties.ae",
+    contactEmail: "info@danubeproperties.ae",
+    contactPhone: "+971 4 296 4460",
+    featured: false
+  },
+  {
+    id: 7,
+    name: "Samana Developers",
+    logo: samanaLogo,
+    projectCount: 30,
+    description: "A fast-growing developer offering modern residences with resort-style amenities in Dubai.",
+    established: 2018,
+    website: "https://www.samanadevelopers.com",
+    contactEmail: "info@samanadevelopers.com",
+    contactPhone: "+971 4 558 8888",
+    featured: false
+  },
+  {
+    id: 8,
+    name: "Azizi Developments",
+    logo: aziziLogo,
+    projectCount: 50,
+    description: "A dynamic developer delivering diverse residential and commercial projects across Dubai.",
+    established: 2007,
+    website: "https://www.azizidevelopments.com",
+    contactEmail: "info@azizidevelopments.com",
+    contactPhone: "+971 4 420 1444",
+    featured: false
+  },
+  {
+    id: 9,
+    name: "Meraas Holding",
+    logo: meraasLogo,
+    projectCount: 40,
+    description: "A Dubai-based developer known for creating vibrant lifestyle destinations and luxury residences.",
+    established: 2007,
+    website: "https://www.meraas.com",
+    contactEmail: "customersupport@meraas.ae",
+    contactPhone: "+971 4 871 3735",
+    featured: false
+  },
+  {
+    id: 11,
+    name: "Nabni Real Estate Development",
+    logo: nabniLogo,
+    projectCount: 10,
+    description: "A boutique developer delivering high-end residential projects with a focus on luxury and innovation.",
+    established: 2010,
+    website: "https://www.nabni.com",
+    contactEmail: "info@nabni.com",
+    contactPhone: "+971 4 432 1234",
+    featured: false
+  },
+  {
+    id: 12,
+    name: "RAK Properties",
+    logo: rakLogo,
+    projectCount: 20,
+    description: "A leading developer in Ras Al Khaimah, offering beachfront residences and resort-style projects.",
+    established: 2005,
+    website: "https://www.rakproperties.ae",
+    contactEmail: "info@rakproperties.ae",
+    contactPhone: "+971 7 243 1234",
+    featured: false
+  },
+  {
+    id: 13,
+    name: "Reportage Real Estate",
+    logo: reportageLogo,
+    projectCount: 25,
+    description: "A developer focused on delivering affordable and high-quality residences in Dubai and Abu Dhabi.",
+    established: 2014,
+    website: "https://www.reportageproperties.com",
+    contactEmail: "info@reportageproperties.com",
+    contactPhone: "+971 2 644 8000",
+    featured: false
+  },
+  {
+    id: 14,
+    name: "Dubai Properties",
+    logo: dubaiPropertiesLogo,
+    projectCount: 60,
+    description: "A prominent Dubai-based developer delivering premium residential and commercial projects across the emirate.",
+    established: 2004,
+    website: "https://www.dp.ae",
+    contactEmail: "info@dp.ae",
+    contactPhone: "+971 4 871 3700",
+    featured: true
+  },
+  {
+    id: 15,
+    name: "Tiger Properties",
+    logo: tigerLogo,
+    projectCount: 30,
+    description: "A dynamic developer offering affordable and modern residences in Dubai’s growing communities.",
+    established: 2008,
+    website: "https://www.tiger-properties.ae",
+    contactEmail: "info@tiger-properties.ae",
+    contactPhone: "+971 4 399 1111",
+    featured: false
+  },
+  {
+    id: 16,
+    name: "Sol Arena Development",
+    logo: solLogo,
+    projectCount: 15,
+    description: "An emerging developer focused on innovative residential projects in Dubai’s key growth areas.",
+    established: 2015,
+    website: "https://www.solarena.ae",
+    contactEmail: "info@solarena.ae",
+    contactPhone: "+971 4 456 7890",
+    featured: false
+  },
+  {
+    id: 17,
+    name: "Modon Properties",
+    logo: modonLogo,
+    projectCount: 25,
+    description: "A developer delivering master-planned communities with a focus on lifestyle and sustainability in the UAE.",
+    established: 2011,
+    website: "https://www.modon.ae",
+    contactEmail: "info@modon.ae",
+    contactPhone: "+971 2 696 9000",
+    featured: false
+  },
+  {
+    id: 18,
+    name: "GFS Development",
+    logo: gfsLogo,
+    projectCount: 10,
+    description: "A boutique developer offering high-quality residential projects with modern designs in Dubai.",
+    established: 2016,
+    website: "https://www.gfsdevelopment.ae",
+    contactEmail: "info@gfsdevelopment.ae",
+    contactPhone: "+971 4 567 1234",
+    featured: false
+  }
+];
+
+export const getFeaturedDevelopers = () =>
+  developersData.filter(developer => developer.featured);
+
+export const getDeveloperById = (id: number | string) =>
+  developersData.find(developer => developer.id == id);

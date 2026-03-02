@@ -1,0 +1,108 @@
+<option value="">Select Area</option>
+                    {searchParams.city === 'dubai' && (
+                      <>
+                        <option value="palm-jumeirah">Palm Jumeirah</option>
+                        <option value="dubai-marina">Dubai Marina</option>
+                        <option value="downtown-dubai">Downtown Dubai</option>
+                        <option value="business-bay">Business Bay</option>
+                        <option value="jumeirah-lake-towers">Jumeirah Lake Towers (JLT)</option>
+                        <option value="jumeirah-village-circle">Jumeirah Village Circle (JVC)</option>
+                        <option value="jumeirah-village-triangle">Jumeirah Village Triangle (JVT)</option>
+                        <option value="dubai-silicon-oasis">Dubai Silicon Oasis</option>
+                        <option value="arabian-ranches">Arabian Ranches</option>
+                        <option value="the-springs">The Springs</option>
+                        <option value="the-meadows">The Meadows</option>
+                        <option value="emirates-hills">Emirates Hills</option>
+                        <option value="al-barari">Al Barari</option>
+                        <option value="dubai-sports-city">Dubai Sports City</option>
+                        <option value="dubai-motor-city">Dubai Motor City</option>
+                        <option value="international-city">International City</option>
+                        <option value="discovery-gardens">Discovery Gardens</option>
+                        <option value="al-furjan">Al Furjan</option>
+                        <option value="mirdif-hills">Mirdif Hills</option>
+                        <option value="dubai-south">Dubai South</option>
+                        <option value="bluewaters-island">Bluewaters Island</option>
+                        <option value="emaar-beachfront">Emaar Beachfront</option>
+                        <option value="dubai-creek-harbour">Dubai Creek Harbour</option>
+                        <option value="dubai-hills-estate">Dubai Hills Estate</option>
+                        <option value="tilal-al-ghaf">Tilal Al Ghaf</option>
+                        <option value="damac-hills">DAMAC Hills</option>
+                        <option value="damac-lagoons">DAMAC Lagoons</option>
+                        <option value="city-walk">City Walk</option>
+                        <option value="la-mer">La Mer</option>
+                        <option value="pearl-jumeirah">Pearl Jumeirah</option>
+                        <option value="dubai-harbour">Dubai Harbour</option>
+                        <option value="al-wasl">Al Wasl</option>
+                        <option value="barsha-heights">Barsha Heights (Tecom)</option>
+                        <option value="dubai-production-city">Dubai Production City</option>
+                        <option value="dubai-studio-city">Dubai Studio City</option>
+                        <option value="dubai-science-park">Dubai Science Park</option>
+                        <option value="dubai-investment-park">Dubai Investment Park (DIP)</option>
+                        <option value="difc">Dubai International Financial Centre (DIFC)</option>
+                        <option value="madinat-jumeirah-living">Madinat Jumeirah Living</option>
+                        <option value="liwan">Liwan</option>
+                        <option value="remraam">Remraam</option>
+                        <option value="al-sufouh">Al Sufouh</option>
+                      </>
+                    )}
+                    {searchParams.city === 'abudhabi' && (
+                      <>
+                        <option value="yas-island">Yas Island</option>
+                        <option value="saadiyat-island">Saadiyat Island</option>
+                        <option value="al-reem-island">Al Reem Island</option>
+                        <option value="al-maryah-island">Al Maryah Island</option>
+                        <option value="masdar-city">Masdar City</option>
+                        <option value="al-raha-beach">Al Raha Beach</option>
+                        <option value="al-ghadeer">Al Ghadeer</option>
+                        <option value="al-reef">Al Reef</option>
+                        <option value="al-shamkha">Al Shamkha</option>
+                        <option value="al-raha-gardens">Al Raha Gardens</option>
+                        <option value="hydra-village">Hydra Village</option>
+                      </>
+                    )}
+                    {searchParams.city === 'sharjah' && (
+                      <>
+                        <option value="aljada">Aljada</option>
+                        <option value="tilal-city">Tilal City</option>
+                        <option value="maryam-island">Maryam Island</option>
+                        <option value="al-mamsha">Al Mamsha</option>
+                        <option value="sharjah-waterfront-city">Sharjah Waterfront City</option>
+                        <option value="sharjah-garden-city">Sharjah Garden City</option>
+                        <option value="al-khan">Al Khan</option>
+                      </>
+                    )}
+                    {searchParams.city === 'ajman' && (
+                      <>
+                        <option value="al-zorah">Al Zorah</option>
+                        <option value="emirates-city">Emirates City</option>
+                        <option value="ajman-one">Ajman One</option>
+                        <option value="city-towers">City Towers</option>
+                        <option value="al-humaid-city">Al Humaid City</option>
+                        <option value="marmooka-city">Marmooka City</option>
+                        <option value="mermaid-city">Mermaid City</option>
+                      </>
+                    )}
+                    {searchParams.city === 'rasalkhaimah' && (
+                      <>
+                        <option value="al-hamra-village">Al Hamra Village</option>
+                        <option value="mina-al-arab">Mina Al Arab</option>
+                        <option value="al-marjan-island">Al Marjan Island</option>
+                        <option value="bab-al-bahr">Bab Al Bahr</option>
+                        <option value="pacific">Pacific</option>
+                        <option value="dafan-al-nakheel">Dafan Al Nakheel</option>
+                      </>
+                    )}
+                    {searchParams.city === 'fujairah' && (
+                      <>
+                        <option value="fujairah-creative-city">Fujairah Creative City</option>
+                        <option value="fujairah-beach">Fujairah Beach</option>
+                        <option value="dibba">Dibba (select projects)</option>
+                      </>
+                    )}
+                    {searchParams.city === 'ummalquwain' && (
+                      <>
+                        <option value="emirates-modern-industrial-area">Emirates Modern Industrial Area</option>
+                        <option value="al-salamah">Al Salamah</option>
+                        <option value="al-ramlah">Al Ramlah</option>
+                        <option value="al-maidan">Al Maidan</option>
+                      </>

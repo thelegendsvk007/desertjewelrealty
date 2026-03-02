@@ -1,0 +1,528 @@
+import { useState, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { useBlogFeed, BlogPost } from '@/hooks/useBlogFeed';
+import { Calendar, Clock, ExternalLink, Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
+
+const BlogAndNews = () => {
+  const { posts, loading, error } = useBlogFeed();
+  const [currentPost, setCurrentPost] = useState<BlogPost | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const autoScrollRef = useRef<number | NodeJS.Timeout>();
+  const touchStartRef = useRef<number>(0);
+  const lastScrollTimeRef = useRef<number>(0);
+  
+  // Function to get related posts
+  const getRelatedPosts = (post: BlogPost, count: number = 2): BlogPost[] => {
+    if (!posts || posts.length === 0) return [];
+    
+    // Filter out the current post and get the first few
+    return posts
+      .filter(p => p.guid !== post.guid)
+      .slice(0, count);
+  };
+
+  const openArticle = (post: BlogPost) => {
+    setCurrentPost(post);
+    setIsDialogOpen(true);
+  };
+
+  const truncateText = (text: string, maxLength: number = 150): string => {
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + '...';
+  };
+
+  const formatDate = (dateString: string): string => {
+    try {
+      return new Date(dateString).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    } catch {
+      return dateString;
+    }
+  };
+
+  const extractTextFromHtml = (html: string): string => {
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    return div.textContent || div.innerText || '';
+  };
+
+  const startAutoScroll = () => {
+    if (scrollContainerRef.current && posts.length > 0) {
+      const container = scrollContainerRef.current;
+      
+      // Smooth continuous scroll
+      const smoothScroll = (timestamp: number) => {
+        if (!scrollContainerRef.current) return;
+        
+        if (timestamp - lastScrollTimeRef.current >= 16) { // ~60fps
+          const container = scrollContainerRef.current;
+          const currentScroll = container.scrollLeft;
+          const maxScroll = container.scrollWidth - container.clientWidth;
+          
+          // True seamless infinite scroll - we duplicate content so reset point is invisible
+          if (currentScroll >= maxScroll / 2) {
+            // Reset to beginning portion (since content is duplicated)
+            container.scrollLeft = currentScroll - (maxScroll / 2);
+          } else {
+            container.scrollLeft = currentScroll + 1.5; // Continuous movement
+          }
+          
+          lastScrollTimeRef.current = timestamp;
+        }
+        
+        autoScrollRef.current = requestAnimationFrame(smoothScroll);
+      };
+      
+      autoScrollRef.current = requestAnimationFrame(smoothScroll);
+    }
+  };
+
+  const stopAutoScroll = () => {
+    if (autoScrollRef.current) {
+      if (typeof autoScrollRef.current === 'number') {
+        cancelAnimationFrame(autoScrollRef.current);
+      } else {
+        clearInterval(autoScrollRef.current);
+      }
+      autoScrollRef.current = undefined;
+    }
+  };
+
+  // Auto-scroll functionality for blog carousel - Always running
+  useEffect(() => {
+    if (posts.length > 1) {
+      startAutoScroll();
+    } else {
+      stopAutoScroll();
+    }
+
+    return () => stopAutoScroll();
+  }, [posts]);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const container = scrollContainerRef.current;
+      
+      // Temporarily stop auto-scroll during manual navigation
+      stopAutoScroll();
+      
+      const cardWidth = 350;
+      const gap = 32;
+      const scrollAmount = cardWidth + gap;
+      
+      if (direction === 'left') {
+        container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      } else {
+        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
+      
+      // Resume auto-scroll after manual scroll completes
+      setTimeout(() => {
+        startAutoScroll();
+      }, 500);
+    }
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartRef.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const touchEnd = e.changedTouches[0].clientX;
+    const diff = touchStartRef.current - touchEnd;
+    
+    // Temporarily stop auto-scroll on touch interaction
+    stopAutoScroll();
+    
+    // Swipe threshold
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        // Swipe left (next)
+        scroll('right');
+      } else {
+        // Swipe right (previous)
+        scroll('left');
+      }
+    } else {
+      // Resume auto-scroll if no significant swipe detected
+      setTimeout(() => {
+        startAutoScroll();
+      }, 1000);
+    }
+  };
+
+  const handleCardTouch = () => {
+    // Temporarily stop auto-scroll when card is touched
+    stopAutoScroll();
+  };
+
+  if (loading) {
+    return (
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">UAE Real Estate Blog & News</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Stay informed with the latest market trends, new regulations, and investment guides for UAE real estate.
+            </p>
+          </div>
+          <div className="flex justify-center items-center py-16">
+            <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+            <span className="ml-3 text-gray-600">Loading latest articles...</span>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">UAE Real Estate Blog & News</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Stay informed with the latest market trends, new regulations, and investment guides for UAE real estate.
+            </p>
+          </div>
+          <div className="text-center py-16">
+            <p className="text-red-600 mb-4">Unable to load latest articles</p>
+            <p className="text-gray-600">Please check back later</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="py-24 bg-white">
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">UAE Real Estate Blog & News</h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Stay informed with the latest market trends, new regulations, and investment guides for UAE real estate.
+          </p>
+        </div>
+
+        {/* Blog Carousel */}
+        <div className="relative group">
+          {/* Navigation Arrows - Desktop only */}
+          {posts.length > 1 && (
+            <>
+              <button
+                onClick={() => scroll('left')}
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-300 hover:scale-110 opacity-0 group-hover:opacity-100 hidden md:block"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%)',
+                  backdropFilter: 'blur(10px)'
+                }}
+              >
+                <ChevronLeft className="w-6 h-6 text-primary" />
+              </button>
+              <button
+                onClick={() => scroll('right')}
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-300 hover:scale-110 opacity-0 group-hover:opacity-100 hidden md:block"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%)',
+                  backdropFilter: 'blur(10px)'
+                }}
+              >
+                <ChevronRight className="w-6 h-6 text-primary" />
+              </button>
+            </>
+          )}
+
+          {/* Carousel Container */}
+          <div
+            ref={scrollContainerRef}
+            className="flex gap-4 md:gap-8 overflow-x-auto scrollbar-hide scroll-smooth pb-4 px-6 md:px-12 
+                       snap-x snap-mandatory md:snap-none"
+            style={{ 
+              scrollbarWidth: 'none', 
+              msOverflowStyle: 'none'
+            }}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            onMouseEnter={() => {
+              stopAutoScroll();
+            }}
+            onMouseLeave={() => {
+              startAutoScroll();
+            }}
+          >
+{/* First set of posts */}
+            {posts.map((post, index) => (
+              <motion.div
+                key={post.guid}
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="flex-shrink-0 w-[85vw] max-w-[320px] md:w-[350px] snap-center mx-auto"
+              >
+                <Card 
+                  className="h-full hover:shadow-xl transition-all duration-300 group cursor-pointer flex flex-col"
+                  onTouchStart={handleCardTouch}
+                  onMouseEnter={() => {
+                    stopAutoScroll();
+                  }}
+                  onMouseLeave={() => {
+                    startAutoScroll();
+                  }}
+                >
+                  <div className="aspect-video overflow-hidden rounded-t-lg">
+                    <img
+                      src={post.thumbnail || 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'}
+                      alt={post.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  
+                  <CardHeader>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Badge variant="secondary" className="text-xs">
+                        {Array.isArray(post.categories) ? post.categories[0] : 'Real Estate'}
+                      </Badge>
+                    </div>
+                    <CardTitle className="text-lg line-clamp-2 group-hover:text-blue-600 transition-colors">
+                      {post.title}
+                    </CardTitle>
+                  </CardHeader>
+
+                  <CardContent className="flex-grow">
+                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        <span>{formatDate(post.pubDate)}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-4 h-4" />
+                        <span>5 min read</span>
+                      </div>
+                    </div>
+                    <p className="text-gray-600 line-clamp-3">
+                      {truncateText(extractTextFromHtml(post.description))}
+                    </p>
+                  </CardContent>
+
+                  <CardFooter className="mt-auto pt-4">
+                    <Button 
+                      variant="outline" 
+                      className="w-full group-hover:bg-blue-600 group-hover:text-white transition-colors"
+                      onClick={() => openArticle(post)}
+                    >
+                      Read Article
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </motion.div>
+            ))}
+            
+            {/* Duplicate set for seamless infinite scroll */}
+            {posts.map((post, index) => (
+              <motion.div
+                key={`duplicate-${post.guid}`}
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="flex-shrink-0 w-[85vw] max-w-[320px] md:w-[350px] snap-center mx-auto"
+              >
+                <Card 
+                  className="h-full hover:shadow-xl transition-all duration-300 group cursor-pointer flex flex-col"
+                  onTouchStart={handleCardTouch}
+                  onMouseEnter={() => {
+                    stopAutoScroll();
+                  }}
+                  onMouseLeave={() => {
+                    startAutoScroll();
+                  }}
+                >
+                  <div className="aspect-video overflow-hidden rounded-t-lg">
+                    <img
+                      src={post.thumbnail || 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'}
+                      alt={post.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  
+                  <CardHeader>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Badge variant="secondary" className="text-xs">
+                        {Array.isArray(post.categories) ? post.categories[0] : 'Real Estate'}
+                      </Badge>
+                    </div>
+                    <CardTitle className="text-lg line-clamp-2 group-hover:text-blue-600 transition-colors">
+                      {post.title}
+                    </CardTitle>
+                  </CardHeader>
+
+                  <CardContent className="flex-grow">
+                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        <span>{formatDate(post.pubDate)}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-4 h-4" />
+                        <span>5 min read</span>
+                      </div>
+                    </div>
+                    <p className="text-gray-600 line-clamp-3">
+                      {truncateText(extractTextFromHtml(post.description))}
+                    </p>
+                  </CardContent>
+
+                  <CardFooter className="mt-auto pt-4">
+                    <Button 
+                      variant="outline" 
+                      className="w-full group-hover:bg-blue-600 group-hover:text-white transition-colors"
+                      onClick={() => openArticle(post)}
+                    >
+                      Read Article
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Article Dialog */}
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+            {currentPost && (
+              <>
+                <DialogHeader>
+                  <div className="aspect-video overflow-hidden rounded-lg mb-4">
+                    <img
+                      src={currentPost.thumbnail || 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'}
+                      alt={currentPost.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <DialogTitle className="text-2xl font-bold text-left">
+                    {currentPost.title}
+                  </DialogTitle>
+                  <DialogDescription className="text-left">
+                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        <span>{formatDate(currentPost.pubDate)}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-4 h-4" />
+                        <span>5 min read</span>
+                      </div>
+                      <Badge variant="secondary">
+                        {Array.isArray(currentPost.categories) ? currentPost.categories[0] : 'Real Estate'}
+                      </Badge>
+                    </div>
+                  </DialogDescription>
+                </DialogHeader>
+                
+                <div className="prose max-w-none">
+                  <div dangerouslySetInnerHTML={{ __html: currentPost.content || currentPost.description }} />
+                  
+                  {/* Additional article information */}
+                  <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+                    <h4 className="font-semibold text-lg mb-3">About This Article</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <strong>Published:</strong> {formatDate(currentPost.pubDate)}
+                      </div>
+                      <div>
+                        <strong>Category:</strong> {Array.isArray(currentPost.categories) ? currentPost.categories[0] : 'Real Estate'}
+                      </div>
+                      <div>
+                        <strong>Source:</strong> UAE Real Estate News
+                      </div>
+                      <div>
+                        <strong>Reading Time:</strong> ~5 minutes
+                      </div>
+                    </div>
+                    
+                    <div className="mt-4">
+                      <strong>Key Topics:</strong>
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {(Array.isArray(currentPost.categories) ? currentPost.categories : ['Real Estate', 'Property Investment', 'UAE Market']).map((category, index) => (
+                          <Badge key={index} variant="outline" className="text-xs">
+                            {category}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div className="mt-4">
+                      <p className="text-gray-600">
+                        This article provides insights into the UAE real estate market, covering current trends, 
+                        investment opportunities, and regulatory updates that impact property buyers and investors.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <DialogFooter className="flex justify-between items-center mt-6">
+                  <div className="flex gap-2">
+                    <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
+                      Close
+                    </Button>
+                    <Button asChild>
+                      <a href={currentPost.link} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        Read Full Article
+                      </a>
+                    </Button>
+                  </div>
+                </DialogFooter>
+
+                {/* Related Articles */}
+                {getRelatedPosts(currentPost).length > 0 && (
+                  <div className="mt-8 pt-6 border-t">
+                    <h3 className="text-lg font-semibold mb-4">Related Articles</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {getRelatedPosts(currentPost).map((relatedPost) => (
+                        <Card 
+                          key={relatedPost.guid}
+                          className="cursor-pointer hover:shadow-md transition-shadow"
+                          onClick={() => {
+                            setCurrentPost(relatedPost);
+                          }}
+                        >
+                          <CardHeader className="pb-2">
+                            <CardTitle className="text-sm line-clamp-2">
+                              {relatedPost.title}
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <p className="text-xs text-gray-600 line-clamp-2">
+                              {truncateText(extractTextFromHtml(relatedPost.description), 100)}
+                            </p>
+                            <div className="flex items-center gap-2 mt-2">
+                              <Calendar className="w-3 h-3 text-gray-400" />
+                              <span className="text-xs text-gray-500">
+                                {formatDate(relatedPost.pubDate)}
+                              </span>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+          </DialogContent>
+        </Dialog>
+      </div>
+    </section>
+  );
+};
+
+export default BlogAndNews;

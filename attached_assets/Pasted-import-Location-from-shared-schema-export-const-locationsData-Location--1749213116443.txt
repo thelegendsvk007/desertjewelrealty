@@ -1,0 +1,354 @@
+import { Location } from '../../../shared/schema';
+
+export const locationsData: Location[] = [
+  {
+    id: 3,
+    name: "Downtown Dubai",
+    city: "Dubai",
+    description: "An iconic destination featuring the Burj Khalifa and Dubai Mall, offering luxury residences and vibrant urban living.",
+    propertyCount: 35,
+    featured: true
+  },
+  {
+    id: 4,
+    name: "Dubai Maritime City",
+    city: "Dubai",
+    description: "A vibrant waterfront community offering modern residences and commercial spaces with stunning marina views.",
+    propertyCount: 10,
+    featured: true
+  },
+  {
+    id: 5,
+    name: "Siniyah Island",
+    city: "Umm Al Quwain",
+    description: "A luxurious beachfront destination offering premium villas with private beaches and serene coastal living.",
+    propertyCount: 20,
+    featured: true
+  },
+  {
+    id: 6,
+    name: "Business Bay",
+    city: "Dubai",
+    description: "A dynamic business and residential hub with modern skyscrapers, canal views, and proximity to Downtown Dubai.",
+    propertyCount: 50,
+    featured: true
+  },
+  {
+    id: 8,
+    name: "Damac Hills 2",
+    city: "Dubai",
+    description: "A family-friendly community with luxury villas and townhouses, featuring green spaces and resort-style amenities.",
+    propertyCount: 45,
+    featured: true
+  },
+  {
+    id: 10,
+    name: "Damac Lagoons",
+    city: "Dubai",
+    description: "A Mediterranean-inspired residential complex featuring residences around man-made lagoons with recreational facilities.",
+    propertyCount: 45,
+    featured: true
+  },
+  {
+    id: 12,
+    name: "Dubai Land Residence Complex",
+    city: "Dubai",
+    description: "A sprawling residential community within Dubailand, offering modern apartments and villas with access to entertainment destinations.",
+    propertyCount: 15,
+    featured: true
+  },
+  {
+    id: 13,
+    name: "Al Warsan 4",
+    city: "Dubai",
+    description: "A developing residential area offering affordable housing and modern amenities with convenient access to Dubai’s key districts.",
+    propertyCount: 10,
+    featured: false
+  },
+  {
+    id: 14,
+    name: "Saadiyat Island",
+    city: "Abu Dhabi",
+    description: "A cultural and luxury destination offering premium residences with beachfront views and access to world-class museums.",
+    propertyCount: 10,
+    featured: true
+  },
+  {
+    id: 15,
+    name: "Dubai Islands",
+    city: "Dubai",
+    description: "An emerging waterfront community offering modern apartments with island views and coastal living.",
+    propertyCount: 10,
+    featured: true,
+  },
+  {
+    id: 16,
+    name: "Dubai Silicon Oasis",
+    city: "Dubai",
+    description: "A technology-driven residential area offering affordable smart homes and modern amenities.",
+    propertyCount: 10,
+    featured: false
+  },
+  {
+    id: 17,
+    name: "Expo City",
+    city: "Dubai",
+    description: "A vibrant urban community offering modern residences with access to innovation and sustainability hubs.",
+    propertyCount: 10,
+    featured: true
+  },
+  {
+    id: 18,
+    name: "Dubai Harbour",
+    city: "Dubai",
+    description: "A prestigious waterfront community featuring luxury apartments with marina and sea views and world-class amenities.",
+    propertyCount: 30,
+    featured: true
+  },
+  {
+    id: 19,
+    name: "Sheikh Zayed Road",
+    city: "Dubai",
+    description: "A prestigious urban corridor offering luxury high-rise apartments with iconic city views and prime connectivity.",
+    propertyCount: 10,
+    featured: true
+  },
+  {
+    id: 20,
+    name: "Mohammed Bin Rashid City",
+    city: "Dubai",
+    description: "A master-planned community offering luxury residences with modern amenities and lush green spaces.",
+    propertyCount: 10,
+    featured: true
+  },
+  {
+    id: 21,
+    name: "City of Arabia",
+    city: "Dubai",
+    description: "A developing residential area offering modern apartments with access to entertainment and cultural attractions.",
+    propertyCount: 10,
+    featured: false
+},
+  {
+    id: 22,
+    name: "Dubai Design District",
+    city: "Dubai",
+    description: "A creative hub offering modern residences with access to design-focused amenities and vibrant community spaces.",
+    propertyCount: 2,
+    featured: true
+  },
+  {
+    id: 23,
+    name: "Jumeirah",
+    city: "Dubai",
+    description: "A prestigious coastal community offering luxury residences with beachfront access and iconic views.",
+    propertyCount: 2,
+    featured: true
+  },
+  {
+    id: 24,
+    name: "City Walk",
+    city: "Dubai",
+    description: "A vibrant urban community offering luxury apartments with access to retail boulevards and modern amenities.",
+    propertyCount: 10,
+    featured: true
+  },
+  {
+    id: 25,
+    name: "Palm Jebel Ali",
+    city: "Dubai",
+    description: "A luxury beachfront destination offering premium villas with private beaches and marina views.",
+    propertyCount: 10,
+    featured: true
+  },
+  {
+    id: 26,
+    name: "Jebel Ali Village",
+    city: "Dubai",
+    description: "A modern residential community offering affordable apartments with convenient access to Dubai’s key areas.",
+    propertyCount: 10,
+    featured: false
+  },
+  {
+    id: 27,
+    name: "Palm Jumeirah",
+    city: "Dubai",
+    description: "An iconic man-made island offering luxury apartments and villas with beachfront views and world-class amenities.",
+    propertyCount: 10,
+    featured: true
+  },
+  {
+    id: 28,
+    name: "Jumeirah Village Triangle",
+    city: "Dubai",
+    description: "A family-friendly community offering affordable apartments with modern amenities and green spaces.",
+    propertyCount: 10,
+    featured: false
+  },
+  {
+    id: 29,
+    name: "Dubai Investment Park",
+    city: "Dubai",
+    description: "A mixed-use development offering residential villas with resort-style amenities and proximity to business districts.",
+    propertyCount: 15,
+    featured: false
+  },
+  {
+    id: 30,
+    name: "The Valley",
+    city: "Dubai",
+    description: "A family-friendly community offering modern villas with lush greenery and community-focused amenities.",
+    propertyCount: 10,
+    featured: true
+  },
+  {
+    id: 40,
+    name: "Dubai Media City",
+    city: "Dubai",
+    description: "A bustling media and business hub offering luxury apartments with proximity to Dubai’s key commercial districts.",
+    propertyCount: 10,
+    featured: true
+  },
+  {
+    id: 100,
+    name: "Mina Rashid",
+    city: "Dubai",
+    description: "A historic waterfront destination offering luxury apartments with marina views and vibrant community living.",
+    propertyCount: 20,
+    featured: true
+  },
+  {
+    id: 101,
+    name: "Mina Al Arab",
+    city: "Ras Al Khaimah",
+    description: "A coastal community offering premium villas with private beaches and serene surroundings.",
+    propertyCount: 15,
+    featured: true
+  },
+  {
+    id: 103,
+    name: "Emaar South",
+    city: "Dubai",
+    description: "A master-planned community offering modern apartments and villas with golf course views and family-friendly amenities.",
+    propertyCount: 30,
+    featured: true
+  },
+  {
+    id: 104,
+    name: "Al Furjan",
+    city: "Dubai",
+    description: "A residential community offering affordable apartments with modern amenities and convenient access to Dubai’s key areas.",
+    propertyCount: 15,
+    featured: false
+  },
+  {
+    id: 105,
+    name: "Athlon",
+    city: "Dubai",
+    description: "A dynamic residential community in Dubai Land offering luxury villas with modern designs and community parks.",
+    propertyCount: 30,
+    featured: true
+  },
+  {
+    id: 106,
+    name: "Hayat Island",
+    city: "Ras Al Khaimah",
+    description: "A luxurious island community offering beachfront villas with premium amenities and serene coastal living.",
+    propertyCount: 15,
+    featured: true
+  },
+  {
+    id: 107,
+    name: "Haven By Aldar",
+    city: "Dubai",
+    description: "A serene residential community in Dubai Land offering modern villas with lush greenery and family-friendly facilities.",
+    propertyCount: 20,
+    featured: true
+  },
+  {
+    id: 108,
+    name: "Dubai Hills Estate",
+    city: "Dubai",
+    description: "A prestigious community offering luxury apartments with golf course views and access to premium amenities.",
+    propertyCount: 15,
+    featured: true
+  },
+  {
+    id: 109,
+    name: "Majan",
+    city: "Dubai",
+    description: "A developing residential area in Dubai Land offering affordable apartments with modern amenities.",
+    propertyCount: 50,
+    featured: false
+  },
+  {
+    id: 110,
+    name: "Al Hudayriat Island",
+    city: "Abu Dhabi",
+    description: "A coastal destination offering luxury villas with beachfront views and recreational facilities.",
+    propertyCount: 20,
+    featured: true
+  },
+  {
+    id: 114,
+    name: "Jumeirah Village Circle",
+    city: "Dubai",
+    description: "A family-friendly community offering affordable apartments with modern amenities and green spaces.",
+    propertyCount: 15,
+    featured: false
+  },
+  {
+    id: 116,
+    name: "Umm Suqeim",
+    city: "Dubai",
+    description: "A prestigious coastal area offering luxury apartments with iconic Burj Al Arab views and beach access.",
+    propertyCount: 10,
+    featured: true
+  },
+  {
+    id: 119,
+    name: "Dubai Investment Park",
+    city: "Dubai",
+    description: "A mixed-use development offering resort-style apartments with proximity to business districts.",
+    propertyCount: 10,
+    featured: false
+  },
+  {
+    id: 123,
+    name: "Sobha Hartland II",
+    city: "Dubai",
+    description: "A luxury waterfront community offering premium apartments with lush greenery and modern amenities.",
+    propertyCount: 10,
+    featured: true
+  },
+  {
+    id: 175,
+    name: "Dubai Marina",
+    city: "Dubai",
+    description: "An iconic waterfront community known for its luxury apartments, marina views, and vibrant lifestyle.",
+    propertyCount: 15,
+    featured: true
+  },
+  {
+    id: 225,
+    name: "Green Vistas",
+    city: "Dubai",
+    description: "A serene residential enclave within Sobha Hartland II, offering luxury villas with lush surroundings.",
+    propertyCount: 10,
+    featured: true
+  },
+  {
+    id: 226,
+    name: "La Mer",
+    city: "Dubai",
+    description: "A serene residential enclave within Sobha Hartland II, offering luxury villas with lush surroundings.",
+    propertyCount: 10,
+    featured: true
+  }
+];
+
+export const getFeaturedLocations = () =>
+  locationsData.filter(location => location.featured);
+
+export const getLocationById = (id: number) =>
+  locationsData.find(location => location.id === id);

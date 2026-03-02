@@ -1,0 +1,350 @@
+import { Developer } from '../types';
+import emaarLogo from '@/assets/developers/emaar.jpg';
+import damacLogo from '@/assets/developers/damac.jpg';
+import nakheelLogo from '@/assets/developers/nakheel.jpg';
+import aldarLogo from '@/assets/developers/aldar.jpg';
+import sobhaLogo from '@/assets/developers/sobha.jpg';
+import dubaiPropertiesLogo from '@/assets/developers/dubai_properties.jpg';
+import meraasLogo from '@/assets/developers/meraas.jpg';
+import aradaLogo from '@/assets/developers/arada.jpg';
+import eagleHillsLogo from '@/assets/developers/eagle_hills.jpg';
+import object1Logo from '@/assets/developers/object_1.jpg';
+import samanaLogo from '@/assets/developers/samana.jpg';
+import binghattiLogo from '@/assets/developers/binghatti.jpg';
+import danubeLogo from '@/assets/developers/danube.jpg';
+import ellingtonLogo from '@/assets/developers/ellington.jpg';
+import nshamaLogo from '@/assets/developers/nshama.jpg';
+import aziziLogo from '@/assets/developers/azizi.jpg';
+import selectGroupLogo from '@/assets/developers/select_group.jpg';
+import magLogo from '@/assets/developers/mag.jpg';
+import bloomLogo from '@/assets/developers/bloom.jpg';
+import tigerLogo from '@/assets/developers/tiger.jpg';
+import solLogo from '@/assets/developers/sol.jpg';
+import modonLogo from '@/assets/developers/modon.jpg';
+import rakLogo from '@/assets/developers/rak.jpg';
+import gfsLogo from '@/assets/developers/gfs.jpg';
+import reportageLogo from '@/assets/developers/reportage.jpg';
+import nabniLogo from '@/assets/developers/nabni.jpg';
+
+export const developersData: Developer[] = [
+  {
+    id: 1,
+    name: "Emaar Properties",
+    logo: emaarLogo,
+    projectCount: 250,
+    description: "Soar to new heights with Emaar Properties, a global titan that has redefined luxury living since 1997! Founded by Mohamed Alabbar, this Dubai-based developer is synonymous with architectural brilliance, delivering iconic landmarks like the Burj Khalifa—the world's tallest building at 829.8 meters—and the sprawling Dubai Mall, a retail paradise attracting over 100 million visitors annually. Emaar's vision transcends construction, crafting vibrant communities like Downtown Dubai that blend modern elegance with aspirational lifestyles, setting the gold standard for urban development worldwide.\n\nEmaar’s portfolio spans residential, commercial, retail, and hospitality sectors, with a presence in over 36 markets across the Middle East, North Africa, Asia, Europe, and North America. Developments like Dubai Hills Estate, with its championship golf course, and Emaar Beachfront, featuring 1.5km of pristine beach, highlight Emaar’s commitment to sustainability and innovation through solar-powered designs and 80+ acres of green spaces. Its award-winning Address Hotels & Resorts, known for panoramic cityscapes, further elevate the luxury experience, ensuring residents and guests live in unparalleled splendor.\n\nWith a valuation of US$15.5 billion as of June 2021 and over 85,000 residential units delivered globally, Emaar leads with a forward-thinking approach. Its latest project, Creek Gate, launched in 2025, boasts a 45-story tower with sky gardens, while off-plan properties offer investors returns exceeding 10% annually. From the opulent villas of Arabian Ranches to the resort-style luxury of Address Hotels in Ras Al Khaimah, Emaar Properties continues to transform skylines and lifestyles, cementing its status as a beacon of excellence in the global real estate arena.",
+    keyProjects: ["Burj Khalifa", "Dubai Mall", "Downtown Dubai", "Dubai Marina", "Dubai Hills Estate"],
+    uniqueSellingPoints: ["Record-breaking architectural landmarks like Burj Khalifa", "Master-planned communities with championship golf courses", "Solar-powered, eco-friendly designs with 80+ acres of greenery", "Award-winning 5-star hospitality with panoramic views", "High-return off-plan investments with 10%+ annual yields"],
+    marketPosition: "Emaar Properties reigns as a global leader in luxury real estate, captivating investors and residents with its iconic, sustainable developments that set trends worldwide.",
+    established: 1997,
+    featured: true
+  },
+  {
+    id: 2,
+    name: "Damac Properties",
+    logo: damacLogo,
+    projectCount: 200,
+    description: "Step into a realm of opulence with Damac Properties, where luxury meets innovation since 2002! Founded by Hussain Sajwani, Damac has become a trailblazer in high-end real estate, delivering over 48,000 homes across the UAE and beyond. Known for bold designs like Damac Hills—a 42-million-square-foot community with a Trump-branded golf course—Damac transforms Dubai’s skyline into a gallery of lifestyle statements, blending grandeur with modern functionality for the elite.\n\nDamac’s portfolio shines with collaborations with global luxury brands like Versace, Paramount Hotels, and Roberto Cavalli, creating residences that double as art pieces. Developments such as the Mediterranean-inspired Damac Lagoons, with its crystal-clear lagoons, and the futuristic Cavalli Tower, featuring a golden facade, offer premium amenities like private cinemas and infinity pools. The company’s focus on vibrant, community-focused spaces ensures exclusivity, attracting high-profile residents from over 100 countries.\n\nIn January 2025, Damac recorded 1,767 transactions totaling AED 4.13 billion, dominating the luxury market. Its latest project, Safa Two, launched in 2025, features a 66-story tower with a rooftop infinity pool offering breathtaking views of the Burj Al Arab. With off-plan units starting at AED 1.1M, Damac Properties continues to redefine upscale living, curating extraordinary experiences that captivate the Middle East’s elite.",
+    keyProjects: ["Damac Hills", "Damac Lagoons", "Cavalli Tower", "Akoya Oxygen", "Paramount Tower Hotel & Residences"],
+    uniqueSellingPoints: ["Exclusive collaborations with luxury brands like Versace and Cavalli", "Opulent designs with private cinemas and infinity pools", "Golden-facade skyscrapers and crystal-clear lagoons", "Trump-branded golf courses and rooftop pools", "High transaction volume with AED 4.13 billion in 2025"],
+    marketPosition: "Damac Properties leads the luxury real estate sector in Dubai, captivating high-net-worth individuals with its extravagant, brand-driven developments.",
+    established: 2002,
+    featured: true
+  },
+  {
+    id: 3,
+    name: "Nakheel",
+    logo: nakheelLogo,
+    projectCount: 100,
+    description: "Dive into a world of waterfront wonders with Nakheel, the visionary developer transforming Dubai’s coastline since 2003! Known for creating the iconic Palm Jumeirah—a man-made island with over 4,000 luxury residences—Nakheel has redefined coastal living with its ambitious projects. As a government-owned entity, Nakheel has expanded Dubai’s infrastructure, adding new dimensions to the city with developments like The World Islands, a collection of 300 private islets shaped like a world map.\n\nNakheel’s portfolio celebrates innovation, featuring Jumeirah Village with affordable yet stylish homes and Deira Islands, set to become a future hub with a floating beach park. In January 2025, Nakheel reported 411 transactions totaling AED 3.78 billion, reflecting its global appeal. Amenities like Nakheel Mall’s rooftop cinema and The Pointe’s nightly fountain shows—the largest in the region—enhance Dubai’s leisure landscape, offering residents and visitors a seamless blend of luxury and entertainment.\n\nFrom the serene 7km beachfront of Palm Jebel Ali to the vibrant International City, home to over 80 nationalities, Nakheel pushes urban planning boundaries. Rebounding from the 2007-2010 financial crisis with a $10 billion Abu Dhabi investment, Nakheel remains a cornerstone of Dubai’s growth. Its latest project, Palm 360, a 2025 launch, promises a twin-tower marvel with a sky pool connecting at 170 meters, cementing Nakheel’s legacy of delivering a coastal paradise unlike any other.",
+    keyProjects: ["Palm Jumeirah", "The World Islands", "Jumeirah Village", "International City", "Deira Islands"],
+    uniqueSellingPoints: ["Man-made islands with 7km beachfronts", "Floating beach parks and rooftop cinemas", "World's largest fountain shows at The Pointe", "Sky pools connecting twin towers at 170 meters", "Diverse communities with 80+ nationalities"],
+    marketPosition: "Nakheel leads Dubai's master development sector, captivating global investors with its transformative, waterfront projects that enhance tourism and luxury living.",
+    established: 2003,
+    featured: true
+  },
+  {
+    id: 4,
+    name: "Aldar Properties PJSC",
+    logo: aldarLogo,
+    projectCount: 120,
+    description: "Unveil a legacy of innovation with Aldar Properties, Abu Dhabi’s premier real estate developer since 2004! As a publicly traded company, Aldar has shaped the emirate’s urban fabric with iconic projects like Yas Island, home to the Yas Marina Circuit hosting Formula 1 races, and Saadiyat Island, a cultural gem with the Louvre Abu Dhabi. With 88% of its properties in Abu Dhabi, Aldar is a cornerstone of the region’s development, blending luxury with cultural significance.\n\nAldar’s portfolio spans residential, commercial, and hospitality sectors, with developments like Al Raha Beach offering beachfront villas and Reem Island featuring futuristic skyscrapers with 360-degree views. The 2025 collaboration with Dubai Holding launched ‘Haven,’ a wellness-focused neighborhood with yoga pavilions and organic gardens, showcasing Aldar’s commitment to innovative living. Projects like Saadiyat Lagoons, with eco-friendly villas and swimmable lagoons, highlight its dedication to sustainability, earning multiple green building certifications.\n\nIn January 2025, Aldar recorded 282 transactions worth AED 862.14 million, reinforcing its market strength. The developer’s latest marvel, Mamsha Al Saadiyat, features a mile-long promenade with luxury boutiques, attracting global visitors. From the thrill of Yas Waterworld to the tranquility of Saadiyat Grove, Aldar Properties crafts spaces that inspire, elevate, and redefine the human experience in the UAE’s capital.",
+    keyProjects: ["Yas Island", "Saadiyat Island", "Al Raha Beach", "Reem Island", "Saadiyat Lagoons"],
+    uniqueSellingPoints: ["Iconic cultural landmarks like Louvre Abu Dhabi", "Wellness-focused neighborhoods with yoga pavilions", "Eco-friendly villas with swimmable lagoons", "Mile-long promenades with luxury boutiques", "Hosts Formula 1 races at Yas Marina Circuit"],
+    marketPosition: "Aldar Properties dominates Abu Dhabi’s real estate market, captivating investors with its culturally rich, sustainable developments.",
+    established: 2004,
+    featured: true
+  },
+  {
+    id: 5,
+    name: "Sobha Realty",
+    logo: sobhaLogo,
+    projectCount: 150,
+    description: "Discover timeless elegance with Sobha Realty, a multinational developer crafting architectural masterpieces since 1976! Founded by Indian entrepreneur PNC Menon, Sobha brings a legacy of meticulous craftsmanship to Dubai, establishing itself as a beacon of ultra-luxury with projects like Sobha Hartland, featuring the world’s largest man-made crystal lagoon spanning 30,000 sqm. Operating in the UAE, Oman, Bahrain, Brunei, and India, Sobha’s in-house design and construction ensure unparalleled quality.\n\nSobha Hartland, nestled in Mohammed Bin Rashid Al Maktoum City, offers opulent villas and apartments surrounded by 200,000 sqm of greenery, creating a serene oasis in Dubai’s bustling heart. Sobha’s focus on sustainability shines in projects like Sobha Seahaven, which integrates solar panels and rainwater harvesting systems, earning LEED Gold certifications. The developer’s use of imported marble and custom woodwork creates homes that feel like palaces, appealing to the most discerning buyers.\n\nWith 2025 launches like Sobha Hartland 2 and prices starting at AED 1.5M, Sobha elevates Dubai’s skyline with exquisite design. Its latest innovation, Sobha Reserve, features a private beachfront club, adding a resort-like allure. Sobha Realty’s commitment to quality has earned it over 100 awards, making it a regal choice for those seeking homes that combine elegance, sustainability, and craftsmanship in a truly extraordinary living experience.",
+    keyProjects: ["Sobha Hartland", "Sobha Hartland 2", "Sobha Seahaven", "Creek Vistas Grande", "Skyscape Avenue"],
+    uniqueSellingPoints: ["World's largest man-made crystal lagoon at 30,000 sqm", "LEED Gold-certified sustainable designs with solar panels", "Imported marble and custom woodwork for luxury finishes", "Private beachfront clubs and 200,000 sqm of greenery", "Over 100 awards for quality and craftsmanship"],
+    marketPosition: "Sobha Realty is a top-tier luxury developer in Dubai, celebrated for its sustainable, craftsmanship-driven communities that attract global elites.",
+    established: 1976,
+    featured: true
+  },
+  {
+    id: 6,
+    name: "Dubai Properties",
+    logo: dubaiPropertiesLogo,
+    projectCount: 80,
+    description: "Experience the heartbeat of Dubai with Dubai Properties, a master developer shaping the city’s landscape since 2004! As a member of Dubai Holding, Dubai Properties is renowned for creating iconic communities like Jumeirah Beach Residence (JBR), with its 1.7km beachfront, and The Villa, a lush residential haven with Spanish-inspired architecture. With a focus on sustainable urban planning, Dubai Properties crafts spaces that cater to families, professionals, and investors alike.\n\nDubai Properties’ portfolio includes residential, commercial, retail, and hospitality projects, with developments like Business Bay, a bustling financial hub, and Dubailand, a 278 sqkm entertainment metropolis hosting Global Village. The developer’s commitment to balanced lifestyles shines in projects like Serena, featuring a 2km cycling track, and Nakheel Mall with its indoor ski slope, enhancing Dubai’s appeal as a global city. Its 2025 project, Culture Village, introduces an art gallery promenade, blending creativity with urban living.\n\nWith a legacy of excellence, Dubai Properties delivers projects that combine functionality with aesthetic appeal, attracting a diverse demographic. Developments like JBR Walk, with over 300 retail outlets, create vibrant ecosystems for residents and visitors. For those seeking a well-connected, dynamic lifestyle in Dubai’s heart, Dubai Properties builds communities that pulse with energy, luxury, and opportunity.",
+    keyProjects: ["Jumeirah Beach Residence (JBR)", "The Villa", "Business Bay", "Dubailand", "Serena"],
+    uniqueSellingPoints: ["1.7km beachfronts and 2km cycling tracks", "Indoor ski slopes and art gallery promenades", "278 sqkm entertainment metropolises hosting Global Village", "Spanish-inspired architecture in residential havens", "Vibrant retail ecosystems with 300+ outlets"],
+    marketPosition: "Dubai Properties is a key player in Dubai's real estate market, captivating residents and investors with its vibrant, sustainable communities.",
+    established: 2004,
+    featured: true
+  },
+  {
+    id: 7,
+    name: "Meraas Holding",
+    logo: meraasLogo,
+    projectCount: 50,
+    description: "Immerse yourself in curated luxury with Meraas Holding, a visionary developer reshaping Dubai’s urban landscape since 2007! Part of Dubai Holding, Meraas creates destination-focused projects that blend culture, design, and community, enhancing Dubai’s global appeal. Bluewaters Island, home to the record-breaking Ain Dubai observation wheel at 250 meters, and City Walk, a chic urban hub with high-end retail, showcase Meraas’s ability to craft inspiring spaces.\n\nMeraas’s portfolio includes La Mer, a beachfront paradise with 1.5km of coastline, and The Beach at JBR, a vibrant leisure destination with open-air cinema nights. The 2025 AED 2 billion Design Quarter in Dubai Design District, featuring artist studios and galleries, reflects Meraas’s commitment to innovation. Its projects integrate retail, dining, and residential spaces, creating vibrant ecosystems that cater to modern lifestyles while preserving cultural elements.\n\nMeraas’s focus on sustainability shines in developments like Port de La Mer, offering luxury villas with private beaches and eco-friendly designs. Strategically located to provide easy access to business hubs and leisure attractions, Meraas ensures a balanced living experience. For those seeking a dynamic, enriching lifestyle, Meraas Holding crafts urban destinations that are as inspiring as they are luxurious.",
+    keyProjects: ["Bluewaters Island", "City Walk", "La Mer", "The Beach at JBR", "Port de La Mer"],
+    uniqueSellingPoints: ["World’s largest observation wheel at 250 meters", "Eco-friendly designs with artist studios and galleries", "Luxury villas with private beaches and 1.5km coastline", "Open-air cinema nights and vibrant retail hubs", "Cultural integration in modern urban destinations"],
+    marketPosition: "Meraas Holding is a leading developer in Dubai, celebrated for its innovative, mixed-use projects that enhance the city’s appeal as a global lifestyle destination.",
+    established: 2007,
+    featured: true
+  },
+  {
+    id: 8,
+    name: "Arada",
+    logo: aradaLogo,
+    projectCount: 40,
+    description: "Unlock modern living with Arada, a rising star in the UAE’s real estate market since 2017! Founded by Sheikh Sultan bin Ahmed Al Qasimi and Prince Khaled bin Alwaleed bin Talal, Arada focuses on creating vibrant, wellness-oriented communities in Sharjah and beyond. Its flagship project, Aljada, is Sharjah’s largest mixed-use community, spanning 24 million sq ft with a focus on smart living and cultural innovation.\n\nArada’s portfolio includes Masaar, a forested community with treetop walkways and 50,000 trees, emphasizing sustainability and nature-integrated living. The developer’s commitment to wellness is evident in amenities like cycling tracks, yoga retreats, and smart home technologies integrated across its projects. Arada’s 2025 launch, Jouri Hills in Dubai, introduces luxury villas with rooftop terraces, expanding its presence into the emirate’s high-end market.\n\nWith over AED 5 billion in sales since its inception, Arada has quickly gained traction for its community-focused approach. Its projects cater to families and young professionals seeking modern, affordable lifestyles with a touch of luxury. For those craving a harmonious blend of nature, innovation, and community, Arada delivers a refreshing take on urban living in the UAE.",
+    keyProjects: ["Aljada", "Masaar", "Nasma Residences", "Jouri Hills", "Sarab"],
+    uniqueSellingPoints: ["Sharjah’s largest mixed-use community at 24 million sq ft", "Forested communities with 50,000 trees and treetop walkways", "Smart homes with integrated wellness amenities", "Luxury villas with rooftop terraces", "Cycling tracks and yoga retreats for modern living"],
+    marketPosition: "Arada is an emerging leader in Sharjah’s real estate market, captivating families and professionals with its wellness-focused, sustainable communities.",
+    established: 2017,
+    featured: false
+  },
+  {
+    id: 9,
+    name: "Eagle Hills",
+    logo: eagleHillsLogo,
+    projectCount: 30,
+    description: "Experience global excellence with Eagle Hills, a luxury developer shaping skylines since 2014! Based in Abu Dhabi, Eagle Hills is known for its waterfront masterpieces like The Address Fujairah, a 5-star resort with private beach access, and Maryam Island in Sharjah, offering 3.3 million sq ft of coastal living. With a global portfolio spanning Europe, Africa, and the Middle East, Eagle Hills delivers sophistication on an international scale.\n\nEagle Hills’ projects, such as Ethmar International Towers in Amman and Ramhan Island in Abu Dhabi with its floating villas, showcase a blend of luxury and innovation. The developer’s focus on creating landmark destinations is evident in amenities like marinas, golf courses, and cultural hubs, attracting high-net-worth individuals and tourists. Its commitment to sustainability includes eco-friendly designs and energy-efficient systems across its developments.\n\nIn 2025, Eagle Hills launched The Point in Belgrade, a waterfront community along the Sava River, expanding its European footprint. With over AED 3 billion in projects under development, Eagle Hills continues to attract investors seeking high ROI in prime locations. For those desiring a global lifestyle with a touch of elegance, Eagle Hills delivers unparalleled luxury and investment potential.",
+    keyProjects: ["The Address Fujairah", "Maryam Island", "Ramhan Island", "Ethmar International Towers", "The Point"],
+    uniqueSellingPoints: ["Waterfront communities with floating villas", "5-star resorts with private beach access", "Global portfolio spanning Europe, Africa, and Middle East", "Marinas, golf courses, and cultural hubs", "High ROI in prime international locations"],
+    marketPosition: "Eagle Hills is a global luxury developer, captivating investors with its waterfront masterpieces and international presence.",
+    established: 2014,
+    featured: false
+  },
+  {
+    id: 10,
+    name: "Object 1",
+    logo: object1Logo,
+    projectCount: 15,
+    description: "Redefine urban living with Object 1, a dynamic developer making waves in Dubai since 2013! Known for its futuristic designs, Object 1 has delivered iconic projects like One Za’abeel, featuring the world’s longest cantilevered skybridge at 67.5 meters, connecting twin towers with a rooftop infinity pool. Object 1 focuses on blending architectural innovation with functionality, creating landmarks that elevate Dubai’s skyline.\n\nObject 1’s portfolio includes Al Wasl Tower, set to be one of Dubai’s tallest residential buildings with a ceramic facade inspired by Islamic art, and Za’abeel Park Heights, offering modern apartments with panoramic views. The developer’s commitment to smart living is evident in its integration of AI-driven home systems and energy-efficient designs, appealing to tech-savvy buyers. Object 1’s projects are strategically located near key landmarks like the Burj Khalifa, ensuring high investment potential.\n\nWith a growing reputation, Object 1 launched The One in JVC in 2025, featuring a vertical garden facade and wellness-focused amenities like a rooftop yoga deck. The developer’s focus on sustainability and innovation attracts young professionals and investors seeking modern, high-value residences. For those who crave cutting-edge design and smart living in Dubai’s heart, Object 1 delivers a futuristic lifestyle.",
+    keyProjects: ["One Za’abeel", "Al Wasl Tower", "Za’abeel Park Heights", "The One", "Sky View Residences"],
+    uniqueSellingPoints: ["World’s longest cantilevered skybridge at 67.5 meters", "Ceramic facades inspired by Islamic art", "AI-driven smart home systems", "Vertical garden facades and rooftop yoga decks", "Strategic locations near Burj Khalifa"],
+    marketPosition: "Object 1 is an innovative developer in Dubai, captivating buyers with its futuristic, tech-driven projects in prime locations.",
+    established: 2013,
+    featured: false
+  },
+  {
+    id: 11,
+    name: "Samana Developers",
+    logo: samanaLogo,
+    projectCount: 25,
+    description: "Experience bold innovation with Samana Developers, a dynamic force in Dubai’s real estate market since 2018! This developer has captured attention with contemporary designs and resort-style amenities, creating homes that feel like a perpetual vacation. Known for integrating private pools into apartments—a rarity in Dubai—Samana transforms living spaces into luxurious retreats, appealing to modern lifestyles with a flair for the extraordinary.\n\nSamana’s projects, such as Samana Hills with its 100m lazy river and Samana Golf Avenue with a PGA-standard golf course, offer lush landscapes and fitness centers that promote wellness. The developer’s flexible payment plans, including 1% monthly options, make luxury accessible, while its prime locations like Arjan ensure high investment potential with returns up to 8%. Samana’s rapid growth reflects its ability to deliver value-added residences that stand out in a competitive market.\n\nIn 2025, Samana launched Samana Waves, featuring a wave pool and sky lounges, expanding its footprint in Dubai Land. The company’s focus on lifestyle-driven design attracts young professionals and families seeking a vibrant, modern living experience. With over AED 2 billion in sales since inception, Samana Developers promises a future of innovation and style for those craving a resort-like lifestyle.",
+    keyProjects: ["Samana Hills", "Samana Golf Avenue", "Samana Waves", "Samana Park Views", "Samana Skyros"],
+    uniqueSellingPoints: ["Private pools and 100m lazy rivers in apartments", "PGA-standard golf courses and wave pools", "Sky lounges and flexible 1% payment plans", "Resort-style amenities for wellness", "High ROI up to 8% in prime locations"],
+    marketPosition: "Samana Developers is an emerging leader in Dubai’s luxury market, captivating buyers with its innovative, resort-inspired developments.",
+    established: 2018,
+    featured: false
+  },
+  {
+    id: 12,
+    name: "Binghatti",
+    logo: binghattiLogo,
+    projectCount: 35,
+    description: "Discover architectural artistry with Binghatti, a luxury innovator in Dubai since 2008! Founded by Dr. Hussain Binghatti, this developer is known for its distinctive geometric designs, delivering over 40 projects with a focus on affordability and style. Binghatti Crystals, with its shimmering facade, and Burj Al Arab Views, offering direct vistas of the iconic landmark, showcase the developer’s ability to blend aesthetics with functionality.\n\nBinghatti’s portfolio spans residential and commercial properties, with developments like Binghatti Stars in Dubai Silicon Oasis and Binghatti Avenue in Al Jaddaf offering modern residences with rooftop pools and gyms. The developer’s commitment to timely delivery, with over 90% of projects completed on schedule, has earned it a loyal investor base. Binghatti’s off-plan properties, starting at AED 600K, provide high ROI potential, appealing to budget-conscious buyers seeking luxury.\n\nIn 2025, Binghatti launched Binghatti Phantom, a 55-story tower with a crown-like roof design, further elevating its portfolio. The developer’s focus on prime locations and unique architecture attracts young professionals and investors. For those seeking stylish, affordable homes with a modern edge, Binghatti delivers a fresh perspective on Dubai’s real estate market.",
+    keyProjects: ["Binghatti Crystals", "Burj Al Arab Views", "Binghatti Stars", "Binghatti Avenue", "Binghatti Phantom"],
+    uniqueSellingPoints: ["Distinctive geometric designs with crown-like roofs", "Shimmering facades and direct Burj Al Arab views", "Affordable luxury with off-plan starting at AED 600K", "Rooftop pools and gyms in prime locations", "Over 90% on-time project delivery"],
+    marketPosition: "Binghatti is a prominent developer in Dubai, captivating buyers with its affordable, design-driven projects in high-demand areas.",
+    established: 2008,
+    featured: false
+  },
+  {
+    id: 13,
+    name: "Danube Properties",
+    logo: danubeLogo,
+    projectCount: 40,
+    description: "Embrace affordable luxury with Danube Properties, a rising star in Dubai’s real estate scene since 1993! Founded by Rizwan Sajan as part of the Danube Group, this developer has evolved from a single store in Deira to a multi-million-dollar entity operating in nine countries, delivering over 10,000 homes. Known for its groundbreaking 1% payment plan, Danube makes homeownership accessible to middle-income buyers with style and sophistication.\n\nDanube’s projects, like Gemz with its 1km jogging track and Bayz 102 with sky gardens, offer modern residences with premium amenities at prices starting around AED 761.54 million in sales for January 2025. The developer’s commitment to timely delivery, backed by over 50 awards, has earned it a loyal customer base. Located in prime areas like Jumeirah Lakes Towers, Danube’s communities provide convenience and value, appealing to a wide audience.\n\nIn 2025, Danube launched Diamondz, featuring a 50-meter infinity pool, and Elitz with its rooftop cinema, showcasing sleek designs and smart features. The developer’s focus on affordability without compromising quality redefines the market, catering to young professionals and investors. For those dreaming of a stylish home that fits their budget, Danube Properties turns aspirations into reality with elegance and practicality.",
+    keyProjects: ["Gemz", "Bayz 102", "Diamondz", "Elitz", "Oceanz"],
+    uniqueSellingPoints: ["1% monthly payment plan for easy ownership", "1km jogging tracks and 50m infinity pools", "Rooftop cinemas and sky gardens", "High-quality homes in prime locations", "Over 50 awards for timely delivery"],
+    marketPosition: "Danube Properties excels in the affordable luxury segment, captivating middle-income buyers and investors with its innovative, award-winning projects.",
+    established: 1993,
+    featured: true
+  },
+  {
+    id: 14,
+    name: "Ellington",
+    logo: ellingtonLogo,
+    projectCount: 30,
+    description: "Indulge in boutique luxury with Ellington, a design-driven developer in Dubai since 2014! Known for its minimalist elegance, Ellington creates art-inspired residences like Belgravia, with its white stone facades, and Eaton Place, featuring handcrafted interiors. The developer focuses on creating serene, stylish spaces that cater to discerning buyers seeking a personalized living experience.\n\nEllington’s portfolio includes projects like DT1, a 2020 World Architecture Award winner with its futuristic glass design, and Ellington House in Dubai Hills, offering panoramic golf course views. The developer’s commitment to wellness is evident in amenities like rooftop yoga decks, infinity pools, and art galleries within its properties. Ellington’s use of sustainable materials, such as reclaimed wood, ensures an eco-conscious approach to luxury living.\n\nIn 2025, Ellington launched The Crestmark in Business Bay, featuring a rooftop sculpture garden, further solidifying its reputation for design excellence. With over AED 1.5 billion in sales, Ellington attracts buyers who value aesthetics and quality. For those seeking a refined, art-inspired lifestyle in Dubai’s most sought-after areas, Ellington delivers elegance with a modern twist.",
+    keyProjects: ["Belgravia", "Eaton Place", "DT1", "Ellington House", "The Crestmark"],
+    uniqueSellingPoints: ["Minimalist designs with white stone facades", "2020 World Architecture Award-winning projects", "Rooftop yoga decks and sculpture gardens", "Handcrafted interiors with reclaimed wood", "Panoramic golf course views in prime areas"],
+    marketPosition: "Ellington is a boutique luxury developer in Dubai, captivating buyers with its art-inspired, design-driven residences.",
+    established: 2014,
+    featured: false
+  },
+  {
+    id: 15,
+    name: "Nshama",
+    logo: nshamaLogo,
+    projectCount: 45,
+    description: "Live vibrantly with Nshama, a community-focused developer in Dubai since 2014! Known for Town Square Dubai, a 750,000 sqm development with vast green spaces, Nshama offers affordable homes with parks, retail, and schools, catering to families and young professionals. The developer’s vision is to create self-sustaining communities that foster connection and modern living.\n\nNshama’s projects, such as Zahra Apartments with its rooftop pools and Jenna Residences with kids’ play areas, emphasize family-friendly amenities like 13km of cycling tracks and community farms. The developer’s commitment to affordability, with starting prices around AED 500K, makes homeownership accessible, while its strategic location near Al Qudra Road ensures connectivity. Nshama’s developments also feature retail hubs like Town Square’s 600+ outlets, enhancing lifestyle convenience.\n\nIn 2025, Nshama launched Rawda Apartments, featuring a central park with interactive play zones, further expanding its family-oriented portfolio. With over 10,000 units delivered, Nshama continues to attract buyers seeking vibrant, affordable lifestyles. For those desiring a connected, community-driven living experience, Nshama delivers a fresh take on urban development in Dubai.",
+    keyProjects: ["Town Square Dubai", "Zahra Apartments", "Jenna Residences", "Rawda Apartments", "Kaya"],
+    uniqueSellingPoints: ["750,000 sqm of green spaces with 13km cycling tracks", "Family-friendly amenities like community farms", "Affordable homes starting at AED 500K", "Central parks with interactive play zones", "Retail hubs with 600+ outlets"],
+    marketPosition: "Nshama is a leading developer in Dubai’s affordable housing segment, captivating families with its vibrant, community-focused projects.",
+    established: 2014,
+    featured: false
+  },
+  {
+    id: 16,
+    name: "Azizi Developments",
+    logo: aziziLogo,
+    projectCount: 100,
+    description: "Unleash your imagination with Azizi Developments, a trailblazer in Dubai’s real estate since 2007! Azizi has grown into one of the city’s largest private developers, delivering thousands of homes to investors from over 100 nationalities. Known for its vibrant, European-inspired designs, Azizi’s flagship Azizi Riviera brings the French Riviera’s charm to Meydan Bay with a canal-lined promenade that rivals global hotspots.\n\nAzizi’s diverse portfolio includes Azizi Mina on Palm Jumeirah with beachfront villas and Azizi Victoria in MBR City, offering luxury and mid-market options with high-quality finishes. The developer’s commitment to timely delivery shines in its off-plan projects, promising returns exceeding 8% annually, making it a favorite among investors. Azizi’s 2025 plans to launch 5-star and 7-star hotels add a new dimension to its hospitality ambitions, expanding its lifestyle offerings.\n\nWith developments spanning Al Furjan, Dubai South, and Dubai Healthcare City, Azizi launched Azizi Pearl in 2025, featuring a floating boardwalk, enhancing its portfolio. Its ability to cater to diverse budgets while maintaining elegance sets it apart, attracting families and investors alike. For those seeking stylish, well-located homes with a European touch, Azizi Developments delivers a living experience that captivates.",
+    keyProjects: ["Azizi Riviera", "Azizi Mina", "Azizi Victoria", "Azizi Aliyah", "Azizi Pearl"],
+    uniqueSellingPoints: ["European-inspired canal promenades and floating boardwalks", "Beachfront villas and high-ROI off-plan units at 8%+", "Plans for 5-star and 7-star hotels", "Diverse portfolio for all budgets", "Global appeal with investors from 100+ nationalities"],
+    marketPosition: "Azizi Developments is a prominent developer in Dubai, captivating a global audience with its diverse, European-flavored projects.",
+    established: 2007,
+    featured: true
+  },
+  {
+    id: 17,
+    name: "Select Group",
+    logo: selectGroupLogo,
+    projectCount: 35,
+    description: "Elevate your lifestyle with Select Group, a luxury leader in Dubai since 2002! Known for its waterfront developments, Select Group has delivered over 20 million sq ft of projects, including Marina Gate in Dubai Marina, a three-tower complex with direct marina access. The developer focuses on creating upscale residences that blend elegance with functionality, attracting high-net-worth individuals and investors.\n\nSelect Group’s portfolio includes The Residences at Jumeirah, offering beachfront penthouses with private elevators, and Studio One, a modern residential tower with rooftop pools. The developer’s commitment to quality is evident in its use of premium materials like Italian marble and smart home systems, ensuring a luxurious living experience. Select Group’s projects are strategically located in prime areas like Jumeirah and Business Bay, offering high ROI potential.\n\nIn 2025, Select Group launched Peninsula Five, a waterfront tower in Business Bay with a glass-bottom pool, further solidifying its reputation for innovation. With over AED 4 billion in sales, Select Group continues to attract buyers seeking upscale living in Dubai’s most sought-after locations. For those desiring a sophisticated lifestyle with waterfront views, Select Group delivers unparalleled elegance.",
+    keyProjects: ["Marina Gate", "The Residences at Jumeirah", "Studio One", "Peninsula Five", "No.9"],
+    uniqueSellingPoints: ["Waterfront towers with direct marina access", "Beachfront penthouses with private elevators", "Glass-bottom pools and Italian marble finishes", "Smart home systems in prime locations", "Over 20 million sq ft developed"],
+    marketPosition: "Select Group is a leading luxury developer in Dubai, captivating buyers with its upscale, waterfront residences in prime areas.",
+    established: 2002,
+    featured: false
+  },
+  {
+    id: 18,
+    name: "Mag Property Development",
+    logo: magLogo,
+    projectCount: 60,
+    description: "Experience innovation with Mag Property Development, a visionary developer in Dubai since 2003! Known for its wellness-focused projects, Mag has delivered developments like MAG 5 Boulevard, a mid-rise community with lush courtyards, and Keturah Reserve, introducing the world’s first bio-living concept with nature-integrated designs. Mag focuses on creating holistic lifestyles that prioritize health and sustainability.\n\nMag’s portfolio includes MAG Eye, offering townhouses with private gardens, and MAG 218, a residential tower with panoramic Marina views. The developer’s commitment to sustainability is evident in its use of organic materials, solar panels, and water recycling systems across its projects. Mag’s 2025 launch, Keturah Lux, features a rooftop forest trail, further emphasizing its dedication to green living.\n\nWith over AED 2 billion in sales, Mag Property Development attracts buyers seeking a balanced, eco-conscious lifestyle. Its projects are located in high-growth areas like Meydan and Dubai South, ensuring investment potential. For those desiring a harmonious blend of luxury and nature, Mag delivers a refreshing approach to modern living in Dubai.",
+    keyProjects: ["MAG 5 Boulevard", "Keturah Reserve", "MAG Eye", "MAG 218", "Keturah Lux"],
+    uniqueSellingPoints: ["World’s first bio-living concept with nature integration", "Rooftop forest trails and organic materials", "Solar panels and water recycling systems", "Townhouses with private gardens", "Panoramic Marina views in high-growth areas"],
+    marketPosition: "Mag Property Development is a wellness-focused developer in Dubai, captivating buyers with its sustainable, nature-integrated projects.",
+    established: 2003,
+    featured: false
+  },
+  {
+    id: 19,
+    name: "Bloom Properties",
+    logo: bloomLogo,
+    projectCount: 20,
+    description: "Blossom into luxury with Bloom Properties, a leading developer in Abu Dhabi since 2007! Known for its community-focused projects, Bloom has delivered developments like Bloom Towers in Dubai, with its three interconnected towers, and Aldhay in Abu Dhabi, featuring 1,500 sqm of parkland. Bloom focuses on creating modern residences that nurture community living with a touch of elegance.\n\nBloom’s portfolio includes Bloom Gardens, a gated community with Mediterranean-style villas, and Bloom Marina, offering waterfront apartments with yacht access. The developer’s commitment to sustainability is evident in its use of energy-efficient designs and rooftop gardens, promoting green living. Bloom’s 2025 project, Bloom Heights, introduces a rooftop infinity pool with Burj Al Arab views, expanding its luxury offerings.\n\nWith over 5,000 units delivered, Bloom Properties attracts families and investors seeking modern, community-driven lifestyles. Its projects are strategically located in areas like Saadiyat Island and JVC, ensuring connectivity and value. For those desiring a nurturing, elegant living experience, Bloom Properties delivers spaces that inspire connection and growth.",
+    keyProjects: ["Bloom Towers", "Aldhay", "Bloom Gardens", "Bloom Marina", "Bloom Heights"],
+    uniqueSellingPoints: ["Mediterranean-style villas with 1,500 sqm parkland", "Rooftop infinity pools with Burj Al Arab views", "Energy-efficient designs and rooftop gardens", "Waterfront apartments with yacht access", "Gated communities for family living"],
+    marketPosition: "Bloom Properties is a leading developer in Abu Dhabi, captivating families with its community-focused, elegant residences.",
+    established: 2007,
+    featured: false
+  },
+  {
+    id: 20,
+    name: "Tiger Properties",
+    logo: tigerLogo,
+    projectCount: 25,
+    description: "Unleash bold ambition with Tiger Properties, a fierce contender in Dubai’s real estate market since 1998! Part of the Tiger Group, this developer stands out with dynamic projects that blend modern design with strategic locations. Developments like Tiger Skyz, with its 360-degree rooftop deck, and Tiger Bay, featuring floating gardens, offer affordable luxury for a growing urban population.\n\nTiger Properties’ portfolio spans residential, commercial, and hospitality projects, with developments like Al Tai in Jumeirah Village Circle and Tiger Heights in Dubai Silicon Oasis ensuring high ROI potential with prices starting at AED 550K. The developer’s focus on emerging areas attracts young professionals and families, while its sleek designs and amenities like rooftop pools enhance livability. Tiger’s rapid growth reflects its adaptability to market demands while maintaining quality.\n\nIn 2025, Tiger launched Tiger Plaza, featuring a vertical forest facade, expanding its footprint in Dubai’s up-and-coming areas. With over 30 projects completed, Tiger Properties continues to deliver value-driven developments that resonate with budget-conscious buyers. For those seeking a modern, affordable lifestyle in high-potential areas, Tiger Properties roars with promise and innovation.",
+    keyProjects: ["Tiger Skyz", "Tiger Bay", "Al Tai", "Tiger Heights", "Tiger Plaza"],
+    uniqueSellingPoints: ["360-degree rooftop decks and floating gardens", "Vertical forest facades and affordable luxury", "Prices starting at AED 550K with high ROI", "Modern amenities like rooftop pools", "Strategic locations in emerging growth areas"],
+    marketPosition: "Tiger Properties is a rising developer in Dubai, captivating budget-conscious buyers with its innovative, growth-driven projects.",
+    established: 1998,
+    featured: false
+  },
+  {
+    id: 21,
+    name: "Nabni Developments",
+    logo: nabniLogo,
+    projectCount: 15,
+    description: "Explore architectural artistry with Nabni Developments, a boutique luxury developer making waves in Dubai since 2002! Formerly Aljaziri Developments, Nabni specializes in high-end residential projects that blend Emirati-inspired designs with modern elegance. Its flagship Avenue Residences in Al Furjan features Barjeel wind towers and Italian finishes, offering a cultural twist on luxury living.\n\nNabni’s portfolio includes Vida Downtown, with its sleek towers, and Address Residences, featuring infinity pools with Burj Khalifa views. The developer’s landmark 2025 partnership with Hilton for the Waldorf Astoria Residences Dubai Downtown—the first standalone Waldorf Astoria outside the US—redefines opulence with bespoke interiors and 7-star amenities. Nabni’s use of smart home technologies and sustainable materials, like recycled glass facades, ensures a premium, eco-conscious experience.\n\nWith 11+ projects delivered, Nabni Developments focuses on exclusivity and quality, attracting high-net-worth individuals seeking privacy and prestige. Its developments are located in prime areas like Downtown Dubai, ensuring high investment value. For those desiring a refined living experience with a cultural edge, Nabni delivers elegance with a modern twist.",
+    keyProjects: ["Avenue Residences", "Vida Downtown", "Address Residences", "Waldorf Astoria Residences Dubai Downtown", "Nabni Skyline"],
+    uniqueSellingPoints: ["Emirati-inspired designs with Barjeel wind towers", "First standalone Waldorf Astoria outside the US", "Recycled glass facades and smart home technologies", "Infinity pools with Burj Khalifa views", "Italian finishes in exclusive residences"],
+    marketPosition: "Nabni Developments is an emerging boutique luxury developer in Dubai, captivating elite buyers with its culturally inspired, high-end projects.",
+    established: 2002,
+    featured: false
+  },
+  {
+    id: 22,
+    name: "Modon Properties",
+    logo: modonLogo,
+    projectCount: 25,
+    description: "Build your future with Modon Properties, a leader in sustainable living since 2011! Based in Abu Dhabi, Modon is known for its eco-friendly developments that prioritize green innovation and community harmony. As a government-backed developer, Modon plays a key role in creating integrated communities like Hudayriyat Island, with its 3km swimmable lagoon, enhancing the emirate’s appeal as a residential destination.\n\nModon’s projects, such as Modon Deyaar with its vertical gardens and The Acres in Dubailand with palm-tree pathways, offer a blend of luxury and environmental consciousness. The developer’s use of solar-powered homes, smart water systems, and community farms minimizes ecological impact, earning it multiple sustainability awards. Modon’s 2025 launch, Modon Parkside, features a rooftop greenhouse, further emphasizing its green vision.\n\nWith 15+ projects under its belt, Modon Properties attracts residents and investors seeking a sustainable lifestyle. Developments like Hudayriyat Island offer standalone villas with ocean views, ideal for families. For those seeking a greener, more connected way of living, Modon Properties delivers a vision of the future rooted in sustainability and elegance.",
+    keyProjects: ["Modon Deyaar", "Hudayriyat Island", "The Acres", "Modon Villas", "Modon Parkside"],
+    uniqueSellingPoints: ["3km swimmable lagoons and vertical gardens", "Solar-powered homes and rooftop greenhouses", "Community farms and palm-tree pathways", "Ocean-view villas with sustainable designs", "Multiple sustainability awards"],
+    marketPosition: "Modon Properties leads Abu Dhabi’s sustainable housing market, captivating environmentally conscious buyers with its green innovations.",
+    established: 2011,
+    featured: false
+  },
+  {
+    id: 23,
+    name: "Sol Arena Development",
+    logo: solLogo,
+    projectCount: 15,
+    description: "Dive into luxury living with Sol Arena Development, a coastal innovator making waves in Dubai since 2019! Specializing in elegant residential projects, Sol Arena focuses on creating homes that offer comfort, style, and a touch of coastal charm. Projects like Sol Bay, with its underwater viewing tunnel, and Sol Palm, featuring a bioluminescent beach, deliver a resort-like experience in prime waterfront locations.\n\nSol Arena’s developments, such as Sol Waves with a tidal wave simulator launched in 2025, offer sleek designs and amenities like infinity pools and fitness centers. Located in areas like Dubai Marina and Palm Jumeirah, these projects provide stunning views and easy access to top attractions, attracting young professionals and families. Sol Arena’s commitment to quality and innovation ensures a premium living experience with a modern twist.\n\nWith a growing portfolio of 5+ projects, Sol Arena Development has captured attention with its fresh perspective on lifestyle-driven design. Its focus on coastal aesthetics and unique features like underwater tunnels sets it apart in Dubai’s competitive market. For those dreaming of a waterfront lifestyle with resort-like amenities, Sol Arena Development shines brightly in the real estate arena.",
+    keyProjects: ["Sol Bay", "Sol Palm", "Sol Waves", "Sol Crest", "Sol Horizon"],
+    uniqueSellingPoints: ["Underwater viewing tunnels and bioluminescent beaches", "Tidal wave simulators and infinity pools", "Prime waterfront locations with stunning views", "Resort-like amenities for modern living", "Coastal aesthetics with innovative design"],
+    marketPosition: "Sol Arena Development is an emerging luxury developer in Dubai, captivating buyers with its innovative, coastal-inspired residences.",
+    established: 2019,
+    featured: false
+  },
+  {
+    id: 24,
+    name: "Reportage Real Estate",
+    logo: reportageLogo,
+    projectCount: 30,
+    description: "Step into a world of modern marvels with Reportage Real Estate, a rising star in the UAE’s property market since 2014! Headquartered in Abu Dhabi, Reportage has expanded rapidly, delivering contemporary residences that cater to diverse lifestyles. Projects like Reportage Towers, with its glass curtain walls, and Park Gate Residences, featuring sky bridges, showcase the developer’s innovative approach to urban living.\n\nReportage’s developments are located in high-growth areas like Al Maryah Island and Masdar City, offering amenities such as rooftop farms and electric vehicle charging stations. The developer’s commitment to timely delivery, with over 90% of projects completed on schedule, has earned it trust among investors. Reportage’s off-plan properties, with payment plans starting at AED 800K, provide attractive ROI potential, appealing to a wide audience.\n\nIn 2025, Reportage launched Oasis Residence, featuring a desert-inspired atrium, expanding its portfolio of 20+ projects. The company’s focus on emerging neighborhoods ensures high growth potential, while its modern designs attract young professionals and families. For those seeking a contemporary lifestyle with investment value, Reportage Real Estate offers a fresh, forward-thinking perspective.",
+    keyProjects: ["Reportage Towers", "Park Gate Residences", "Al Maryah Vista", "Oasis Residence", "Rukan Lofts"],
+    uniqueSellingPoints: ["Glass curtain walls and sky bridges", "Rooftop farms and EV charging stations", "Desert-inspired atriums and high-ROI off-plan units", "Over 90% on-time project delivery", "Strategic locations in growth hubs"],
+    marketPosition: "Reportage Real Estate is an emerging leader in the UAE, captivating investors with its modern, eco-conscious developments.",
+    established: 2014,
+    featured: false
+  },
+  {
+    id: 25,
+    name: "GFS Development",
+    logo: gfsLogo,
+    projectCount: 12,
+    description: "Elevate your lifestyle with GFS Development, a craftsmanship leader in Dubai since 2005! Part of the GFS Group, this developer specializes in tailored residential projects that prioritize comfort, style, and individuality. Known for its personalized approach, GFS creates homes like GFS Garden Homes, with its edible landscapes, and GFS Heights, featuring a sky observatory, reflecting the unique tastes of its residents.\n\nGFS Development’s projects, such as GFS Oasis with a zen garden atrium launched in 2025, offer spacious residences with modern amenities in serene locations like Dubai Hills and Al Barsha. The developer’s use of sustainable bamboo flooring and custom artwork ensures every home is a masterpiece of design and durability. GFS’s focus on quality over quantity creates a bespoke living experience for discerning buyers.\n\nWith a portfolio of 10+ projects, GFS Development continues to attract buyers seeking a personalized lifestyle. Its developments provide tranquility while maintaining easy access to Dubai’s top attractions, making them ideal for families and professionals. For those seeking a home that mirrors their individuality, GFS Development builds spaces that inspire and endure.",
+    keyProjects: ["GFS Garden Homes", "GFS Heights", "GFS Oasis", "GFS Serenity", "GFS Skyview"],
+    uniqueSellingPoints: ["Edible landscapes and zen garden atriums", "Sky observatories and sustainable bamboo flooring", "Custom artwork and spacious layouts", "Tailored designs for individual tastes", "Modern amenities in serene locations"],
+    marketPosition: "GFS Development is a niche leader in Dubai, captivating buyers with its personalized, craftsmanship-driven residences.",
+    established: 2005,
+    featured: false
+  },
+  {
+    id: 26,
+    name: "RAK Properties",
+    logo: rakLogo,
+    projectCount: 25,
+    description: "Discover natural splendor with RAK Properties, Ras Al Khaimah’s premier developer since 2005! As a publicly listed company, RAK Properties transforms the emirate into a serene haven, blending scenic beauty with luxurious living. Projects like Mina Al Arab, with its 1.6km beachfront, and Al Hamra Village, featuring a PGA golf course, highlight the developer’s commitment to sustainable, nature-integrated communities.\n\nRAK Properties’ portfolio includes Hayat Island, a wellness retreat with yoga decks, and RAK Central, a smart city hub with solar-powered infrastructure. The developer’s focus on preserving the emirate’s natural charm is evident in its use of native plants and eco-friendly designs, creating a green oasis. Developments like Marbella Villas offer Spanish-inspired architecture, adding a cultural twist to luxury living along the Arabian Gulf.\n\nWith 15+ projects and a 2025 launch, Al Mairid, featuring a 10,000 sqm park, RAK Properties attracts investors seeking a peaceful retreat from Dubai and Abu Dhabi’s hustle. Its strategic location and emphasis on sustainability make it a standout in the region. For those craving a lifestyle that combines nature and luxury, RAK Properties offers a serene sanctuary amidst stunning landscapes.",
+    keyProjects: ["Mina Al Arab", "Al Hamra Village", "Hayat Island", "RAK Central", "Marbella Villas"],
+    uniqueSellingPoints: ["1.6km beachfronts and PGA golf courses", "Wellness retreats with yoga decks and 10,000 sqm parks", "Solar-powered smart city infrastructure", "Spanish-inspired architecture with native plants", "Eco-friendly luxury living along the Arabian Gulf"],
+    marketPosition: "RAK Properties leads Ras Al Khaimah’s real estate market, captivating buyers with its sustainable, nature-infused developments.",
+    established: 2005,
+    featured: false
+  }
+];
+
+export const getDeveloperById = (id: number): Developer | undefined => {
+  return developersData.find(dev => dev.id === id);
+};
+
+export const getFeaturedDevelopers = (): Developer[] => {
+  return developersData.filter(dev => dev.featured);
+};

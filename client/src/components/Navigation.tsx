@@ -1,0 +1,351 @@
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'wouter';
+import { motion, AnimatePresence } from 'framer-motion';
+import { cn } from '@/lib/utils';
+import logopng from '../assets/logo.png';
+import { developersData } from '@/data/developersData';
+interface NavigationProps {}
+
+const Navigation = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileToolsOpen, setMobileToolsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [location] = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Close mobile menu when navigating
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location]);
+
+  return (
+    <header className={cn(
+      "fixed w-full z-50 transition-all duration-300",
+      isScrolled ? "bg-white/95 backdrop-blur-sm shadow-md" : "bg-white shadow-md"
+    )}>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center py-4">
+          {/* Logo */}
+          <Link href="/">
+            <div className="flex items-center cursor-pointer">
+              <img 
+                src= {logopng}
+                alt="Desert Jewel Realty Logo" 
+                className="h-14 w-auto"
+              />
+            </div>
+          </Link>
+
+          {/* Main Navigation - Desktop */}
+          <nav className="hidden md:flex items-center space-x-8">
+            <Link href="/">
+              <span className={cn(
+                "font-montserrat font-medium transition-colors duration-200 cursor-pointer",
+                location === '/' ? "text-primary" : "text-foreground hover:text-primary"
+              )}>
+                Home
+              </span>
+            </Link>
+
+            <Link href="/properties">
+              <span className={cn(
+                "font-montserrat font-medium transition-colors duration-200 cursor-pointer",
+                location.startsWith('/properties') ? "text-primary" : "text-foreground hover:text-primary"
+              )}>
+                Properties
+              </span>
+            </Link>
+
+            <div className="dropdown relative group">
+              <div className={cn(
+                "font-montserrat font-medium transition-colors duration-200 flex items-center cursor-pointer",
+                location.startsWith('/developers') ? "text-primary" : "text-foreground hover:text-primary"
+              )}>
+                Developers <i className="fas fa-chevron-down ml-1 text-xs"></i>
+              </div>
+              <div className="absolute left-0 top-full pt-2 w-56 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div 
+                  className="bg-white shadow-lg rounded-md py-2 max-h-96 overflow-y-auto scroll-smooth"
+                  onMouseEnter={(e) => {
+                    const container = e.currentTarget;
+                    const lastItem = container.querySelector('div:last-child');
+                    if (lastItem) {
+                      lastItem.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                    }
+                  }}
+                >
+                  <div className="py-1">
+                    {developersData.map((developer) => (
+                      <Link key={developer.id} href={`/developers/${developer.id}`}>
+                        <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                          {developer.name}
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="dropdown relative group">
+              <div className={cn(
+                "font-montserrat font-medium transition-colors duration-200 flex items-center cursor-pointer",
+                location.startsWith('/tools') ? "text-primary" : "text-foreground hover:text-primary"
+              )}>
+                Tools <i className="fas fa-chevron-down ml-1 text-xs"></i>
+              </div>
+              <div className="absolute left-0 top-full pt-2 w-48 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div 
+                  className="bg-white shadow-lg rounded-md py-2 scroll-smooth"
+                  onMouseEnter={(e) => {
+                    const container = e.currentTarget;
+                    const lastItem = container.querySelector('div:last-child');
+                    if (lastItem) {
+                      lastItem.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                    }
+                  }}
+                >
+                  <div className="py-1">
+                    <Link href="/investment-tools">
+                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                        AI Property Matchmaker
+                      </div>
+                    </Link>
+                    <Link href="/investment-tools?tab=price-predictor">
+                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                        Price Prediction Tool
+                      </div>
+                    </Link>
+                    <Link href="/tools?tab=roi">
+                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                        ROI Calculator
+                      </div>
+                    </Link>
+                    <Link href="/tools?tab=mortgage">
+                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                        Mortgage Calculator
+                      </div>
+                    </Link>
+                    <Link href="/tools?tab=comparison">
+                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                        Off-Plan vs Ready
+                      </div>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <Link href="/location-insights">
+              <span className={cn(
+                "font-montserrat font-medium transition-colors duration-200 cursor-pointer",
+                location === '/location-insights' ? "text-primary" : "text-foreground hover:text-primary"
+              )}>
+                Location Insights
+              </span>
+            </Link>
+
+            <Link href="/affiliates">
+              <span className={cn(
+                "font-montserrat font-medium transition-colors duration-200 cursor-pointer",
+                location === '/affiliates' ? "text-primary" : "text-foreground hover:text-primary"
+              )}>
+                Affiliates
+              </span>
+            </Link>
+
+            <Link href="/about">
+              <span className={cn(
+                "font-montserrat font-medium transition-colors duration-200 cursor-pointer",
+                location === '/about' ? "text-primary" : "text-foreground hover:text-primary"
+              )}>
+                About Us
+              </span>
+            </Link>
+
+            <div className="dropdown relative group">
+              <div className={cn(
+                "font-montserrat font-medium transition-colors duration-200 flex items-center cursor-pointer",
+                location === '/contact' ? "text-primary" : "text-foreground hover:text-primary"
+              )}>
+                Contact <i className="fas fa-chevron-down ml-1 text-xs"></i>
+              </div>
+              <div className="absolute left-0 top-full pt-2 w-48 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div 
+                  className="bg-white shadow-lg rounded-md py-2 scroll-smooth"
+                  onMouseEnter={(e) => {
+                    const container = e.currentTarget;
+                    const lastItem = container.querySelector('div:last-child');
+                    if (lastItem) {
+                      lastItem.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                    }
+                  }}
+                >
+                  <div className="py-1">
+                    <Link href="/contact">
+                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                        Contact Us
+                      </div>
+                    </Link>
+                    <Link href="/faq">
+                      <div className="block px-4 py-2 text-sm text-foreground hover:bg-primary hover:text-white cursor-pointer">
+                        FAQ
+                      </div>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+
+          {/* Call to Action */}
+          <div className="hidden md:flex items-center space-x-4">
+            <Link href="/contact">
+              <span className="bg-primary hover:bg-teal-dark text-white px-6 py-2 rounded-full font-montserrat font-medium transition-colors duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 cursor-pointer inline-block">
+                Request a Call
+              </span>
+            </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button 
+            className="md:hidden rounded-md p-2 text-foreground hover:bg-primary hover:text-white transition-colors duration-200"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={mobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Navigation Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div 
+            className="md:hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="px-2 pt-2 pb-3 space-y-1 border-t">
+              <Link href="/">
+                <span className="block px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer">
+                  Home
+                </span>
+              </Link>
+              <Link href="/properties">
+                <span className="block px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer">
+                  Properties
+                </span>
+              </Link>
+              <Link href="/developers">
+                <span className="block px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer">
+                  Developers
+                </span>
+              </Link>
+              
+              {/* Tools Dropdown for Mobile */}
+              <div>
+                <button
+                  onClick={() => setMobileToolsOpen(!mobileToolsOpen)}
+                  className="w-full text-left px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer flex items-center justify-between"
+                >
+                  Tools
+                  <svg 
+                    className={`h-4 w-4 transition-transform duration-200 ${mobileToolsOpen ? 'rotate-180' : ''}`}
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <AnimatePresence>
+                  {mobileToolsOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="pl-6 space-y-1 overflow-hidden"
+                    >
+                      <Link href="/investment-tools">
+                        <span className="block px-3 py-2 text-sm text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer">
+                          AI Property Matchmaker
+                        </span>
+                      </Link>
+                      <Link href="/investment-tools?tab=price-predictor">
+                        <span className="block px-3 py-2 text-sm text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer">
+                          Price Prediction Tool
+                        </span>
+                      </Link>
+                      <Link href="/tools?tab=roi">
+                        <span className="block px-3 py-2 text-sm text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer">
+                          ROI Calculator
+                        </span>
+                      </Link>
+                      <Link href="/tools?tab=mortgage">
+                        <span className="block px-3 py-2 text-sm text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer">
+                          Mortgage Calculator
+                        </span>
+                      </Link>
+                      <Link href="/tools?tab=comparison">
+                        <span className="block px-3 py-2 text-sm text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer">
+                          Off-Plan vs Ready
+                        </span>
+                      </Link>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+              <Link href="/location-insights">
+                <span className="block px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer">
+                  Location Insights
+                </span>
+              </Link>
+              <Link href="/affiliates">
+                <span className="block px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer">
+                  Affiliates
+                </span>
+              </Link>
+              <Link href="/about">
+                <span className="block px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer">
+                  About Us
+                </span>
+              </Link>
+              <Link href="/contact">
+                <span className="block px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer">
+                  Contact
+                </span>
+              </Link>
+              <Link href="/faq">
+                <span className="block px-3 py-2 text-foreground hover:bg-primary hover:text-white rounded-md cursor-pointer">
+                  FAQ
+                </span>
+              </Link>
+
+              <Link href="/contact">
+                <span className="block w-full mt-3 bg-primary text-white px-4 py-2 rounded-full font-medium text-center cursor-pointer">
+                  Request a Call
+                </span>
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
+  );
+};
+
+export default Navigation;

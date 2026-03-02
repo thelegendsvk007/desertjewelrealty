@@ -1,0 +1,316 @@
+safiyankhan@Safiyans-MacBook-Air DesertJewelRealty-14 % npx vite --port 4000 
+--host
+Port 4000 is in use, trying another one...
+Port 4001 is in use, trying another one...
+Port 4002 is in use, trying another one...
+
+  VITE v5.4.14  ready in 72 ms
+
+  ➜  Local:   http://localhost:4003/
+  ➜  Network: http://192.168.0.133:4003/
+  ➜  press h + enter to show help
+Browserslist: browsers data (caniuse-lite) is 8 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+3:16:01 PM [vite] Pre-transform error: Failed to resolve import "../assets/insights/sharjah.webp" from "client/src/pages/LocationInsights.tsx". Does the file exist?
+3:16:01 PM [vite] Pre-transform error: Failed to resolve import "../assets/brochures/chelseabrochure.pdf" from "client/src/components/FeaturedDevelopment.tsx". Does the file exist?
+3:16:01 PM [vite] Pre-transform error: Failed to resolve import "../assets/uae/uae1.webp" from "client/src/components/HeroSection.tsx". Does the file exist?
+3:16:01 PM [vite] Pre-transform error: Failed to resolve import "../assets/properties/chelsea-1.webp" from "client/src/data/properties.ts". Does the file exist?
+3:16:01 PM [vite] Pre-transform error: Failed to resolve import "../assets/properties/chelsea-1.webp" from "client/src/data/properties.ts". Does the file exist? (x2)
+3:16:01 PM [vite] Pre-transform error: Failed to resolve import "../assets/properties/chelsea-1.webp" from "client/src/data/properties.ts". Does the file exist? (x3)
+3:16:01 PM [vite] Pre-transform error: Failed to resolve import "../assets/properties/chelsea-1.webp" from "client/src/data/properties.ts". Does the file exist? (x4)
+3:16:01 PM [vite] Pre-transform error: Failed to resolve import "../assets/properties/chelsea-1.webp" from "client/src/data/properties.ts". Does the file exist? (x5)
+3:16:01 PM [vite] Pre-transform error: Failed to resolve import "../assets/properties/chelsea-1.webp" from "client/src/data/properties.ts". Does the file exist? (x6)
+3:16:01 PM [vite] Internal server error: Failed to resolve import "../assets/insights/sharjah.webp" from "client/src/pages/LocationInsights.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/safiyankhan/Downloads/DesertJewelRealty-14/client/src/pages/LocationInsights.tsx:7:20
+  22 |  import { Badge } from "@/components/ui/badge";
+  23 |  import { Button } from "@/components/ui/button";
+  24 |  import sharjah from "../assets/insights/sharjah.webp";
+     |                       ^
+  25 |  import ajman from "../assets/insights/Ajman.webp";
+  26 |  import rak from "../assets/insights/rak.webp";
+      at TransformPluginContext._formatError (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49257:41)
+      at TransformPluginContext.error (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49252:16)
+      at normalizeUrl (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64199:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64331:39
+      at async Promise.all (index 9)
+      at async TransformPluginContext.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64258:7)
+      at async PluginContainer.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49098:18)
+      at async loadAndTransform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:51931:27)
+      at async viteTransformMiddleware (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:62031:24)
+3:16:03 PM [vite] Internal server error: Failed to resolve import "../assets/uae/uae1.webp" from "client/src/components/HeroSection.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/safiyankhan/Downloads/DesertJewelRealty-14/client/src/components/HeroSection.tsx:7:17
+  20 |  import { useLocation } from "wouter";
+  21 |  import { developersData } from "@/data/developersData";
+  22 |  import uae1 from "../assets/uae/uae1.webp";
+     |                    ^
+  23 |  import uae2 from "../assets/uae/uae2.webp";
+  24 |  import uae3 from "../assets/uae/uae3.webp";
+      at TransformPluginContext._formatError (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49257:41)
+      at TransformPluginContext.error (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49252:16)
+      at normalizeUrl (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64199:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64331:39
+      at async Promise.all (index 7)
+      at async TransformPluginContext.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64258:7)
+      at async PluginContainer.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49098:18)
+      at async loadAndTransform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:51931:27)
+      at async viteTransformMiddleware (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:62031:24)
+3:16:03 PM [vite] Internal server error: Failed to resolve import "../assets/brochures/chelseabrochure.pdf" from "client/src/components/FeaturedDevelopment.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/safiyankhan/Downloads/DesertJewelRealty-14/client/src/components/FeaturedDevelopment.tsx:10:38
+  23 |  import SiniyaIslandBrochure from "../assets/brochures/Siniya_Island_Beach_Residences.pdf?url";
+  24 |  import SiniyaIslandVideo from "../assets/videos/siniya-island-tour.mp4?url";
+  25 |  import ChelseaResidencesBrochure from "../assets/brochures/chelseabrochure.pdf";
+     |                                         ^
+  26 |  import ChelseaResidencesVideo from "../assets/videos/chelsea.mp4";
+  27 |  const FeaturedDevelopment = () => {
+      at TransformPluginContext._formatError (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49257:41)
+      at TransformPluginContext.error (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49252:16)
+      at normalizeUrl (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64199:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64331:39
+      at async Promise.all (index 10)
+      at async TransformPluginContext.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64258:7)
+      at async PluginContainer.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49098:18)
+      at async loadAndTransform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:51931:27)
+      at async viteTransformMiddleware (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:62031:24)
+3:16:03 PM [vite] Internal server error: Failed to resolve import "../assets/properties/chelsea-1.webp" from "client/src/data/properties.ts". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/safiyankhan/Downloads/DesertJewelRealty-14/client/src/data/properties.ts:2:21
+  1  |  import chelsea1 from "../assets/properties/chelsea-1.webp";
+     |                        ^
+  2  |  import chelsea2 from "../assets/properties/chelsea-2.webp";
+  3  |  import chelsea3 from "../assets/properties/chelsea-3.webp";
+      at TransformPluginContext._formatError (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49257:41)
+      at TransformPluginContext.error (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49252:16)
+      at normalizeUrl (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64199:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64331:39
+      at async Promise.all (index 0)
+      at async TransformPluginContext.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64258:7)
+      at async PluginContainer.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49098:18)
+      at async loadAndTransform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:51931:27)
+      at async viteTransformMiddleware (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:62031:24)
+3:16:06 PM [vite] Internal server error: Failed to resolve import "../assets/properties/chelsea-1.webp" from "client/src/data/properties.ts". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/safiyankhan/Downloads/DesertJewelRealty-14/client/src/data/properties.ts:2:21
+  1  |  import chelsea1 from "../assets/properties/chelsea-1.webp";
+     |                        ^
+  2  |  import chelsea2 from "../assets/properties/chelsea-2.webp";
+  3  |  import chelsea3 from "../assets/properties/chelsea-3.webp";
+      at TransformPluginContext._formatError (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49257:41)
+      at TransformPluginContext.error (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49252:16)
+      at normalizeUrl (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64199:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64331:39
+      at async Promise.all (index 0)
+      at async TransformPluginContext.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64258:7)
+      at async PluginContainer.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49098:18)
+      at async loadAndTransform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:51931:27)
+      at async viteTransformMiddleware (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:62031:24) (x2)
+3:16:06 PM [vite] Internal server error: Failed to resolve import "../assets/properties/chelsea-1.webp" from "client/src/data/properties.ts". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/safiyankhan/Downloads/DesertJewelRealty-14/client/src/data/properties.ts:2:21
+  1  |  import chelsea1 from "../assets/properties/chelsea-1.webp";
+     |                        ^
+  2  |  import chelsea2 from "../assets/properties/chelsea-2.webp";
+  3  |  import chelsea3 from "../assets/properties/chelsea-3.webp";
+      at TransformPluginContext._formatError (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49257:41)
+      at TransformPluginContext.error (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49252:16)
+      at normalizeUrl (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64199:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64331:39
+      at async Promise.all (index 0)
+      at async TransformPluginContext.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64258:7)
+      at async PluginContainer.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49098:18)
+      at async loadAndTransform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:51931:27)
+      at async viteTransformMiddleware (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:62031:24) (x3)
+3:16:34 PM [vite] hmr update /src/App.tsx, /src/index.css, /src/pages/Home.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/FeaturedProperties.tsx, /src/components/tools/AIPropertyMatchmaker.tsx, /src/components/RealEstateChatbot.tsx
+3:16:34 PM [vite] Pre-transform error: Failed to resolve import "../assets/brochures/chelseabrochure.pdf" from "client/src/components/FeaturedDevelopment.tsx". Does the file exist?
+3:16:34 PM [vite] Pre-transform error: Failed to resolve import "../assets/uae/uae1.webp" from "client/src/components/HeroSection.tsx". Does the file exist?
+3:16:34 PM [vite] Pre-transform error: Failed to resolve import "../assets/insights/sharjah.webp" from "client/src/pages/LocationInsights.tsx". Does the file exist?
+3:16:34 PM [vite] Pre-transform error: Failed to resolve import "../assets/properties/chelsea-1.webp" from "client/src/data/properties.ts". Does the file exist?
+3:16:34 PM [vite] Pre-transform error: Failed to resolve import "../assets/properties/chelsea-1.webp" from "client/src/data/properties.ts". Does the file exist? (x2)
+3:16:34 PM [vite] Pre-transform error: Failed to resolve import "../assets/properties/chelsea-1.webp" from "client/src/data/properties.ts". Does the file exist? (x3)
+3:16:34 PM [vite] Pre-transform error: Failed to resolve import "../assets/properties/chelsea-1.webp" from "client/src/data/properties.ts". Does the file exist? (x4)
+3:16:34 PM [vite] Pre-transform error: Failed to resolve import "../assets/properties/chelsea-1.webp" from "client/src/data/properties.ts". Does the file exist? (x5)
+3:16:34 PM [vite] Pre-transform error: Failed to resolve import "../assets/properties/chelsea-1.webp" from "client/src/data/properties.ts". Does the file exist? (x6)
+3:16:34 PM [vite] Internal server error: Failed to resolve import "../assets/insights/sharjah.webp" from "client/src/pages/LocationInsights.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/safiyankhan/Downloads/DesertJewelRealty-14/client/src/pages/LocationInsights.tsx:7:20
+  22 |  import { Badge } from "@/components/ui/badge";
+  23 |  import { Button } from "@/components/ui/button";
+  24 |  import sharjah from "../assets/insights/sharjah.webp";
+     |                       ^
+  25 |  import ajman from "../assets/insights/Ajman.webp";
+  26 |  import rak from "../assets/insights/rak.webp";
+      at TransformPluginContext._formatError (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49257:41)
+      at TransformPluginContext.error (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49252:16)
+      at normalizeUrl (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64199:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64331:39
+      at async Promise.all (index 9)
+      at async TransformPluginContext.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64258:7)
+      at async PluginContainer.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49098:18)
+      at async loadAndTransform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:51931:27)
+      at async viteTransformMiddleware (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:62031:24)
+3:16:34 PM [vite] Internal server error: Failed to resolve import "../assets/uae/uae1.webp" from "client/src/components/HeroSection.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/safiyankhan/Downloads/DesertJewelRealty-14/client/src/components/HeroSection.tsx:7:17
+  20 |  import { useLocation } from "wouter";
+  21 |  import { developersData } from "@/data/developersData";
+  22 |  import uae1 from "../assets/uae/uae1.webp";
+     |                    ^
+  23 |  import uae2 from "../assets/uae/uae2.webp";
+  24 |  import uae3 from "../assets/uae/uae3.webp";
+      at TransformPluginContext._formatError (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49257:41)
+      at TransformPluginContext.error (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49252:16)
+      at normalizeUrl (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64199:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64331:39
+      at async Promise.all (index 7)
+      at async TransformPluginContext.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64258:7)
+      at async PluginContainer.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49098:18)
+      at async loadAndTransform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:51931:27)
+      at async viteTransformMiddleware (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:62031:24)
+3:16:34 PM [vite] Internal server error: Failed to resolve import "../assets/brochures/chelseabrochure.pdf" from "client/src/components/FeaturedDevelopment.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/safiyankhan/Downloads/DesertJewelRealty-14/client/src/components/FeaturedDevelopment.tsx:10:38
+  23 |  import SiniyaIslandBrochure from "../assets/brochures/Siniya_Island_Beach_Residences.pdf?url";
+  24 |  import SiniyaIslandVideo from "../assets/videos/siniya-island-tour.mp4?url";
+  25 |  import ChelseaResidencesBrochure from "../assets/brochures/chelseabrochure.pdf";
+     |                                         ^
+  26 |  import ChelseaResidencesVideo from "../assets/videos/chelsea.mp4";
+  27 |  const FeaturedDevelopment = () => {
+      at TransformPluginContext._formatError (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49257:41)
+      at TransformPluginContext.error (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49252:16)
+      at normalizeUrl (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64199:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64331:39
+      at async Promise.all (index 10)
+      at async TransformPluginContext.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64258:7)
+      at async PluginContainer.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49098:18)
+      at async loadAndTransform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:51931:27)
+      at async viteTransformMiddleware (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:62031:24)
+3:16:34 PM [vite] Internal server error: Failed to resolve import "../assets/properties/chelsea-1.webp" from "client/src/data/properties.ts". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/safiyankhan/Downloads/DesertJewelRealty-14/client/src/data/properties.ts:2:21
+  1  |  import chelsea1 from "../assets/properties/chelsea-1.webp";
+     |                        ^
+  2  |  import chelsea2 from "../assets/properties/chelsea-2.webp";
+  3  |  import chelsea3 from "../assets/properties/chelsea-3.webp";
+      at TransformPluginContext._formatError (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49257:41)
+      at TransformPluginContext.error (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49252:16)
+      at normalizeUrl (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64199:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64331:39
+      at async Promise.all (index 0)
+      at async TransformPluginContext.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64258:7)
+      at async PluginContainer.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49098:18)
+      at async loadAndTransform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:51931:27)
+      at async viteTransformMiddleware (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:62031:24)
+3:16:34 PM [vite] Internal server error: Failed to resolve import "../assets/properties/chelsea-1.webp" from "client/src/data/properties.ts". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/safiyankhan/Downloads/DesertJewelRealty-14/client/src/data/properties.ts:2:21
+  1  |  import chelsea1 from "../assets/properties/chelsea-1.webp";
+     |                        ^
+  2  |  import chelsea2 from "../assets/properties/chelsea-2.webp";
+  3  |  import chelsea3 from "../assets/properties/chelsea-3.webp";
+      at TransformPluginContext._formatError (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49257:41)
+      at TransformPluginContext.error (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49252:16)
+      at normalizeUrl (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64199:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64331:39
+      at async Promise.all (index 0)
+      at async TransformPluginContext.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64258:7)
+      at async PluginContainer.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49098:18)
+      at async loadAndTransform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:51931:27)
+      at async viteTransformMiddleware (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:62031:24) (x2)
+3:16:34 PM [vite] Internal server error: Failed to resolve import "../assets/properties/chelsea-1.webp" from "client/src/data/properties.ts". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/safiyankhan/Downloads/DesertJewelRealty-14/client/src/data/properties.ts:2:21
+  1  |  import chelsea1 from "../assets/properties/chelsea-1.webp";
+     |                        ^
+  2  |  import chelsea2 from "../assets/properties/chelsea-2.webp";
+  3  |  import chelsea3 from "../assets/properties/chelsea-3.webp";
+      at TransformPluginContext._formatError (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49257:41)
+      at TransformPluginContext.error (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49252:16)
+      at normalizeUrl (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64199:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64331:39
+      at async Promise.all (index 0)
+      at async TransformPluginContext.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:64258:7)
+      at async PluginContainer.transform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:49098:18)
+      at async loadAndTransform (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:51931:27)
+      at async viteTransformMiddleware (file:///Users/safiyankhan/Downloads/DesertJewelRealty-14/node_modules/vite/dist/node/chunks/dep-CHZK6zbr.js:62031:24) (x3)
+3:16:36 PM [vite] hmr update /src/pages/Home.tsx, /src/index.css, /src/App.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/FeaturedProperties.tsx, /src/components/tools/AIPropertyMatchmaker.tsx, /src/components/RealEstateChatbot.tsx
+3:16:36 PM [vite] page reload src/assets/brochures/Siniya_Island_Beach_Residences.pdf
+3:16:36 PM [vite] page reload src/assets/brochures/Sobha_Aquamont_Downtown_UAQ.pdf
+3:16:36 PM [vite] page reload src/assets/videos/siniya-island-tour.mp4
+3:16:36 PM [vite] page reload src/assets/videos/sobha-aquamont-tour.mp4
+3:16:36 PM [vite] hmr update /src/components/Navigation.tsx, /src/index.css
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x2)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x3)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x4)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x5)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x6)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x7)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x8)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x9)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x10)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x11)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x12)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x13)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x14)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x15)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x16)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x17)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x18)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x19)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x20)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x21)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x22)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x23)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x24)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x25)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x26)
+3:16:36 PM [vite] hmr update /src/components/Navigation.tsx, /src/index.css
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x2)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x3)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x4)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x5)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x6)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x7)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x8)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x9)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x10)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x11)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x12)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x13)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x14)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x15)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x16)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x17)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x18)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x19)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x20)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x21)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x22)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x23)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x24)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x25)
+3:16:36 PM [vite] hmr update /src/components/DeveloperShowcase.tsx, /src/index.css, /src/pages/Developers.tsx, /src/pages/DeveloperDetail.tsx, /src/pages/Properties.tsx, /src/pages/PropertyDetail.tsx, /src/components/Navigation.tsx (x26)
+3:16:43 PM [vite] http proxy error: /api/user
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1139:18)
+    at afterConnectMultiple (node:net:1712:7)
+3:16:57 PM [vite] http proxy error: /api/user
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1139:18)
+    at afterConnectMultiple (node:net:1712:7) (x2)

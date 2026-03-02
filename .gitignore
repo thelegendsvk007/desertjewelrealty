@@ -1,0 +1,99 @@
+# =========================
+# Dependencies
+# =========================
+node_modules/
+.pnpm-store/
+.npm/
+.yarn/
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# =========================
+# Build outputs
+# =========================
+dist/
+build/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+
+# =========================
+# Environment variables
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Logs
+# =========================
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+.DS_Store?
+Thumbs.db
+desktop.ini
+
+# =========================
+# Editor / IDE
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# =========================
+# Git
+# =========================
+.git-lfs/
+*.orig
+
+# =========================
+# Large media (IMPORTANT)
+# =========================
+client/src/assets/
+public/assets/
+*.mp4
+*.mov
+*.avi
+*.webm
+*.mkv
+*.zip
+*.rar
+*.7z
+
+# =========================
+# Optional: images (uncomment if using CDN)
+# =========================
+# *.png
+# *.jpg
+# *.jpeg
+# *.webp
+# *.gif
+# *.svg
+
+# =========================
+# Vite specific
+# =========================
+vite.config.ts.timestamp-*
+vite.config.js.timestamp-*
+
+# =========================
+# Misc
+# =========================
+*.local
+.cache/
+.temp/
+.tmp/
